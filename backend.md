@@ -49,7 +49,7 @@ Daarna installeren we een versie van node.js en gebruiken we deze:
     nvm install 0.12.1
     nvm use 0.12.1
 
-Nu we node.js en npm hebben, kunnen we globale paketten installeren. Zo hebben we bijvoorbeeld Grunt en Bower nodig:
+Nu we node.js en npm hebben, kunnen we globale pakketten installeren. Zo hebben we bijvoorbeeld Grunt en Bower nodig:
 
     npm install -g grunt-cli bower
 
@@ -149,13 +149,13 @@ We moeten een filter schrijven om de juiste objecten te selecteren. De input is 
 
 In plaats van een gebruikersnaam en wachtwoord op te geven voor de eerste bind (waarmee de search wordt uitgevoerd), kan je deze ook leeg laten. Dan wordt een anonymous bind uitgevoerd. Op veel servers kan je dan echter geen zoekacties uitvoeren. Zo ook op de Howestservers.
 
-### Simple bind
+### Direct bind
 
-Dit is de gemakkelijkste manier, maar iets moeilijker te implementeren. Het werkt als volgt: wanneer de gebruikersnaam en paswoord worden ingevuld, wordt er gepoogd om rechtstreeks te binden met de LDAP-server. Dit heeft wel een nadeel: qua auditing is het lastiger. Wanneer je bindt met een dedicated account, waarmee je dan searcht, ziet dat er goed en overzichtelijk uit in je logs. Met een simple bind niet.
+Dit is de gemakkelijkste manier, maar iets moeilijker te implementeren (omdat je zelf moet opgeven hoe usernames naar AD objecten moeten worden geconverteerd). Het werkt als volgt: wanneer de gebruikersnaam en paswoord worden ingevuld, wordt er gepoogd om rechtstreeks te binden met de LDAP-server. Dit heeft wel een nadeel: qua auditing is het lastiger. Wanneer je bindt met een dedicated account, waarmee je dan searcht, ziet dat er goed en overzichtelijk uit in je logs. Met een direct bind niet.
 
 ### Keuze type binding
 
-Uiteindelijk hebben we gekozen voor simple binds. Dit omdat het ons het meest logische lijkt en we geen dedicated search account hebben op de Howest AD server. Ook binnen Howest wordt simple bind gebruikt.
+Uiteindelijk hebben we gekozen voor direct binds. Dit omdat het ons het meest logische lijkt en we geen dedicated search account hebben op de Howest AD server. Ook binnen Howest wordt simple bind gebruikt.
 
 ### LDAPS (LDAP over SSL)
 
@@ -197,9 +197,90 @@ Dit is de configuratie die we uiteindelijk hebben gebruikt:
 
 Nu we LDAP met Django werkend hebben gekregen, lijkt het een kleine stap om dit over te zetten naar edX, maar dat is niet helemaal waar. edX is heel complex qua configuratie. Er zijn een hele boel verschillende configuratiebestanden, in een hele boel verschillende mappen.
 
+### Toevoegen van pakketten
+
+#### aptpakketten
+
+Eerst moeten we enkele pakketten installeren met `apt`. Deze zijn nodig omdat de Python-pakketten deze gebruiken. Deze pakketten hebben we eerder al toegoevoegd aan onze developmentmachine, nu gaan we deze ook toevoegen aan onze Vagrantmachine. Merk op dat dit enkel voor testing is, voor deployment wil je deze natuurlijk toevoegen aan de provisioneringsscripts.
+
+Voer dit uit als de user `vagrant`:
+
+    sudo apt-get install libldap2-dev libsasl2-dev
+
+#### Pythonpakketten toevoegen
+
+Nu voegen we de Pythonpakketten toe binnen de Vagrantmachine. Daarvoor moeten we eerst de virtual environment activeren. De virtual environment die gebruikt wordt, staat in `/edx/app/edxapp/venvs/edxapp/`. Activeren doe je dus met `. /edx/app/edxapp/venvs/edxapp/bin/activate`.
+
+Nu kan je het pakket dat we nodig hebben installeren met:
+
+    pip install django-auth-ldap
+
+Dit pakket voorziet een Django authentication back-end voor LDAP.
+
+#### LDAP backend configureren
+
+In deze stap configureren we de LDAP backend. Dit is grotendeels hetzelfde als onze voorbeeldapp, maar de configuratiestructuur is hier veel verwarrender. In plaats van een standaard `settings.py`, hebben we een hele hoop verschillende configuratiebestanden. Het bestand dat we willen bewerken, is `lms/envs/common.py`. Dit is het basisbestand voor configuratie van het LMS.
+
+We maken de volgende wijzigingen:
+
+* Bovenaan het bestand importeren we de library: `import ldap`
+* Daarna beginnen we met de configuratie. Deze mag eender waar in het bestand voorkomen, maar op het proprop te houden, definieren wij deze boven de authentication backends. Dit is wat we toevoegen:
+
+    # LDAP configuration
+    
+    AUTH_LDAP_SERVER_URI = "ldap://hogeschool-wvl.be"
+    
+    AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+    
+    AUTH_LDAP_USER_DN_TEMPLATE = '%(user)s' # Users log in as name.lastname@student.howest.be
+    
+    AUTH_LDAP_CONNECTION_OPTIONS = {
+        ldap.OPT_REFERRALS: 0,
+        ldap.OPT_PROTOCOL_VERSION: 3
+    }
+
+* Toevoegen van de LDAP authentication backend: nu moeten we nog de LDAP authentication backend toevoegen aan de aanwezige backends. We voegen hem bovenaan toe: eerst wordt dus altijd naar de LDAP-server gegaan om de authenticatie te proberen. Na het toevoegen ziet het er zo uit:
+
+    AUTHENTICATION_BACKENDS = (
+        'django_auth_ldap.backend.LDAPBackend', # This isn't rate limited at the moment
+        'ratelimitbackend.backends.RateLimitModelBackend',
+    )
+
+Momenteel is de LDAP backend niet rate limited. Dit is triviaal, en we komen er later op terug.
+
+#### Aanpassen van authenticatie in edX
+
+Momenteel zal edX proberen om van het emailadres, waarmee we inloggen, een gebruikersnaam te maken. Dit wordt gedaan door rare regels, de uitkomst is dat we complete foute informatie binnenkrijgen in de LDAP backend. Dat moeten we verhelpen door edX niet de gebruikersnaam, maar het wachtwoord te laten doorsturen.
+
+In `common/djangoapps/student/views.py` maken we de volgende wijziging (lijn 1018):
+
+    -            user = authenticate(username=username, password=password, request=request)
+    +            user = authenticate(username=user.email, password=password, request=request)
+
+Hiermee zijn we er nog niet. Momenteel zal een geregistreerde gebruiker kunnen authenticeren over LDAP, maar nieuwe gebruikers kunnen nog niet worden opgehaald van de directory.
+
+#### Mappen van LDAP-attributen naar een Django-user
+
+TODO
+
 ## Users in Django
 
 Zie [hier](https://docs.djangoproject.com/en/1.8/topics/auth/default/#user-objects)
+
+## Authentication backends
+
+Django is heel flexibel wanneer het aankomt op authenticatie. Het laat je toe om zelf authentication backends te schrijven waardoor een gebruiker kan worden ge-authenticeerd.
+
+De backends worden gedefinieerd in het configuratiebestand van je Django app. Hier is een voorbeeld uit een testapp die we schreven:
+
+    AUTHENTICATION_BACKENDS = (
+        'django_auth_ldap.backend.LDAPBackend',
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
+Hier zien we twee backends. De standaard backend is `ModelBackend`. Die slaat gebruikers en wachtwoorden op in een database. `LDAPBackend` probeert gebruikers te authenticeren bij een LDAP-server.
+
+De backends worden van boven naar beneden afgelopen. In het voorbeeld wordt dus eerst de `LDAPBackend` geprobeerd. Lukt dat niet, wordt de `ModelBackend` geprobeerd.
 
 # edX
 

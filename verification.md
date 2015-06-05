@@ -4,4 +4,5 @@ Sommige mensen willen gewoon een course doorlopen om zelf iets bij te leren, maa
 
 ## Verificatie in edx
 
-Edx voorziet al verificatie in de vorm van certificaten
+Edx voorziet al verificatie in de vorm van certificaten. 
+Deze geeft edx wanneer je 

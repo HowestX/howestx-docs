@@ -261,7 +261,19 @@ Hiermee zijn we er nog niet. Momenteel zal een geregistreerde gebruiker kunnen a
 
 #### Mappen van LDAP-attributen naar een Django-user
 
-TODO
+    AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn"}
+
+Zie ook https://pythonhosted.org/django-auth-ldap/users.html
+
+Merk op dat het mappen van deze attributen bij elke login zal gebeuren. Dit is mogelijks niet gewenst (door overhead), en kan worden afgezet met:
+
+    AUTH_LDAP_ALWAYS_UPDATE_USER = False
+
+Wij laten deze optie nu aan staan. Zo zijn we er zeker van dat we altijd correct informatie hebben. Pas wanneer performance een probleem wordt, kan overwogen worden om dit uit te zetten.
+
+#### Rate limiting implementeren
+
+http://django-ratelimit-backend.readthedocs.org/en/latest/usage.html
 
 ## Users in Django
 
@@ -283,6 +295,14 @@ Hier zien we twee backends. De standaard backend is `ModelBackend`. Die slaat ge
 De backends worden van boven naar beneden afgelopen. In het voorbeeld wordt dus eerst de `LDAPBackend` geprobeerd. Lukt dat niet, wordt de `ModelBackend` geprobeerd.
 
 # edX
+
+## Databases
+
+### MongoDB
+
+### MySQL en Sqlite
+
+Hoewel de documentatie van edX aangeeft dat in een ontwikkelomgeving Sqlite gebruikt wordt, lijkt dit niet meer het geval te zijn. We ondervonden dat edX gebruik maakt van MySQL binnen Vagrant. Je kan een shell openen met `mysql -u root`
 
 ## edX named releases
 

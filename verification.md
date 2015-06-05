@@ -26,3 +26,7 @@ Wanneer een course gearchiveerd is zijn er geen certificaten beschikbaar. De cou
 ## Zijn er terugbetalingen mogelijk?
 
 Ja, er is een periode van 2 weken vanaf de startdatum van de course dat iemand zich nog kan bedenken en aangeven dat hij en course niet alger volgt voor een betalend certificaat of volledig stoppen met de course. Na de 2 weken is er wel geen terugbetaling meer mogelijk.
+
+## Wat wanneer een certificaat is behaald?
+
+Wanneer er een certificaat is behaald zal je het certificaat ontvangen met een 'edx verified' stempel. Ook zal je een link krijgen die je eenvoudig kan delen met mensen of bijvoorbeeld op je LinkedIn plaatsen.

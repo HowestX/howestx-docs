@@ -1,61 +1,69 @@
 # Documentatie frontend
 
-# Theme installeren
-    
-themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+## Theme installeren
+
+
+Het standaardthema van edx zelf zal waarschijnlijk niet voldoen aan onze eisen. Daarom kiezen we er dan ook voor om een custom thema te gebruiken. Het installeren van een thema in edx gaat als volgt.
+
+Ga naar de themes folder op de gemounte NFS share.
+
     $ cd themes
-clone https://github.com/HowestX/howestx-theme
+    
+Clone in die folder het gewenste thema, hier gebruiken we onze howestx-theme
+
     $ git clone git@github.com:HowestX/howestx-theme.git
+    
+Ga naar de net geclonede folder.
+
     $ cd howestx-theme
-moet je maar een keer uitvoeren, maak dat node installed is
+    
+Installeer via npm bower. Zorg wel dat node al geïnstalleerd is. Ook hoef je deze stap maar een keer uit te voeren, indien je later nog eens verandert van thema mag je dit overslaan.
+
     $ npm install -g grunt-cli bower
-uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
+    
+Indien de dependencies gewijzigd zijn of wanneer je opnieuw clonet, dit nog uitvoeren.
+
     $ npm install
-uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
     $ bower install
-belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+    
+Grunt aanzetten, dit zal continu builden wanneer er files gewijzigd worden. Bevordert de workflow enorm.
+
     $ grunt
-om te linten en code style te checken
+    
+Indien je grunt eenmalig iets wilt laten doen kan je grunt zeggen wat hij eenmaal moet uitvoeren.
+Om te linten gebruik je
+
     $ grunt test
-one-time build, meestal wil je gewoon grunt omdat dat continu zal watchen
+
+En om te builden gebruik je
+
     $ grunt build
 
-# Theme editen
+## Theme editen
 
-devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-    $ cd devstack
-themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-    $ cd themes
+    $ cd devstack # devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
     $ cd howestx-theme
-belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
-    $ grunt
+    $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
 
-# Custom theme gebruiken
+## Custom theme gebruiken
 
-in de devstack folder en na vagrant up
-    $ vagrant ssh
+    $ vagrant ssh # in de devstack folder en na vagrant up
     $ sudo su edxapp
-zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
-    $ nano ../lms.env.json
-dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
+    $ nano ../lms.env.json # zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
+    $ dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
         
-# Sass en Less
+## Sass en Less
 
 Sass wordt gebruikt door edX maar het theme waarop wij zullen voortwerken is gebasseerd op Less. De workflow gaat als volgt: als vagrant start worden sass files gecompileerd naar css files. Dit heeft als nadeel dat als er veranderingen gemaakt worden in de sass files, vagrant opnieuw moet opstarten.
 Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt. Deze zal de less files in de gaten houden en compileren indien er veranderingen zijn. Dit heeft als voordeel dat we de browser gewoon moeten refreshen om de veranderingen te zien. Deze manier is dus veel sneller om mee te werken.
 
-# Platform name veranderen
+## Platform name veranderen
 
-in de devstack folder en na vagrant up
-    $ vagrant ssh
+    $ vagrant ssh # in de devstack folder en na vagrant up
     $ sudo su edxapp
-zoek naar “PLATFORM_NAME”
-    $ nano ../cms.env.json
+    $ nano ../cms.env.json # zoek naar “PLATFORM_NAME”
         
-# De juiste css variabelen bewerken
+## De juiste css variabelen bewerken
 
 Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken.
-
-# De vakken op de homepage stylen
-
-De vakken hebben een paarse, gele, groene, blauwe of zwarte stijling. Het kleur toont onder welk traject het vak ligt. De styling wordt toegepast door een van de volgende klasse mee te geven: course-yellow, course-grey, course-blue, course-green of course-purple.

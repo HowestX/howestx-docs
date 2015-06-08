@@ -87,3 +87,7 @@ In die file pas je dan “PLATFORM_NAME” aan naar de gewenste platformnaam.
 ## De juiste css variabelen bewerken
 
 Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken.
+
+## De vakken op de homepage stylen
+
+De vakken hebben een paarse, gele, groene, blauwe of zwarte stijling. Het kleur toont onder welk traject het vak ligt. De styling wordt toegepast door een van de volgende klasse mee te geven: course-yellow, course-grey, course-blue, course-green of course-purple.

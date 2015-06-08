@@ -298,11 +298,43 @@ De backends worden van boven naar beneden afgelopen. In het voorbeeld wordt dus 
 
 ## Databases
 
+edX maakt gebruikt van zowel een traditionele relationele database, als een NoSQL database (MongoDB).
+
 ### MongoDB
+
+MongoDB wordt gebruikt voor
+
+#### Herstellen bij serviceproblemen
+
+Wanneer MongoDB onverwachts wordt afgesloten, kan het zijn dat de `mongod` service problemen heeft om te starten. Dan kan je deze stappen uitvoeren:
+
+    su vagrant
+    sudo rm /edx/var/mongo/mongodb/mongod.lock
+    sudo service mongod restart
 
 ### MySQL en Sqlite
 
 Hoewel de documentatie van edX aangeeft dat in een ontwikkelomgeving Sqlite gebruikt wordt, lijkt dit niet meer het geval te zijn. We ondervonden dat edX gebruik maakt van MySQL binnen Vagrant. Je kan een shell openen met `mysql -u root`
+
+### Configureren van databases in de devstack
+
+Veelal is het gewenst om een persistente database te hebben tijdens het ontwikkelen. Zo kan je bijvoorbeeld een course of gebruikers aanmaken zonder dat die verdwijnen wanneer je Vagrant opnieuw instelt.
+
+Daarom zullen we hier een MySQL-database en MongoDB-database opzetten. Daarna configureren we de devstack om deze databases te gebruiken.
+
+#### Aanmaken van een MySQL-database op Azure
+
+Via het [Azure Portal](https://portal.azure.com/) klikken we op `Add`, dan `Data + Storage`, dan `MySQL Database`.
+
+Omdat dit een development database zal zijn, kiezen we voor de Titan pricing tier. Mercury zal mogelijks te klein zijn voor onze noden.
+
+Als naam gaan we voor `edx_dev_mysql`. Na het accepteren van de legal terms kunnen we onze database aanmaken.
+
+#### Aanmaken van een MongoDB-database op Azure
+
+Via [Azure Management](https://manage.windowsazure.com/) (MongoLab is nog niet beschikbaar op het Azure Portal) klikken we op `New`, `Marketplace`, `Purchase`, en we kiezen voor `MongoLab`. We gaan voor het Sandboxplan. Dit zal een gehoste MongoDB database aanmaken.
+
+Als naam kiezen we `edx-dev-mongo`. De regio zetten we op North Europe.
 
 ## edX named releases
 

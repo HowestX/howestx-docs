@@ -1,16 +1,24 @@
 # Documentatie frontend
 
 # Theme installeren
-
-    $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-    $ git clone git@github.com:HowestX/howestx-theme.git # clone https://github.com/HowestX/howestx-theme
+    
+    ## themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd themes
+    ## clone https://github.com/HowestX/howestx-theme
+    $ git clone git@github.com:HowestX/howestx-theme.git
     $ cd howestx-theme
-    $ npm install -g grunt-cli bower # moet je maar een keer uitvoeren, maak dat node installed is
-    $ npm install # uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
-    $ bower install # uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
-    $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
-    $ grunt test # om te linten en code style te checken
-    $ grunt build # one-time build, meestal wil je gewoon grunt omdat dat continu zal watchen
+    ## moet je maar een keer uitvoeren, maak dat node installed is
+    $ npm install -g grunt-cli bower
+    ## uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
+    $ npm install
+    ## uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
+    $ bower install
+    ## belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+    $ grunt
+    ## om te linten en code style te checken
+    $ grunt test
+    ## one-time build, meestal wil je gewoon grunt omdat dat continu zal watchen
+    $ grunt build
 
 # Theme editen
 
@@ -40,3 +48,7 @@ Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt
 # De juiste css variabelen bewerken
 
 Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken.
+
+# De vakken op de homepage stylen
+
+De vakken hebben een paarse, gele, groene, blauwe of zwarte stijling. Het kleur toont onder welk traject het vak ligt. De styling wordt toegepast door een van de volgende klasse mee te geven: course-yellow, course-grey, course-blue, course-green of course-purple.

@@ -14,17 +14,17 @@
 
 # Theme editen
 
-        $ cd devstack # devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-        $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-        $ cd howestx-theme
-        $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+    $ cd devstack # devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd howestx-theme
+    $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
 
 # Custom theme gebruiken
 
-        $ vagrant ssh # in de devstack folder en na vagrant up
-        $ sudo su edxapp
-        $ nano ../lms.env.json # zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
-        $ dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
+    $ vagrant ssh # in de devstack folder en na vagrant up
+    $ sudo su edxapp
+    $ nano ../lms.env.json # zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
+    $ dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
         
 # Sass en Less
 
@@ -33,9 +33,9 @@ Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt
 
 # Platform name veranderen
 
-        $ vagrant ssh # in de devstack folder en na vagrant up
-        $ sudo su edxapp
-        $ nano ../cms.env.json # zoek naar “PLATFORM_NAME”
+    $ vagrant ssh # in de devstack folder en na vagrant up
+    $ sudo su edxapp
+    $ nano ../cms.env.json # zoek naar “PLATFORM_NAME”
         
 # De juiste css variabelen bewerken
 

@@ -2,37 +2,42 @@
 
 # Theme installeren
     
-## themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
     $ cd themes
-## clone https://github.com/HowestX/howestx-theme
+clone https://github.com/HowestX/howestx-theme
     $ git clone git@github.com:HowestX/howestx-theme.git
     $ cd howestx-theme
-## moet je maar een keer uitvoeren, maak dat node installed is
+moet je maar een keer uitvoeren, maak dat node installed is
     $ npm install -g grunt-cli bower
-## uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
+uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
     $ npm install
-## uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
+uitvoeren wanneer dependencies zijn gewijzigd (komt weinig voor) of wanneer je opnieuw clonet
     $ bower install
-## belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
     $ grunt
-## om te linten en code style te checken
+om te linten en code style te checken
     $ grunt test
-## one-time build, meestal wil je gewoon grunt omdat dat continu zal watchen
+one-time build, meestal wil je gewoon grunt omdat dat continu zal watchen
     $ grunt build
 
 # Theme editen
 
-    $ cd devstack # devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-    $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd devstack
+themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
+    $ cd themes
     $ cd howestx-theme
-    $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
+    $ grunt
 
 # Custom theme gebruiken
 
-    $ vagrant ssh # in de devstack folder en na vagrant up
+in de devstack folder en na vagrant up
+    $ vagrant ssh
     $ sudo su edxapp
-    $ nano ../lms.env.json # zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
-    $ dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
+zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
+    $ nano ../lms.env.json
+dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
         
 # Sass en Less
 
@@ -41,9 +46,11 @@ Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt
 
 # Platform name veranderen
 
-    $ vagrant ssh # in de devstack folder en na vagrant up
+in de devstack folder en na vagrant up
+    $ vagrant ssh
     $ sudo su edxapp
-    $ nano ../cms.env.json # zoek naar “PLATFORM_NAME”
+zoek naar “PLATFORM_NAME”
+    $ nano ../cms.env.json
         
 # De juiste css variabelen bewerken
 

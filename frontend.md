@@ -39,20 +39,30 @@ En om te builden gebruik je
 
     $ grunt build
 
-## Theme editen
+### Het custom thema aanpassen
+Indien je je custom thema nog wilt aanpassen ga je gewoon naar de folder van het thema en pas daarin de files aan.
+Bijvoorbeeld:
 
-    $ cd devstack # devstack directory, doe dit op de gemounte NFS shares vanaf je eigen computer
-    $ cd themes # themes directory, doe dit op de gemounte NFS shares vanaf je eigen computer
     $ cd howestx-theme
-    $ grunt # belangrijkste in de workflow, dit zal continu builden wanneer er files gewijzigd zijn
 
-## Custom theme gebruiken
+### Custom theme gebruiken
 
-    $ vagrant ssh # in de devstack folder en na vagrant up
+Nadat het theme geïnstalleerd is moet je edx nog laten weten dat hij dat thema moet gebruiken.
+Verbind eerst met ja vagrant, voer het volgende commando daarvoor uit in je devstack folder:
+
+    $ vagrant ssh
+
+Verander van gebruiker naar edxapp
+
     $ sudo su edxapp
-    $ nano ../lms.env.json # zoek naar “USE_CUSTOM_THEME” onder “FEATURES” zet dat op true
-    $ dan zoek je naar “THEME_NAME” daar vul je de naam van je theme in
-        
+
+Open dan met nano de lms.env.json file.
+
+    $ nano ../lms.env.json
+    
+Pas dan “USE_CUSTOM_THEME” onder “FEATURES” aan en zet dat op true. 
+Zoek dan naar "THEME_NAME" en vul daar de naam van je theme in.
+
 ## Sass en Less
 
 Sass wordt gebruikt door edX maar het theme waarop wij zullen voortwerken is gebasseerd op Less. De workflow gaat als volgt: als vagrant start worden sass files gecompileerd naar css files. Dit heeft als nadeel dat als er veranderingen gemaakt worden in de sass files, vagrant opnieuw moet opstarten.
@@ -60,9 +70,19 @@ Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt
 
 ## Platform name veranderen
 
-    $ vagrant ssh # in de devstack folder en na vagrant up
+Indien je de platformnaam wilt aanpassen moet je eerst connecteren met je vagrant. Voer het volgende commando uit in de devstack folder:
+
+    $ vagrant ssh
+
+Eens verbonden moet je van gebruiker varenderen naar edxapp.
+
     $ sudo su edxapp
-    $ nano ../cms.env.json # zoek naar “PLATFORM_NAME”
+
+Dan open je met nano de cms.env.json file
+
+    $ nano ../cms.env.json
+
+In die file pas je dan “PLATFORM_NAME” aan naar de gewenste platformnaam.
         
 ## De juiste css variabelen bewerken
 

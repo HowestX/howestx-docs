@@ -30,31 +30,20 @@ Fullstack is een manier om edX op een enkele server te deployen. Alle services (
 
 Om een fullstack server op te zetten zijn de volgende specs aan te raden:
 
-Ubuntu 12.04 amd64 (met oraclejdk)
-Min 2GB geheugen, 4GB aangeraden
-Min 2.00GHz CPU
+Ubuntu 12.04 amd64 (met oraclejdk),
+Min 2GB geheugen, 4GB aangeraden,
+Min 2.00GHz CPU,
 Min 25GB Disk space, 50GB aangeraden
 
-Op deze ubuntu server kan je dan de fullstack installeren.
+### Installeren op Ubuntu 12.04
 
 Eerst de ubuntu package sources updaten.
 
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo reboot
-
-De OPENEDX_RELEASE variabele instellen op de named release ‘birch’.
-
-export OPENEDX_RELEASE=named-release/birch
-
-De one-step installation file afhalen en uitvoeren.
-
-wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
-
-De fullstack zou dan geïnstallerd moeten zijn.
-
-
-### Installeren op Ubuntu 12.04
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
+    sudo reboot
+    
+De OPENEDX_RELEASE variabele instellen op de named release ‘birch’ en de one-step installation file afhalen en uitvoeren.
 
     export OPENEDX_RELEASE=named-release/birch
     wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash

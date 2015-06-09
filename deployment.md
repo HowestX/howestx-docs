@@ -18,8 +18,19 @@ Wanneer je even snel kijkt, zie je dat de box wordt afgehaald van `http://files.
 
 Provisioneren van een Vagrant box is het installeren van dependencies en software. Dit gebeurt wanneer je `vagrant up` doet, en slechts een keer in de levensduur van de box. Er zijn ook manieren om dit te forceren (`vagrant up --provision`).
 
-## Bronnen
+### Bronnen
 
 http://docs.vagrantup.com/v2/provisioning/index.html
 http://en.wikipedia.org/wiki/Vagrant_(software)
+
+## Fullstack deployment
+
+Fullstack is een manier om edX op een enkele server te deployen. Alle services (LMS, Studio
+, ...) worden op een enkele machine gedraaid. Dit is geen ideale deploymentsituatie, maar is voldoende als stagingomgeving.
+
+### Installeren op Ubuntu 12.04
+
+    export OPENEDX_RELEASE=named-release/birch
+    wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
+
 

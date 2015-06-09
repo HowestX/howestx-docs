@@ -85,6 +85,6 @@ En dan via grunt alles builden
     grunt build
 
 Nu is het thema geïnstalleerd, nu moeten we edx nog laten weten dat hij dit thema moet gebruiken.
-Open hiervoor de lms.env.json file. Plaats daarin "USE_CUSTOM_THEME" op "TRUE" en zet "THEME_NAME" op "howestx-theme"
+Open hiervoor de edx/app/edxapp/lms.env.json file. Plaats daarin "USE_CUSTOM_THEME" op "TRUE" en zet "THEME_NAME" op "howestx-theme"
 
 Nu zou je een werkende fullstack moeten hebben gebaseerd op onze fork.

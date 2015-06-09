@@ -48,4 +48,43 @@ De OPENEDX_RELEASE variabele instellen op de named release ‘birch’ en de one
     export OPENEDX_RELEASE=named-release/birch
     wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
 
+Nadat edx geïnstalleerd is passen we de installatie aan naar onze fork.
+Verwijder eerst de default edx-platform map.
 
+    sudo rm -rf /edx/app/edxapp/edx-platform
+    
+Voeg aan /edx/app/edx_ansible/server-vars.yml de volgende lijn toe:
+
+    edx_platform_repo: "https://github.com/<user>/edx-platform.git"
+    
+Voer dan nog het volgende commando uit, dit update het edx-platform met de geforkte repo.
+
+    sudo /edx/bin/update edx-platform master
+
+Nu het edx-platform van onze fork gebruikt word moeten we enkel nog ons thema gebruiken.
+Ga hiervoor naar de themes folder.
+Daarin clone je ons thema
+
+    git clone git@github.com:HowestX/howestx-theme.git
+    
+Ga naar de net geclonede folder
+
+    cd howestx-theme
+    
+Daar installeer je via npm bower, zorg wel da node al geïnstalleerd is.
+
+    npm install -g grunt-cli bower
+    
+Nog even de dependencies installeren
+
+    npm install
+    bower install
+    
+En dan via grunt alles builden
+
+    grunt build
+
+Nu is het thema geïnstalleerd, nu moeten we edx nog laten weten dat hij dit thema moet gebruiken.
+Open hiervoor de lms.env.json file. Plaats daarin "USE_CUSTOM_THEME" op "TRUE" en zet "THEME_NAME" op "howestx-theme"
+
+Nu zou je een werkende fullstack moeten hebben gebaseerd op onze fork.

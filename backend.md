@@ -419,3 +419,8 @@ De GitHub-pagina van IONISx, waar we ons op baseren, is [hier](https://github.co
 Zelf hebben we nog geen ervaring met het deployen van edX met Ansible, maar hier is documentatie over hoe je een thema instelt wanneer je dat doet:
 https://github.com/edx/edx-platform/wiki/Custom-Theming
 
+## Fullstack opzetten
+
+Tot nu toe hebben we altijd op de zogenaamde devstack gewerkt. Deze is echter niet geschikt om een werkende demo te kunnen geven conform aan productie. 
+Met de devstack is het niet mogelijk om de lms en cms tegelijk te runnen, waardoor het geven van een demo onmogelijk word.
+Met de fullstack daarentegen kan je het lms en cms tegelijk runnen waardoor je een volledige demo kan geven over de werking van dit MOOC systeem.

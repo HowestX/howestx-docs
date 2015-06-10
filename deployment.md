@@ -88,3 +88,27 @@ Nu is het thema geïnstalleerd, nu moeten we edx nog laten weten dat hij dit the
 Open hiervoor de edx/app/edxapp/lms.env.json file. Plaats daarin "USE_CUSTOM_THEME" op "TRUE" en zet "THEME_NAME" op "howestx-theme"
 
 Nu zou je een werkende fullstack moeten hebben gebaseerd op onze fork.
+
+## Deployment met Amazon Webservices
+
+Voor AWS bestaan er publieke AMI's, voor europa is dat `ami-aa76d0dd`. Aangeraden is dat je deze deployed op een t2.medium instance.
+
+Start deze server en connecteer ernaar via ssh (de user is 'ubuntu').
+
+    chmod 400 {path-to-keypair}
+    ssh -i {path-to-keypair} ubuntu@{public-ip}
+
+Update dan de codebase
+
+    sudo /edx/bin/update configuration release
+    sudo /edx/bin/update edx-platform release
+
+Indien U een 'Unable to resolve host' error krijgt, voeg dan nog het volgende toe aan `/etc/hosts`
+
+    127.0.1.1 {whatever ip}
+
+Migreer dan het LMS en CMS met
+
+    cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py lms syncdb --migrate --settings aws
+    cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py cms syncdb --migrate --settings aws
+    

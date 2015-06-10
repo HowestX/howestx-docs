@@ -112,3 +112,5 @@ Migreer dan het LMS en CMS met
     cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py lms syncdb --migrate --settings aws
     cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py cms syncdb --migrate --settings aws
     
+Meer over het beheren van een fullstack:
+https://github.com/edx/configuration/wiki/edX-Managing-the-Full-Stack

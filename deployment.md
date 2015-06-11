@@ -40,10 +40,6 @@ Min 25GB Disk space, 50GB aangeraden
     export OPENEDX_RELEASE=named-release/birch
     wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
 
-
-    export OPENEDX_RELEASE=named-release/birch
-    wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
-
 ### Problemen met Elasticsearch's SSL certificaat
 
 Mogelijks krijg je een error met de laatste release van de configuratiescripts:
@@ -63,6 +59,25 @@ Pas de variable `elasticsearch_url` aan van `https` naar `http`. Het is een tijd
     cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
 
 Bron: https://groups.google.com/forum/#!topic/edx-code/AGPrF4Fmv64
+
+### Custom theme met fullstack
+
+Voeg dit toe aan `/edx/app/edx_ansible/server-vars.yml` op de fullstack-server (maak dit bestand aan als het nog niet bestaat):
+
+    edxapp_use_custom_theme: true
+    edxapp_theme_name: 'howestx-theme'
+    edxapp_theme_source_repo: 'git://github.com/howestx/howestx-theme.git'
+    edxapp_theme_version: 'HEAD'
+
+Voer daarna het updatescript uit:
+
+    sudo /edx/bin/update edx-platform master
+
+### Naam en andere configuratie aanpassen
+
+Voeg een variabele toe aan `/edx/app/edx_ansible/server-vars.yml`, net zoals je een theme aanpast. Je kan dezelfde naam gebruiken als in bv. `lms.env.json`:
+
+    EDXAPP_PLATFORM_NAME: 'howestX'
 
 ## Deployment met Amazon Webservices
 

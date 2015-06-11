@@ -33,4 +33,25 @@ Fullstack is een manier om edX op een enkele server te deployen. Alle services (
     export OPENEDX_RELEASE=named-release/birch
     wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
 
+### Problemen met Elasticsearch's SSL certificaat
+
+Mogelijks krijg je een error met de laatste release van de configuratiescripts:
+
+    TASK: [elasticsearch | download elasticsearch] ********************************
+    
+    failed: [localhost] => {"failed": true, "item": ""}
+    
+    msg: Failed to validate the SSL certificate for download.elasticsearch.org:443. Use validate_certs=no or make sure your managed systems have a valid CA certificate installed. Paths checked for this platform: /etc/ssl/certs, /etc/pki/ca-trust/extracted/pem, /etc/pki/tls/certs, /usr/share/ca-certificates/cacert.org, /etc/ansible
+
+Dan kan je de Elasticsearch role aanpassen in Ansible:
+
+    vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
+
+Pas de variable `elasticsearch_url` aan van `https` naar `http`. Het is een tijdelijke workaround, maar het werkt tot edX hun certificaten fixt. Daarna kan je de machine herprovisioneren:
+
+    cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
+
+Bron: https://groups.google.com/forum/#!topic/edx-code/AGPrF4Fmv64
+
+
 

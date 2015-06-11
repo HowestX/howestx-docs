@@ -57,4 +57,7 @@ Nu moeten we nog het certificaat toevoegen aan de Vagrantserver.
 * http://kogentadono.com/2014/10/16/installing-cas-3-5-2-on-ubuntu-12-04-part-1-tomcat-7-and-cas/
 * https://www.helloitsliam.com/2014/12/03/ubuntu-server-setup-for-cas-authentication/
 * http://www.lordofthejars.com/2015/01/self-signed-certificate-for-apache.html
+* https://groups.google.com/forum/#!msg/edx-code/-P690wW8NXU/WXagVeNWJqMJ
+* http://stackoverflow.com/questions/6412468/single-sign-on-sso-how-to-use-active-directory-as-an-authentication-method-fo
+ 
 

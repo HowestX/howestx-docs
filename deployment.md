@@ -79,6 +79,35 @@ Voeg een variabele toe aan `/edx/app/edx_ansible/server-vars.yml`, net zoals je 
 
     EDXAPP_PLATFORM_NAME: 'howestX'
 
+### Remote aanpassen voor edx-platform
+
+Wanneer je een eigen `edx-platform` repository hebt, kan je deze laten gebruiken door de fullstack. Voeg daarvoor de volgende regel toe aan `/edx/app/edx_ansible/server-vars.yml`:
+
+    edx_platform_repo: "https://github.com/HowestX/edx-platform.git"
+
+Daarna verwijder je het bestaande platform:
+
+    sudo rm -rf /edx/app/edxapp/edx-platform
+
+Voer daarna de provisionering opnieuw uit:
+
+    sudo /edx/bin/update edx-platform release
+
+`release` is een git branch. Je kan ook `master` of een andere kiezen.
+
+### Search enablen in fullstack
+
+Aangezien er geen configuratievariabelen voorzien zijn in `server-vars.yml`, moeten we de configuratie binnen `edx-platform` gaan aanpassen. We gaan de globale configuratie aanpassen. Edit ` lms/envs/common.py` en zit de volgende variabelen op `True`:
+
+    'ENABLE_COURSEWARE_SEARCH': True,
+    ...
+    'ENABLE_DASHBOARD_SEARCH': True,
+    ...
+    'ENABLE_COURSE_DISCOVERY': True,
+    ...
+
+Herprovisioneer nu de fullstack server.
+
 ## Deployment met Amazon Webservices
 
 Voor AWS bestaan er publieke AMI's, voor europa is dat `ami-aa76d0dd`. Aangeraden is dat je deze deployed op een t2.medium instance.

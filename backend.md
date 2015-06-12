@@ -185,13 +185,13 @@ Dit is de configuratie die we uiteindelijk hebben gebruikt:
 
 ### Bronnen
 
-[django-auth-ldap, een LDAP authentication backend voor Django](https://pythonhosted.org/django-auth-ldap/install.html)
-[django-python3-ldap, zoals django-auth-ldap, maar voor python3](https://github.com/etianen/django-python3-ldap)
-[User authentication in Django](https://docs.djangoproject.com/en/1.8/topics/auth/)
-[“Using django-auth-ldap with Active Directory”](http://www.spannerbracket.com/wordpress/?p=40)
-[LDAP user attributes](http://www.kouti.com/tables/userattributes.htm)
-[LDAP authentication setup help](https://groups.google.com/forum/#!msg/django-auth-ldap/GVoa82bLfAE/mlDjrhcOuhMJ)
-[Mapping user attributes (django-auth-ldap)](https://pythonhosted.org/django-auth-ldap/users.html#user-attributes)
+* [django-auth-ldap, een LDAP authentication backend voor Django](https://pythonhosted.org/django-auth-ldap/install.html)
+* [django-python3-ldap, zoals django-auth-ldap, maar voor python3](https://github.com/etianen/django-python3-ldap)
+* [User authentication in Django](https://docs.djangoproject.com/en/1.8/topics/auth/)
+* [“Using django-auth-ldap with Active Directory”](http://www.spannerbracket.com/wordpress/?p=40)
+* [LDAP user attributes](http://www.kouti.com/tables/userattributes.htm)
+* [LDAP authentication setup help](https://groups.google.com/forum/#!msg/django-auth-ldap/GVoa82bLfAE/mlDjrhcOuhMJ)
+* [Mapping user attributes (django-auth-ldap)](https://pythonhosted.org/django-auth-ldap/users.html#user-attributes)
 
 ## LDAP met edX
 
@@ -424,3 +424,4 @@ https://github.com/edx/edx-platform/wiki/Custom-Theming
 Tot nu toe hebben we altijd op de zogenaamde devstack gewerkt. Deze is echter niet geschikt om een werkende demo te kunnen geven conform aan productie. 
 Met de devstack is het niet mogelijk om de lms en cms tegelijk te runnen, waardoor het geven van een demo onmogelijk word.
 Met de fullstack daarentegen kan je het lms en cms tegelijk runnen waardoor je een volledige demo kan geven over de werking van dit MOOC systeem.
+

@@ -250,6 +250,25 @@ This section assumes you have a running devstack virtual machine with Vagrant.
 
 #### Theming recipes
 
+##### Bootstrapping a custom theme based on the IONISx theme
+
+You can bootstrap a custom theme on devstack by following these steps:
+
+- Install global dependencies: install [node.js](https://nodejs.org/) from its website, then install `grunt-cli` and `bower` globally (you only need to do this once on every development machine):
+
+    $ npm install -g grunt-cli bower
+
+- Clone the IONISx theme to a repository of your own. This will allow you to push back commits you make to this repository.
+- Go into the `themes/` folder of edX on your local machine. It's mounted into the Vagrant virtual machine, so you can access it from your own computer.
+- Clone the repository here. You may rename the folder. The name of the folder is your theme name, and this is very important. This is what you will have to provide to the configuration files.
+- Rename the `_ionisx.scss` file located in the `static/sass/` folder to match your theme name (name of the folder). Your theme will not function if you don't do this.
+- Now install the dependencies of the theme:
+
+    $ npm install
+    $ bower install
+
+- Run `grunt`. The default mode will watch until you press `^C`. As soon as you save, Grunt will pick it up and recompile all the assets. The edX platform can't process the Less files, so it's important to compile these down to CSS.
+
 ##### Using a custom theme in devstack
 
 To use a custom theme in the devstack, you can update `lms.env.json`. This file is located in the home directory of the `edxapp` user.
@@ -274,7 +293,11 @@ It should look like this:
         ...
     }
 
-You need to restart `paver` to see the effect in your browser.
+You need to run (or restart if it's already running) `paver` to see the effect in your browser:
+
+    edxapp@~/edx-platform$ paver devstack lms
+
+##### Editing a custom theme
 
 #### Certificates recipes
 

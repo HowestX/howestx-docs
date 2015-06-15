@@ -34,7 +34,7 @@ However, there is also an immense amout of documentation and an active community
 P2PU was founded with funding from the Hewlett foundation, the Shuttleworth foundation and the university of California Ivine. It was founded by a group of people that felt the existing ways of online learning were inadequate, especially the social aspect.
 
 ### Usability
-P2PU also offers an attractive user interface, yet we felt it was not as intuitive as it should be.
+P2PU offers an attractive and intuitive user interface. It also appears to be mobile ready, which is a big plus.
 
 ### Activity
 It’s definetely still used by a large user base, but it shows signs of decline. It’s github is not that active and has open issues as old as 3 years (the oldest bug dates from 25 May 2012). Google trends also reveals a steady decline.
@@ -48,7 +48,7 @@ P2PU is what could be called a medium sized platform. It appears to be a nicely 
 OpenMooc is a MOOC platform that hails from Spain, it was made to promote virtual education by using ICT in higher education. Since it was made in Spain, multilanguage support has always been available.
 
 ###Usability
-OpenMooc’s user interface is really atrocious. A lot of work would have to be put in to make this a usable platform. Nevertheless it has some interesting usability features built-in, most notably multilanguage support.
+OpenMooc’s user interface is really atrocious. It's also not mobile ready. A lot of work would have to be put in to make this a usable platform. Nevertheless it has some interesting usability features built-in, most notably multilanguage support.
 
 ### Activity
 As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s github is also very inactive, most commits are already a year old. Google trends also confirms this.

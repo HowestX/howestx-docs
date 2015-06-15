@@ -52,6 +52,14 @@ Ansible is a way to automate provisioning of  (virtual) machines. It's used exte
 
 LDAP (*Lightweight Directory Access Protocol*) is a protocol that allows clients to search, modify and connect to internet directories. We will use it here in an authentication contexts: we will make clients authenticate to an LDAP server.
 
+#### Central Authentication Service (CAS)
+
+A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP: using LDAP, users have sign in into every application and authentication happens on the LDAP.
+
+A CAS server provides multiple pluggable backends. You can plug in a SQL database, an LDAP server...
+
+Using a CAS server is comparable to OAuth. When users click *Log in*, they are taken to the CAS server's login page. After authenticating with the CAS server, they are taken back the application.
+
 ### edX architecture
 
 The architecture of edX is very complex. To give you a rough idea, in the codebase you can find Python, Ruby, node.js and Java sources. Here, we will take a quick look at the edX Platform architecture, and took a quick look at how edX is expected to be used.
@@ -95,7 +103,24 @@ MongoDB is used to store courses (the courses you design in edX Studio). Histori
 
 Authentication is handled through standard Django. The Django framework provides a flexible way to handle authentication. It's possible to define multiple *authentication backends*, the framework will try each of them in succession until either one successfully authenticates the user, or none are left. User details, such as login name, email address, and for the standard backend, a password, are saved in a relational database.
 
+##### CAS
+
+LDAP isn't a great match for edX. It requires the installation of extra packages, requires modifications to the edX platform, and feels clunky.
+
+edX actually has a built-in solution for central authentication: it provides support for a Central Authentication Service server. Enabling a CAS server is a matter of enabling a few simple configuration entries.
+
+However, this is not ideal if you want to allow users to register themselves. You can't easily use the existig capabilities of edX/Django, you would have to write a registration handler and authentication backend for CAS, seperate from your edX codebase.
+
+Thus, CAS is not a good match if you want hybrid authentication (authentication through LDAP, but also allowing registering and logging in directly through edX).
+
 ##### Default users
+
+There are a number of default user accounts accounts available:
+
+* `staff@example.com`, password: `edx`, staff account that can create courses
+* `verified@example.com`, password: `edx`, student account for testing verified courses
+* `audit@example.com`, password: `edx`, student account for testing course auditing (meaning: following the course without paying for it)
+* `honor@example.com`, student account for testing honor code certificates
 
 #### LMS and CMS
 
@@ -306,7 +331,7 @@ We were happy to see edX being a very active platform. Not only does it have a r
 
 It’s also a rather ‘hot topic’ online, showing a surge in activity.
 
-![Google trends graphic on edX](https://github.com/thomastoye/howestx-docs/blob/master/images/GoogleTrends_edX.png "EdX on Google trends")
+![Google trends graphic on edX](images/GoogleTrends_edX.png "EdX on Google trends")
 
 ##### Complexity
 
@@ -328,7 +353,7 @@ P2PU offers an attractive and intuitive user interface. It also appears to be mo
 
 P2PU is definitely still used by a large user base, but it shows signs of decline. It’s GitHub is not that active and contains open issues as old as 3 years (the oldest bug dates from 25 May 2012). Google trends also reveals a steady decline.
 
-![Google trends graphic on P2PU](https://github.com/thomastoye/howestx-docs/blob/master/images/GoogleTrends_P2PU.png "P2PU on Google trends")
+![Google trends graphic on P2PU](images/GoogleTrends_P2PU.png "P2PU on Google trends")
 
 ##### Complexity
 P2PU is what could be called a medium sized platform. It appears to be a nicely organised platform, that should be easy to adapt. It also offers quite a bit of documentation. The big issue for us is the fact that there are so many old open issues. Is the development grinding to a halt?
@@ -344,7 +369,7 @@ OpenMooc’s default user interface is atrocious. It's also not mobile ready. A 
 ##### Activity
 As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s GitHub is also very inactive, most commits are already a year old. Google trends also confirms this.
 
-![Google trends graphic on OpenMooc](https://github.com/thomastoye/howestx-docs/blob/master/images/GoogleTrends_OpenMooc.png "OpenMooc on Google trends")
+![Google trends graphic on OpenMooc](images/GoogleTrends_OpenMooc.png "OpenMooc on Google trends")
 
 ##### Complexity
 

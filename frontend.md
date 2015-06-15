@@ -86,7 +86,7 @@ In die file pas je dan “PLATFORM_NAME” aan naar de gewenste platformnaam.
         
 ## De juiste css variabelen bewerken
 
-Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken.
+Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken. In Sublime Text kan je een search doen in een folder, zo vindt je snel de juiste files terug.
 
 ## De vakken op de homepage stylen
 

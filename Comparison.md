@@ -23,6 +23,7 @@ EdX as a platform is very usable to an end user, it offers an intuitive user int
 We were happy to see edX being a very active platform. Not only does it have a remarkeable amount of users, it also has a lot of developers behind it. When looking up the github page of the platform, we saw commits as recent as 2 hours ago.
 It’s also a rather ‘hot topic’ online, showing a surge in activity.
 
+![Google trends graphic on edX](https://github.com/thomastoye/howestx-docs/images/GoogleTrends_edX.png "EdX on Google trends")
 
 ### Complexity
 EdX so far appears to be the perfect choice for any school interested in setting up a MOOC platform of their own. However, it’s sheer complexity might cause some issues.
@@ -34,8 +35,11 @@ P2PU was founded with funding from the Hewlett foundation, the Shuttleworth foun
 
 ### Usability
 P2PU also offers an attractive user interface, yet we felt it was not as intuitive as it should be.
+
 ### Activity
 It’s definetely still used by a large user base, but it shows signs of decline. It’s github is not that active and has open issues as old as 3 years (the oldest bug dates from 25 May 2012). Google trends also reveals a steady decline.
+
+![Google trends graphic on P2PU](https://github.com/thomastoye/howestx-docs/images/GoogleTrends_P2PU.png "P2PU on Google trends")
 
 ### Complexity
 P2PU is what could be called a medium sized platform. It appears to be a nicely organised platform, that should be easy to adapt. It also offers quite a bit of documentation. The big issue for us is the fact that there are so many old open issues. Is the development grinding to a halt?
@@ -48,6 +52,8 @@ OpenMooc’s user interface is really atrocious. A lot of work would have to be 
 
 ### Activity
 As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s github is also very inactive, most commits are already a year old. Google trends also confirms this.
+
+![Google trends graphic on OpenMooc](https://github.com/thomastoye/howestx-docs/images/GoogleTrends_OpenMooc.png "OpenMooc on Google trends")
 
 ### Complexity
 This is a rather small MOOC platform. It seems rather well organised, but very badly documented. Also setting up this platform seems to not be a trivial matter.

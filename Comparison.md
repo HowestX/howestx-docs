@@ -17,7 +17,7 @@ EdX is a large open souce MOOC platform that was developed as a joint venture be
 The platform already has a lot of succes, boasting more than 3 million users (as of October 2014), and being used by institutions such as stanford.
 
 ### Usability
-EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready.
+EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-i.n
 
 ### Activity
 We were happy to see edX being a very active platform. Not only does it have a remarkeable amount of users, it also has a lot of developers behind it. When looking up the github page of the platform, we saw commits as recent as 2 hours ago.
@@ -48,7 +48,7 @@ P2PU is what could be called a medium sized platform. It appears to be a nicely 
 OpenMooc is a MOOC platform that hails from Spain, it was made to promote virtual education by using ICT in higher education. Since it was made in Spain, multilanguage support has always been available.
 
 ###Usability
-OpenMooc’s user interface is really atrocious. It's also not mobile ready. A lot of work would have to be put in to make this a usable platform. Nevertheless it has some interesting usability features built-in, most notably multilanguage support.
+OpenMooc’s user interface is really atrocious. It's also not mobile ready. A lot of work would have to be put in to make this a usable platform. A couple of things did draw our attention however, like the platform's ability to follow up on your own as well as other people's questions and it's native support for LDAP.
 
 ### Activity
 As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s github is also very inactive, most commits are already a year old. Google trends also confirms this.

@@ -3,14 +3,14 @@
 If a modern school is interested in offering the capability of massive online learning, a MOOC platform is the way to go. However, developing one is an extremely complex and time consuming process. Luckily there are already a lot of free open source MOOC platforms that could, in theory, be easily adapted to fit a school’s specific needs. Here we are going to briefly compare a couple of MOOC platforms.
 
 We will compare the following platforms:
-*edX
-*Peer 2 Peer University
-*openMooc
+* edX
+* Peer 2 Peer University
+* openMooc
 
 We are interested in the following criteria:
-*Usability, is the platform easy to use as an end user?
-*Activity, is the platform still actively developed?
-*Complexity, is it easy to adapt to our needs?
+* Usability, is the platform easy to use as an end user?
+* Activity, is the platform still actively developed?
+* Complexity, is it easy to adapt to our needs?
 
 ## edX
 EdX is a large open souce MOOC platform that was developed as a joint venture between the Massachussets Institute of Technology and the Harvard university. UC Berkeley has also joined.

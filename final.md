@@ -146,7 +146,7 @@ The *Content Management System*, often called edX Studio, Studio or CMS, allows 
 
 #### Themes
 
-edX now has a flexible theme structure. Aparte from configuraion to use the new theme, the platform isn't modified in any way when creating or updating a theme.
+edX now has a flexible theme structure. Aside from configuring to use the new theme, the platform isn't modified in any way when creating or updating a theme.
 
 Themes go into a `themes/` folder. The theme to use can then be specified in the configuration.
 
@@ -200,7 +200,7 @@ Mac OS users can download Vagrant as a `.dmg` from [its website](http://www.vagr
 
 ##### Installing Vagrant on a Linux machine
 
-We suggest that Linux users **do not** install Vagrant using their package manager. The Vagrant in the Debian and Ubuntu repositories is often out of date, and this make cause strange errors when developing on the edX platform. Instead, we encourage Linux users to install Vagrant from [its website](http://www.vagrantup.com/downloads.html).
+We suggest that Linux users **do not** install Vagrant using their package manager. The Vagrant in the Debian and Ubuntu repositories is often out of date, and this may cause strange errors when developing on the edX platform. Instead, we encourage Linux users to install Vagrant from [its website](http://www.vagrantup.com/downloads.html).
 
 VirtualBox may be installed through the package manager, but Debian users will have to [enable non-free packages](http://serverfault.com/questions/240920/how-do-i-enable-non-free-packages-on-debian).
 
@@ -425,6 +425,64 @@ Now sync and migrate the databases:
     $ ./manage.py lms syncdb --settings=aws
     $ ./manage.py cms migrate --settings=aws --delete-ghost-migrations
     $ ./manage.py lms migrate --settings=aws --delete-ghost-migrations
+    
+#### Importing and exporting courses
+
+EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
+
+To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gzip`.
+    
+#### Internationalisation recipes
+
+When offering an online service it might be useful to provide that service in multiple languages to expand your possible userbase. But properly translating an entire service takes a lot of effort and time, luckily edX also provides a full translation of it's contents in a lot of languages. Setting it up is a breeze.
+
+First of all you will need a `.transifexrc` file. This file contains the information that edX will use to login to transifex, the service that provides the translations.
+
+Make a `.transifexrc` file on the following location
+
+    nano ~/.transifexrc
+
+Give it the following content
+
+    [https://www.transifex.com]
+    hostname = https://www.transifex.com
+    username = user
+    password = pass
+    token =
+
+Change 'user' and 'pass' to your own credentials. Token is to remain empty.
+Then run the following commands
+
+    source /edx/app/edxapp/edxapp_env
+    cd /edx/app/edxapp/edx-platform
+    
+Now we must make sure that the languages we wish to support are marked as active in `conf/locale/config.yaml`.
+Open that file and uncomment any language you wish to support.
+
+    nano conf/locale/config.yaml
+
+Any new languages have to be pulled in using the following command
+
+    tx pull -l <lang_code>
+    
+Run the following command to make sure the changes take effect
+    
+    paver i18n_fastgenerate
+
+Restart the lms and cms
+
+    sudo /edx/bin/supervisorctl restart edxapp:
+
+Now go to the language settings on your Django admin panel, you can find these at `<your_website>/admin/dark_lang`. For example `http://www.howestx.be/admin/dark_lang`
+There you must add a configuration, this configuration contains what languages users can select.
+Note that everything must be typed in lowercase, '_' becomes '-' and everything is comma seperated.
+For example
+
+    en,nl-nl,fr,ar,es-419
+
+Save this configuration.
+Now edX will be displayed in the user's preferred language.
+If you would want to change the default language of the entire platform, you must edit the `EDXAPP_LANGUAGE_CODE` in `/edx/etc/server-vars.yml`.
 
 ## Usability
 
@@ -550,6 +608,7 @@ TODO
 * When saving, grunt will automatically pick this up, and recompile the assets.
 * On reloading the browser, the frontend developer can immediately check his work and repeat the edit-check cycle if necessary.
 * When satisfied, the frontend developer commits his changes. These can now be pushed. A system administrator can then reprovision the production machines to use the theme in production.
+* Front-end developer pushes teh compilied CSS files. This way the the team members don't need to install Grunt.
 
 ###### Example: editing a template
 
@@ -569,6 +628,59 @@ http://moocnewsandreviews.com/edx-and-stanford-partnering-on-open-source-mooc-pl
 http://www.kurzweilai.net/online-learning-at-stanford-goes-open-source-with-openedx
 https://groups.google.com/forum/#!msg/edx-code/YEJxCrCNpLM/x2NHZH7yZQIJ
 
-## Conclusions
+## Evaluation and Conclusion
 
+We will now evaluate the edX platform according to criteria specified by Howest
 
+### Is the platform user friendly?
+
+EdX as a platform is very user friendly. For students it has a very nice user interface that allows them to quickly find what they need. Teachers can easily create, manage and share courses.
+
+### Can the platform be put in production easily?
+
+This is where the most issues will be found. EdX is an immensely complex system that is difficult to set up. Furhermore when we tried to setup a named release, it kept failing to deploy. EdX was also developed with AWS in mind, not really offering a lot of support for Azure.
+
+### Is the platform still being developed?
+
+There is still a very healthy and active development going on. When checking the github page we generally see commits that are 2-3 hours old. More and more people are also starting to use edX and there are eve  consultants who are specializing in this platform.
+
+### Is the future of the platform certain?
+
+EdX has an immense userbase and a lot of big organisations like MIT and Harvard backing it up. Google trends is also showing a positive trend.
+
+### Are others also using the platform?
+
+Yes, it's a very widely used platform. A lot of major intitutions have opted for edX as their MOOC platform of choice.
+It also boasts more than 3 million users (as of 2014).
+
+### Is it easy to adapt the platform?
+
+It's a very big and complex platform, adapting it is not an easy matter. Somtimes simply finding the correct files to work in can be a task on it's own. However, there is plenty of very detailed documentation and a very active and helpful community that should alleviate most issues.
+
+### Is is easy to set up a development environment?
+
+In order to set up a development environment, vagrant is preferrable. On Linux and Mac this is an easy thing to use, but on Windows it has proven to be very difficult. It's also very fragile and can break easily, requiring you to reset the development environment.
+
+### Is the platform maintainable?
+
+Once the development environments are set up, maintaining is easy. The back-end and front-end are fully seperated and fully pluggable, leading to easy development.
+
+### Is there internationalisation within the platform?
+
+EdX provides internationalisation that is a breeze to set up. You can make use of a simple web interface. It makes use of transifex to obtain it's translations. Sadly, dutch is not yet translated.
+
+### Can we monetise the platform?
+
+Yes, it's possible to ask money for verified certificates. This model has workde for organisations such as edx.org, MongoDB university,...
+
+### Can we brand the platform?
+
+It's possible to brand the entire platform, there is no dependance on edX for this matter. It's also very easy to do this.
+
+### Is there paid support?
+
+No paid support is offered, however edX provides some support to any organisation looking to set up their own fork. The community is also a source of help just like the excellent documentation. If necessary there are even paid consultants specialised in edX.
+
+### What are the possibiltie for the future?
+
+This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org .

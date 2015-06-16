@@ -456,6 +456,7 @@ TODO
 * When saving, grunt will automatically pick this up, and recompile the assets.
 * On reloading the browser, the frontend developer can immediately check his work and repeat the edit-check cycle if necessary.
 * When satisfied, the frontend developer commits his changes. These can now be pushed. A system administrator can then reprovision the production machines to use the theme in production.
+* Front-end developer pushes teh compilied CSS files. This way the the team members don't need to install Grunt.
 
 ###### Example: editing a template
 

@@ -274,6 +274,12 @@ Now sync and migrate the databases:
     $ ./manage.py cms migrate --settings=aws --delete-ghost-migrations
     $ ./manage.py lms migrate --settings=aws --delete-ghost-migrations
     
+#### Importing and exporting courses
+
+EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
+
+To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in `.tar.gzip`.
+    
 #### Internationalisation recipes
 
 When offering an online service it might be useful to provide that service in multiple languages to expand your possible userbase. But properly translating an entire service takes a lot of effort and time, luckily edX also provides a full translation of it's contents in a lot of languages. Setting it up is a breeze.
@@ -324,6 +330,7 @@ For example
 
 Save this configuration.
 Now edX will be displayed in the user's preferred language.
+If you would want to change the default language of the entire platform, you must edit the `EDXAPP_LANGUAGE_CODE` in `/edx/etc/server-vars.yml`.
 
 ## Usability
 

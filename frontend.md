@@ -1,10 +1,5 @@
 # Documentatie frontend
 
-## Sass en Less
-
-Sass wordt gebruikt door edX maar het theme waarop wij zullen voortwerken is gebasseerd op Less. De workflow gaat als volgt: als vagrant start worden sass files gecompileerd naar css files. Dit heeft als nadeel dat als er veranderingen gemaakt worden in de sass files, vagrant opnieuw moet opstarten.
-Bij het less theme dat we gebruiken worden de less files gecompileerd door Grunt. Deze zal de less files in de gaten houden en compileren indien er veranderingen zijn. Dit heeft als voordeel dat we de browser gewoon moeten refreshen om de veranderingen te zien. Deze manier is dus veel sneller om mee te werken.
-
 ## De juiste css variabelen bewerken
 
 Uitzoeken welke css variablen aangepast moeten worden doe je best met inspect element in de browser. Dan kan je in de less files zoeken naar de juiste class om te veranderen. Op mac kan je in de Finder een search doen naar de classname. Finder zal dan de files tonen die de classname bevatten. Heel handig omdat je dan de aparte less files niet moet doorzoeken. In Sublime Text kan je een search doen in een folder, zo vindt je snel de juiste files terug.

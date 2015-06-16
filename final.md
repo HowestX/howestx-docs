@@ -42,6 +42,10 @@ Less and Sass are CSS pre-processors. They extend CSS with variables and functio
 
 Less and Sass serve the same purpose, and have similar features, but are not compatible. Sass is mostly used in the Ruby world, Less is mostly used in the node.js world.
 
+#### SSH
+
+Secure Shell, or SSH, is a protocol for connecting to remote computers. It's also commonly used for connecting to remote git repositories. SSH is an encrypting protocol that can make use of both cryptographic keys and passwords.
+
 #### Vagrant
 
 The goal of Vagrant in the edX project is to give all developers the same development environment. It does this through the use of virtual machines: Vagrant is  a wrapper around a VM provider backend. For the edX platform, the VirtualBox backend is used.
@@ -61,6 +65,8 @@ Ansible is a way to automate provisioning of  (virtual) machines. It's used exte
 #### LDAP
 
 LDAP (*Lightweight Directory Access Protocol*) is a protocol that allows clients to search, modify and connect to internet directories. We will use it here in an authentication contexts: we will make clients authenticate to an LDAP server.
+
+LDAP uses port 389 (not to be confused with RDP, which uses port 3389). LDAPS, LDAP over SSL, uses port 636. LDAP uses both TCP and UDP.
 
 #### Central Authentication Service (CAS)
 
@@ -182,7 +188,7 @@ Configuration in edX is very complex. Here are some hints on the possible files:
 * `common.py` sets all the default variables, which can be overwritten by Ansible configuration
 * `server-vars.yml` (full location: TODO) sets configuration that will be used to provision the machine. This will be used to populate `*.env.json`. A list of all possible option can be found [here](https://github.com/edx/configuration/blob/master/playbooks/roles/edxapp/defaults/main.yml).
 
-Be wary that there are `.json` and `.yml` files, be mindful of the different syntax.
+Be wary that there are `.json` and `.yml` files. JSON and YAML have different syntaxes.
 
 ### edX license
 
@@ -210,7 +216,8 @@ You can set up a Vagrant virtual machine for local development and testing. Thes
 
     $ mkdir howestx
     $ cd howestx
-    $ curl -L https://raw.githubusercontent.com/edx/configuration/master/vagrant/release/devstack/Vagrantfile > Vagrantfile
+    $ curl -L https://raw.githubusercontent.com/edx/configuration/master/
+      vagrant/release/devstack/Vagrantfile > Vagrantfile
     $ vagrant plugin install vagrant-vbguest
     $ vagrant up
 
@@ -276,6 +283,24 @@ This section assumes you have a running devstack virtual machine with Vagrant.
 
 ###### File access
 
+###### Fixing MongoDB
+
+Occasionally, MongoDB will have problems. This will happen when it quit unexpectedly. The `mongod` service will then refuse traffic and throw errors. You can try this to fix it:
+
+    $ su vagrant
+    $ sudo rm /edx/var/mongo/mongodb/mongod.lock
+    $ sudo service mongod restart
+
+###### Accessing the MySQL server
+
+You may access the MySQL server by using this command:
+
+    $ mysql -u root
+
+This will drop you in a SQL shell. The primary database edX uses is `edxapp`.
+
+It's also possible to access the database from a GUI (for example, MySQL Workbench). Turn on the *Tunnel through SSH* option on with the IP address of the Vagrant guest, use `vagrant` as the username and `vagrant` as the password, and you're good to go.
+
 #### Theming recipes
 
 ##### Bootstrapping a custom theme based on the IONISx theme
@@ -338,7 +363,7 @@ Edit the `/edx/app/edx_ansible/server-vars.yml` file on the fullstack server and
 
 Then run the update script:
 
-    sudo /edx/bin/update edx-platform master
+    $ sudo /edx/bin/update edx-platform master
 
 You may specify another branch of the `edx-platform` by changing `master` in the update command.
 
@@ -369,7 +394,7 @@ Be aware that this does **not** work with Ubuntu 12.04.5 (the standard on Azure 
 
 In the latest elease, you may see an error with Elasticsearch's certificate:
 
-    TASK: [elasticsearch | download elasticsearch] ********************************
+    TASK: [elasticsearch | download elasticsearch] ****************************
 
     failed: [localhost] => {"failed": true, "item": ""}
 
@@ -377,11 +402,11 @@ In the latest elease, you may see an error with Elasticsearch's certificate:
 
 A work-around is to edit the Ansible configuration file:
 
-    vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
+    $ vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
 
 Change the variable `elasticsearch_url` from `https` to `http`. **Only use this as a temporary work-around for testing!** The certificate will probably be fixed in a coming release. You now need to reprovision the server:
 
-    cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
+    $ cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
 
 ###### Using a edX platform fork
 
@@ -391,17 +416,132 @@ You use a custom `edx-platform` for the fullstack too. Add the following to `/ed
 
 Obviously using your own repository. Then you need to remove the existing platform:
 
-    sudo rm -rf /edx/app/edxapp/edx-platform
+    $ sudo rm -rf /edx/app/edxapp/edx-platform
 
 Then reprovision the server:
 
-    sudo /edx/bin/update edx-platform release
+    $ sudo /edx/bin/update edx-platform release
 
 `release` is a git branch. You can always specify a custom branch.
 
 ##### Production deployment
 
 TODO
+AWS deployment
+
+#### Fullstack recipes
+
+Here are some things you might want to do on a fullstack server.
+
+##### Reprovision the server
+
+If, for any reason, you want to reprovision the fullstack server, use the following command:
+
+    $ sudo /edx/bin/update edx-platform release
+
+You can use any branch instead of `release`.
+
+##### Change the name of the platform
+
+Edit `/edx/app/edx_ansible/server-vars.yml`, and add the following:
+
+    EDXAPP_PLATFORM_NAME: 'howestX'
+
+Where `howestX` is the name of your platform.
+
+##### Enable search
+
+By default, there is no search possibility in fullstack. Edit `/edx/app/edx_ansible/server-vars.yml`, and add the following:
+
+    FEATURES:
+        - ENABLE_DASHBOARD_SEARCH: true
+        - ENABLE_COURSEWARE_SEARCH: true
+        - ENABLE_COURSE_DISCOVERY: true
+        - ENABLE_COURSEWARE_INDEX: true
+        - ENABLE_LIBRARY_INDEX: true
+        - SEARCH_ENGINE: "search.tests.mock_search_engine.MockSearchEngine"
+
+Now reprovision the server:
+
+    $ sudo /edx/bin/update edx-platform release
+
+##### Deleting a course
+
+If you have created a few test courses, you will have noticed there is no `delete` functionality in edX Studio. You have to delete courses manually from MongoDB.
+
+To do this, log in to your fullstack server and start a `mongo` shell:
+
+    root@howestx-staging:~# mongo
+    MongoDB shell version: 2.6.10
+    connecting to: test
+    > 
+
+We first need to select the correct database, just like in SQL shells:
+
+    > use edxapp
+    switched to db edxapp
+
+Now we can check if we are using the correct database. The name of the document where courses are stored is `modulestore`. An empty `find()` will select all records, and `pretty()` will make it print out pretty JSON:
+
+    > db.modulestore.find().pretty()
+    {
+      "_id" : {
+        "tag" : "i4x",
+        "org" : "howestX",
+        "course" : "CAT1_W110",
+        "category" : "about",
+        "name" : "entrance_exam_id",
+        "revision" : null
+      },
+      "definition" : {
+    ...
+
+This is the correct database. Now we can remove the record we want:
+
+    > db.modulestore.remove({ "_id.course": "CAT1_W110"})
+
+#### LDAP recipes
+
+##### Testing LDAP on \*NIX systems
+
+You can use the `ldapsearch` program (packaged in a package called `ldap-utils` by most distributions) to query LDAP servers and test them.
+
+This example command can be used to *bind* to an LDAP server:
+
+    $ ldapsearch -D "glenn@howestedx.local" -W -H ldap://howest-test-ad.cloudapp.net -b "dc=howestedx,dc=local"
+
+##### Using LDAP with Python
+
+*Note: some networks (the one at Howest GKG in particular) block LDAP traffic to outside networks. You may circumvent this by using a VPN, or by using an LDAP server inside that network.*
+
+You can try this out in a Vagrant devstack box. We recommend working in a Python virtual environment. First of all, install the `python-ldap` package and its dependencies:
+
+    $ sudo apt-get install libldap2-dev libsasl2-dev
+    $ pip install python-ldap
+
+Now you can start the Python interpreter and import `python-ldap`:
+
+    $ python
+    Python 2.7.10 (default, Jun  1 2015, 16:21:46) 
+    [GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import ldap
+    >>> 
+
+You can now create a connection to the LDAP server. This will only create a connection object, it won't connect yet.
+
+    >>> conn = ldap.initialize('ldap://howest-test-ad.cloudapp.net')
+
+We need to set up a few parameters on this object before we can start querying:
+
+    >>> conn.protocol_version = 3
+    >>> conn.set_option(ldap.OPT_REFERRALS, 0)
+
+Now we can try to authenticate (*bind*) to the LDAP server:
+
+    >>> conn.simple_bind_s('glenn@howestedx.local', '123')
+
+If you don't get any exceptions, you have connected successfully.
 
 #### Certificates recipes
 
@@ -431,16 +571,18 @@ Now sync and migrate the databases:
 EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
 
 To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gzip`.
-    
+
 #### Internationalisation recipes
 
 When offering an online service it might be useful to provide that service in multiple languages to expand your possible userbase. But properly translating an entire service takes a lot of effort and time, luckily edX also provides a full translation of it's contents in a lot of languages. Setting it up is a breeze.
+
+##### Offering multiple languages for users to choose
 
 First of all you will need a `.transifexrc` file. This file contains the information that edX will use to login to transifex, the service that provides the translations.
 
 Make a `.transifexrc` file on the following location
 
-    nano ~/.transifexrc
+    $ nano ~/.transifexrc
 
 Give it the following content
 
@@ -453,36 +595,37 @@ Give it the following content
 Change 'user' and 'pass' to your own credentials. Token is to remain empty.
 Then run the following commands
 
-    source /edx/app/edxapp/edxapp_env
-    cd /edx/app/edxapp/edx-platform
-    
+    $ source /edx/app/edxapp/edxapp_env
+    $ cd /edx/app/edxapp/edx-platform
+
 Now we must make sure that the languages we wish to support are marked as active in `conf/locale/config.yaml`.
 Open that file and uncomment any language you wish to support.
 
-    nano conf/locale/config.yaml
+    $ nano conf/locale/config.yaml
 
 Any new languages have to be pulled in using the following command
 
-    tx pull -l <lang_code>
+    $ tx pull -l <lang_code>
     
 Run the following command to make sure the changes take effect
     
-    paver i18n_fastgenerate
+    $ paver i18n_fastgenerate
 
 Restart the lms and cms
 
-    sudo /edx/bin/supervisorctl restart edxapp:
+    $ sudo /edx/bin/supervisorctl restart edxapp:
 
-Now go to the language settings on your Django admin panel, you can find these at `<your_website>/admin/dark_lang`. For example `http://www.howestx.be/admin/dark_lang`
-There you must add a configuration, this configuration contains what languages users can select.
-Note that everything must be typed in lowercase, '_' becomes '-' and everything is comma seperated.
-For example
+Now go to the language settings on your Django admin panel, you can find these at `<your_website>/admin/dark_lang`. For example:  `http://www.howestx.be/admin/dark_lang`.
+
+There you must add a configuration, this configuration contains what languages users can select. Note that everything must be typed in lowercase, that '_' becomes '-', and everything should be comma seperated. For example:
 
     en,nl-nl,fr,ar,es-419
 
-Save this configuration.
-Now edX will be displayed in the user's preferred language.
-If you would want to change the default language of the entire platform, you must edit the `EDXAPP_LANGUAGE_CODE` in `/edx/etc/server-vars.yml`.
+Save this configuration. Now edX will be displayed in the user's preferred language. Users can select this from their user account setting.
+
+##### Setting the default language for the platform
+
+If you would want to change the default language of the entire platform, you must edit the `EDXAPP_LANGUAGE_CODE` in `/edx/app/edx_ansible/server-vars.yml`.
 
 ## Usability
 
@@ -560,7 +703,7 @@ As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smal
 
 This is a rather small MOOC platform. It seems rather well organised, but very badly documented. Also setting up this platform seems to not be a trivial matter.
 
-#### Conclusion
+#### Conclusion and choice of platform
 
 There are a lot of platforms out there, the  platforms we compared are the most prominent. They all offer the ability to host a decent MOOC platform, yet edX and P2PU are by far the largest and offer the most usability out of the box. Deiciding between these two is not easy, edX offers more functionality whereas P2PU offers a seemingly easier to adapt codebase. However, edX is seeing way more use and development. P2PU as a platform seems to be heavily on the decline, so trying to build a lasting MOOC solution based on that platform appears unwise.
 
@@ -607,8 +750,7 @@ TODO
 * After looking up which LESS file is responsible for the link color, the frontend developer opens it in his local editor. He can open the file through the NFS share, there is no need to edit from within Vagrant (although this is possible).
 * When saving, grunt will automatically pick this up, and recompile the assets.
 * On reloading the browser, the frontend developer can immediately check his work and repeat the edit-check cycle if necessary.
-* When satisfied, the frontend developer commits his changes. These can now be pushed. A system administrator can then reprovision the production machines to use the theme in production.
-* Front-end developer pushes teh compilied CSS files. This way the the team members don't need to install Grunt.
+* When satisfied, the frontend developer commits his changes. These can now be pushed. The frontend developer also pushes the compiled CSS files. This way the the team members don't need to install Grunt. A system administrator can then reprovision the production machines to use the theme in production. 
 
 ###### Example: editing a template
 
@@ -622,11 +764,13 @@ The back-end workflow comprises editing of Python source files and Python config
 
 #### MongoDB University
 
-http://www.wiredacademic.com/2013/04/is-the-price-right-a-mooc-startup-case-study/
-https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
-http://moocnewsandreviews.com/edx-and-stanford-partnering-on-open-source-mooc-platform/
-http://www.kurzweilai.net/online-learning-at-stanford-goes-open-source-with-openedx
-https://groups.google.com/forum/#!msg/edx-code/YEJxCrCNpLM/x2NHZH7yZQIJ
+TODO
+
+* http://www.wiredacademic.com/2013/04/is-the-price-right-a-mooc-startup-case-study/
+* https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
+* http://moocnewsandreviews.com/edx-and-stanford-partnering-on-open-source-mooc-platform/
+* http://www.kurzweilai.net/online-learning-at-stanford-goes-open-source-with-openedx
+* https://groups.google.com/forum/#!msg/edx-code/YEJxCrCNpLM/x2NHZH7yZQIJ
 
 ## Evaluation and Conclusion
 

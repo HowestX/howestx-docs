@@ -36,23 +36,6 @@ Uiteindelijk kunnen we nog de upstream remote toevoegen als `upstream`:
 
 Pullen doen we met `git pull release origin`. Enkel en alleen objecten ophalen kan met `git fetch`. Om een remote in te stellen voor een branch kan je bijvoorbeeld `git branch --set-upstream-to=origin/release release` gebruiken voor een branch die `release` noemt.
 
-# NVM installeren
-
-Je gebruikt best NVM om node.js te managen. Zo kan je met meerdere node.js versies tegelijk werken.
-
-NVM installeren is erg gemakkelijk:
-
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.3/install.sh | bas
-
-Daarna installeren we een versie van node.js en gebruiken we deze:
-
-    nvm install 0.12.1
-    nvm use 0.12.1
-
-Nu we node.js en npm hebben, kunnen we globale pakketten installeren. Zo hebben we bijvoorbeeld Grunt en Bower nodig:
-
-    npm install -g grunt-cli bower
-
 # LDAP
 
 ## Beschrijving protocol
@@ -74,59 +57,6 @@ ldapsearch -D "glenn@howestedx.local" -W -H ldap://howest-test-ad.cloudapp.net -
 
 ### Bronnen
 http://linux.die.net/man/1/ldapsearch 
-
-## LDAP met Python
-
-Zorg dat je eerst binnen een virtualenv werkt.
-
-Installeer `python-ldap` binnen de virtualenv.
-
-    sudo apt-get install libldap2-dev libsasl2-dev
-    pip install python-ldap
-
-Start python door `python` uit te voeren.
-
-    ldap importeren
-    import ldap
-
-De connectie aanmaken met een LDAP-server die we hebben opgezet op Azure (dit werkt niet binnen het schoolnetwerk, daar kan je `ldap://hogeschool-wvl.be` gebruiken):
-
-    conn = ldap.initialize('ldap://howest-test-ad.cloudapp.net')
-
-Parameters instellen:
-
-    conn.protocol_version = 3
-    conn.set_option(ldap.OPT_REFERRALS, 0)
-
-Vragen aan de LDAP-server of er een gebruiker is met als naam `glenn@howestedx.local` en wachtwoord `123`
-
-    conn.simple_bind_s('glenn@howestedx.local', '123')
-
-## LDAP met Django en edX integreren
-
-Zie verder, onder Django, voor meer informatie over het integreren van LDAP met Django en edX.
-
-# Python
-
-## virtualenv
-
-Paketten globaal installeren kan tot problemen leiden: een applicatie gebruikt versie X van een pakket, terwijl een andere applicatie versie Y nodig heeft. Daarvoor heeft de Pythongemeenschap een oplossing: `virtualenv`. Hiermee kan je virtuele omgevingen maken, met Pythonversies en pakketversies die los staan van elkaar.
-
-Allereerst moet je zeker zijn dan pip (de python package manager) geïnstalleerd is. Om deze te installeren, download get-pip.py [hier](https://bootstrap.pypa.io/get-pip.py). Voer dit python bestand uit door `python get-pip.py` uit te voeren in je terminal.
-
-Nu kan je `virtualenv` installeren met `pip`:
-
-    pip install virtualenv
-
-Een nieuwe virtuele omgeving kan je aanmaken met `virtualenv naam`. Dit maakt een nieuwe map genoemd `naam`.
-
-Een virtual enviroment moet je eerst nog activeren. Dit doe je zo:
-
-    . virtualenv_naam/bin/activate
-
-Nu werk je binnen een virtualenv. Paketten die je installeert, zullen enkel de virtualenv beschikbaar zijn.
-
-Wanneer je klaar bent, kan je de virtualenv deactiveren door `deactivate` uit te voeren. Je terminal zal naar de oorspronkelijke staat hersteld worden.
 
 # Django
 
@@ -296,46 +226,6 @@ De backends worden van boven naar beneden afgelopen. In het voorbeeld wordt dus 
 
 # edX
 
-## Databases
-
-edX maakt gebruikt van zowel een traditionele relationele database, als een NoSQL database (MongoDB).
-
-### MongoDB
-
-MongoDB wordt gebruikt voor
-
-#### Herstellen bij serviceproblemen
-
-Wanneer MongoDB onverwachts wordt afgesloten, kan het zijn dat de `mongod` service problemen heeft om te starten. Dan kan je deze stappen uitvoeren:
-
-    su vagrant
-    sudo rm /edx/var/mongo/mongodb/mongod.lock
-    sudo service mongod restart
-
-### MySQL en Sqlite
-
-Hoewel de documentatie van edX aangeeft dat in een ontwikkelomgeving Sqlite gebruikt wordt, lijkt dit niet meer het geval te zijn. We ondervonden dat edX gebruik maakt van MySQL binnen Vagrant. Je kan een shell openen met `mysql -u root`
-
-### Configureren van databases in de devstack
-
-Veelal is het gewenst om een persistente database te hebben tijdens het ontwikkelen. Zo kan je bijvoorbeeld een course of gebruikers aanmaken zonder dat die verdwijnen wanneer je Vagrant opnieuw instelt.
-
-Daarom zullen we hier een MySQL-database en MongoDB-database opzetten. Daarna configureren we de devstack om deze databases te gebruiken.
-
-#### Aanmaken van een MySQL-database op Azure
-
-Via het [Azure Portal](https://portal.azure.com/) klikken we op `Add`, dan `Data + Storage`, dan `MySQL Database`.
-
-Omdat dit een development database zal zijn, kiezen we voor de Titan pricing tier. Mercury zal mogelijks te klein zijn voor onze noden.
-
-Als naam gaan we voor `edx_dev_mysql`. Na het accepteren van de legal terms kunnen we onze database aanmaken.
-
-#### Aanmaken van een MongoDB-database op Azure
-
-Via [Azure Management](https://manage.windowsazure.com/) (MongoLab is nog niet beschikbaar op het Azure Portal) klikken we op `New`, `Marketplace`, `Purchase`, en we kiezen voor `MongoLab`. We gaan voor het Sandboxplan. Dit zal een gehoste MongoDB database aanmaken.
-
-Als naam kiezen we `edx-dev-mongo`. De regio zetten we op North Europe.
-
 ## edX named releases
 
 Omdat edX een platform is dat heel snel evolueert, voorziet men nu “named releases”. Dit zijn LTS-versies, een beetje zoals Ubuntu ook werkt. Tussen twee named releases zal een upgrade path voorzien worden. Het is logisch dat we verderwerken op de laatste named release, aangezien die stabiel is, er makkelijk support voor kan worden gevonden, de onderhoudbaarheid vergroot (niet elke dag gaan upgraden) en edX een upgrade path voorziet tussen twee named releases.
@@ -369,59 +259,4 @@ Opgepast: dit moet je doen voordat je de machine voor de eerste keer start (heb 
 https://openedx.atlassian.net/wiki/display/DOC/Named+Releases
 http://edx-installing-configuring-and-running.readthedocs.org/en/latest/birch.html
 https://github.com/edx/configuration/wiki/Named-Releases
-
-## Architectuur
-
-### Thema's
-
-Het thema in edX kan gemakkelijk aangepast worden zonder het platform zelf aan te passen. Thema’s kunnen in de map themes geplaatst worden, en dan kan je via de configuratie opgeven welk thema je wil gebruiken.
-
-#### Een nieuw thema gebruiken
-
-Clone via git het nieuwe theme in de themes folder van je edX project.
-
-    git clone git@github.com:HowestX/howestx-theme.git
-
-Ga in je virtuele machine, en switch naar de `edxapp` user:
-
-    vagrant ssh
-    sudo su edxapp
-
-Bewerk het configuratiebestand voor het lms:
-
-    nano ../lms.env.json
-
-Daar moet je enkele wijzigingen doen:
-
-* `USE_CUSTOM_THEME` (in `FEATURES`) veranderen van `false` naar `true`
-* `THEME_NAME` instellen op de theme die je wenst te gaan gebruiken, bij ons is dit `howestx-theme`
-
-#### Stanford edX theme
-
-We hebben het Stanford theme in overweging genomen, maar dat was geen goede fit voor onze noden. De broncode was verwarrend en onoverzichtelijk, daarbovenop was het ook niet responsief.
-https://github.com/edx/edx-platform/wiki/Stanford-Theming 
-https://github.com/Stanford-Online/edx-theme 
-
-#### Keuze theme
-
-Uiteindelijk hebben we gekozen voor het IONISx. Dit is een Bootstrap-gebaseerd thema voor edX. Het enige moeilijke met dit thema is dat het LESS gebruikt, waar edX SASS gebruikt. Omdat de ontwikkelaars van IONISx geen extra asset-pipeline wilden toevoegen aan edX, stellen ze volgende workflow voor:
-
-* Installeren van het thema op de normale manier
-* Installeren van node.js en dependencies voor het builden van dit theme (zie ook “NVM installeren”)
-* `npm install` en `bower install` uitvoeren in de folder waarin je theme staat, dit installeert de dependencies en Bootstrap
-* Grunt uitvoeren: Grunt kan je starten met `grunt`: dit start grunt in “watch”-modus, telkens een file gewijzigd wordt, wordt het gecompileerd. Doordat er een verbinding is met Vagrant (door gemounte NFS-share), kan je gewoon de pagina refreshen en zie je je veranderingen
-* Omdat er gekozen is om geen aparte node.js pipeline toe te voegen aan edx-platform, is het de bedoeling dat css-bestanden die gecompileerd zijn van LESS-bestanden ook in de gitrepository worden ingecheckt. Dit voelt erg onproper aan, maar het is een trade-off, anders moeten we de volledige build pipline van edX aanpassen
-
-De GitHub-pagina van IONISx, waar we ons op baseren, is [hier](https://github.com/IONISx/edx-theme) te vinden. 
-
-#### Thema meegeven in provisioneringsscripts
-
-Zelf hebben we nog geen ervaring met het deployen van edX met Ansible, maar hier is documentatie over hoe je een thema instelt wanneer je dat doet:
-https://github.com/edx/edx-platform/wiki/Custom-Theming
-
-## Fullstack opzetten
-
-Tot nu toe hebben we altijd op de zogenaamde devstack gewerkt. Deze is echter niet geschikt om een werkende demo te kunnen geven conform aan productie. 
-Met de devstack is het niet mogelijk om de lms en cms tegelijk te runnen, waardoor het geven van een demo onmogelijk word.
-Met de fullstack daarentegen kan je het lms en cms tegelijk runnen waardoor je een volledige demo kan geven over de werking van dit MOOC systeem.
 

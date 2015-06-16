@@ -1,24 +1,5 @@
 # Deployment
 
-### Naam en andere configuratie aanpassen
-
-Voeg een variabele toe aan `/edx/app/edx_ansible/server-vars.yml`, net zoals je een theme aanpast. Je kan dezelfde naam gebruiken als in bv. `lms.env.json`:
-
-    EDXAPP_PLATFORM_NAME: 'howestX'
-
-### Search enablen in fullstack
-
-Aangezien er geen configuratievariabelen voorzien zijn in `server-vars.yml`, moeten we de configuratie binnen `edx-platform` gaan aanpassen. We gaan de globale configuratie aanpassen. Edit ` lms/envs/common.py` en zit de volgende variabelen op `True`:
-
-    'ENABLE_COURSEWARE_SEARCH': True,
-    ...
-    'ENABLE_DASHBOARD_SEARCH': True,
-    ...
-    'ENABLE_COURSE_DISCOVERY': True,
-    ...
-
-Herprovisioneer nu de fullstack server.
-
 ## Deployment met Amazon Webservices
 
 Voor AWS bestaan er publieke AMI's, voor europa is dat `ami-aa76d0dd`. Aangeraden is dat je deze deployed op een t2.medium instance.

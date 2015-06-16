@@ -683,4 +683,4 @@ No paid support is offered, however edX provides some support to any organisatio
 
 ### What are the possibiltie for the future?
 
-This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org .
+This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org . The next named release is to be called `Cypress` and will allegedly contain changes in social profile, 3rd party auth and single sign on, among other features.

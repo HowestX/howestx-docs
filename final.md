@@ -307,7 +307,7 @@ Any new languages have to be pulled in using the following command
 
     tx pull -l <lang_code>
     
-Run the following command to make sure tha changes take effect
+Run the following command to make sure the changes take effect
     
     paver i18n_fastgenerate
 
@@ -315,10 +315,7 @@ Restart the lms and cms
 
     sudo /edx/bin/supervisorctl restart edxapp:
 
-Now go to the language settings on your Django admin panel, you can find these at '<your_website>/admin/dark_lang'. For example
-
-    http://www.howestx.be/admin/dark_lang
-
+Now go to the language settings on your Django admin panel, you can find these at `<your_website>/admin/dark_lang`. For example `http://www.howestx.be/admin/dark_lang`
 There you must add a configuration, this configuration contains what languages users can select.
 Note that everything must be typed in lowercase, '_' becomes '-' and everything is comma seperated.
 For example

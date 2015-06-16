@@ -501,7 +501,7 @@ EdX has an immense userbase and a lot of big organisations like MIT and Harvard 
 Yes, it's a very widely used platform. A lot of major intitutions have opted for edX as their MOOC platform of choice.
 It also boasts more than 3 million users (as of 2014).
 
-### Is it easy to adap the platform?
+### Is it easy to adapt the platform?
 
 It's a very big and complex platform, adapting it is not an easy matter. Somtimes simply finding the correct files to work in can be a task on it's own. However, there is plenty of very detailed documentation and a very active and helpful community that should alleviate most issues.
 

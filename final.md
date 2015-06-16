@@ -273,6 +273,60 @@ Now sync and migrate the databases:
     $ ./manage.py lms syncdb --settings=aws
     $ ./manage.py cms migrate --settings=aws --delete-ghost-migrations
     $ ./manage.py lms migrate --settings=aws --delete-ghost-migrations
+    
+#### Internationalisation recipes
+
+When offering an online service it might be useful to provide that service in multiple languages to expand your possible userbase. But properly translating an entire service takes a lot of effort and time, luckily edX also provides a full translation of it's contents in a lot of languages. Setting it up is a breeze.
+
+First of all you will need a `.transifexrc` file. This file contains the information that edX will use to login to transifex, the service that provides the translations.
+
+Make a `.transifexrc` file on the following location
+
+    nano ~/.transifexrc
+
+Give it the following content
+
+    [https://www.transifex.com]
+    hostname = https://www.transifex.com
+    username = user
+    password = pass
+    token =
+
+Change 'user' and 'pass' to your own credentials. Token is to remain empty.
+Then run the following commands
+
+    source /edx/app/edxapp/edxapp_env
+    cd /edx/app/edxapp/edx-platform
+    
+Now we must make sure that the languages we wish to support are marked as active in `conf/locale/config.yaml`.
+Open that file and uncomment any language you wish to support.
+
+    nano conf/locale/config.yaml
+
+Any new languages have to be pulled in using the following command
+
+    tx pull -l <lang_code>
+    
+Run the following command to make sure tha changes take effect
+    
+    paver i18n_fastgenerate
+
+Restart the lms and cms
+
+    sudo /edx/bin/supervisorctl restart edxapp:
+
+Now go to the language settings on your Django admin panel, you can find these at '<your_website>/admin/dark_lang'. For example
+
+    http://www.howestx.be/admin/dark_lang
+
+There you must add a configuration, this configuration contains what languages users can select.
+Note that everything must be typed in lowercase, '_' becomes '-' and everything is comma seperated.
+For example
+
+    en,nl-nl,fr,ar,es-419
+
+Save this configuration.
+Now edX will be displayed in the user's preferred language.
 
 ## Usability
 

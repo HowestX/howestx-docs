@@ -111,7 +111,7 @@ The *Content Management System*, often called edX Studio, Studio or CMS, allows 
 
 #### Themes
 
-edX now has a flexible theme structure. Aparte from configuraion to use the new theme, the platform isn't modified in any way when creating or updating a theme.
+edX now has a flexible theme structure. Aside from configuring to use the new theme, the platform isn't modified in any way when creating or updating a theme.
 
 Themes go into a `themes/` folder. The theme to use can then be specified in the configuration.
 
@@ -147,7 +147,7 @@ Mac OS users can download Vagrant as a `.dmg` from [its website](http://www.vagr
 
 ##### Installing Vagrant on a Linux machine
 
-We suggest that Linux users **do not** install Vagrant using their package manager. The Vagrant in the Debian and Ubuntu repositories is often out of date, and this make cause strange errors when developing on the edX platform. Instead, we encourage Linux users to install Vagrant from [its website](http://www.vagrantup.com/downloads.html).
+We suggest that Linux users **do not** install Vagrant using their package manager. The Vagrant in the Debian and Ubuntu repositories is often out of date, and this may cause strange errors when developing on the edX platform. Instead, we encourage Linux users to install Vagrant from [its website](http://www.vagrantup.com/downloads.html).
 
 VirtualBox may be installed through the package manager, but Debian users will have to [enable non-free packages](http://serverfault.com/questions/240920/how-do-i-enable-non-free-packages-on-debian).
 
@@ -278,7 +278,7 @@ Now sync and migrate the databases:
 
 EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
 
-To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in `.tar.gzip`.
+To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gzip`.
     
 #### Internationalisation recipes
 

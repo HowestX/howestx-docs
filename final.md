@@ -178,7 +178,35 @@ This makes it easy to release the theme: the production edX platform can just pu
 
 #### Certificates
 
-Some people 
+Some people just want to participate in a course for personal education, but others want to participate in order to obtain proof they are qualified in certain subjects. These last people require certification in order to proof they have the necessary skills to get a certain job or be accepted in certain educational institutions.
+
+##### Certification in edx
+
+Edx has the capability to provide a couple of forms of certification, here's a list of the types of certificates you can obtain in edx.
+
+###### Honor code certificates
+
+These a basic certificates that say you passed a certain course, there is however no verification at all about your identity. This makes this an easy to obtain certificate, but with little real value.
+
+###### Verified certificates
+
+These certificates say you passed a course and verifies your identity. This happens by using pictures from your webcam and your ID. To obtain one of these certificates, a user must specify he is interested in one when he participates in a course. The user will also have to pay a fee for this certificate that can vary on a course-to-course basis.
+
+###### XSeries certificates
+
+XSeries certificates can be obtained when you pass for a series of courses that all fit within a certain subject. These might be useful in implementing the Howest tracks. There could be an XSeries certificate for a web developer, for example. XSeries certificates also require a fee that can vary.
+
+##### What about archived courses?
+
+There are no certificates available for archived courses. These courses can only be audited and some features, such as the discussion forums, may not be available.
+
+##### Are refunds possible?
+
+Yes, there is a period of 2 weeks from the start date of a course that someone can change their mind. He can still continue his course, but without the intention of obtaining a certificate. Of course, whether you offer refunds and for how long is a decision every organisation must make for itself.
+
+##### What happens when someone obtains a certificate?
+
+The certificate will be generated and sent to the user via email. In that email will be a link to a PDF-file that contains the certificate.
 
 #### Configuration
 
@@ -426,8 +454,49 @@ Then reprovision the server:
 
 ##### Production deployment
 
-TODO
-AWS deployment
+### AWS deployment
+
+There are public AMI's available for AWS, for europe that's `ami-aa76d0dd`. It's recommended to deploy this on an t2.medium instance.
+
+Start the server and connect to it via ssh (the user is 'ubuntu')
+
+    chmod 400 {path-to-keypair}
+    ssh -i {path-to-keypair} ubuntu@{public-ip}
+
+Then update the codebase
+
+    sudo /edx/bin/update configuration release
+    sudo /edx/bin/update edx-platform release
+    
+In case you get an 'Unable to resolve host' error, ass the following to `/etc/hosts`
+
+    127.0.1.1 {whatever ip}
+    
+If there's an error in the 'edx-platform-release' execute the following
+
+    cd /edx/app/edxapp/edx-platform
+    sudo -u edxapp git remote prune origin
+    
+You can now connect with the LMS on port 80 and the CMS on port 18010. If you get a 502 error, restart the mongo ansible role
+
+    cd /edx/app/edx_ansible/edx_ansible/playbooks && sudo /edx/app/edx_ansible/venvs/edx_ansible/bin/ansible-playbook -i localhost, -c local run_role.yml -e 'role=mongo' -e 'mongo_create_users=True'
+    
+The default authentication for the site is
+
+    username: edx
+    password: edx
+    
+The dafeult logincredentials are
+
+    user: staff@example.com
+    password: edx
+    
+If you run into a 500 error, do the following
+
+    cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py lms syncdb --migrate --settings aws
+    cd /edx/app/edxapp/edx-platform && sudo -u www-data /edx/bin/python.edxapp manage.py cms syncdb --migrate --settings aws
+    
+More on managing a fullstack: https://github.com/edx/configuration/wiki/edX-Managing-the-Full-Stack
 
 #### Fullstack recipes
 

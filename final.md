@@ -807,50 +807,7 @@ In the end, edX seems the best choice. It may be a complex system that will requ
 
 ### Personas
 
-#### A student
-
-##### Setup
-
-A student wants to enroll in a course, follow it, make exercices and eventually earn a certificate.
-
-#### A teacher
-
-##### Setup
-
-A teacher wants to create a course so students can follow it.
-
-#### A system administrator
-
-##### Setup
-
-A system administrator deploys and maintains the edX platform.
-
-#### A developer
-
-##### Setup
-
-A developer extends the edX platform.
-
-##### Front-end workflow
-
-The front-end workflow comprises editing of template files and styling.
-
-###### Pre-requisites
-
-The front-end developer should have a provisioned Vagrant machine, with a custom theme and grunt running as described in the frontend documentation.
-
-###### Example: updating the color of a link
-
-* After looking up which LESS file is responsible for the link color, the frontend developer opens it in his local editor. He can open the file through the NFS share, there is no need to edit from within Vagrant (although this is possible).
-* When saving, grunt will automatically pick this up, and recompile the assets.
-* On reloading the browser, the frontend developer can immediately check his work and repeat the edit-check cycle if necessary.
-* When satisfied, the frontend developer commits his changes. These can now be pushed. The frontend developer also pushes the compiled CSS files. This way the the team members don't need to install Grunt. A system administrator can then reprovision the production machines to use the theme in production. 
-
-###### Example: editing a template
-
-##### Back-end workflow
-
-The back-end workflow comprises editing of Python source files and Python configuration files.
+See the attachments for this documentation.
 
 ## Evaluation and Conclusion
 

@@ -16,11 +16,11 @@ Python is a dynamic, high-level programming language with a focus on readability
 
 ##### Virtual environments
 
-Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine: when upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
+Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine. When upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
 
 For this, the Python community has introduced *virtual environments*. These provide isolate packages in seperate environments. Usually, there will be one environment per application.
 
-Virtual environments (or *venvs* for short) need to be *activated* before you can do work in them. There will be a `bin/` folder in a virtual environment, containing multiple scripts. You can *source* the `activate` script to enable the virtual environment. This is done like this:
+Virtual environments (or *venvs* for short) need to be *activated* before you can do work in them. There will be a `bin/` folder in a virtual environment, containing multiple scripts. You can *source* the `activate` script to enable the virtual environment. This is done like this
 
     $ . ./venv/bin/activate
 
@@ -48,7 +48,7 @@ Secure Shell, or SSH, is a protocol for connecting to remote computers. It's als
 
 #### Vagrant
 
-The goal of Vagrant in the edX project is to give all developers the same development environment. It does this through the use of virtual machines: Vagrant is  a wrapper around a VM provider backend. For the edX platform, the VirtualBox backend is used.
+The goal of Vagrant in the edX project is to give all developers the same development environment. It does this through the use of virtual machines. Vagrant is  a wrapper around a VM provider backend. For the edX platform, the VirtualBox backend is used.
 
 In edX, Vagrant is used to run the development stack. This makes sure all developers are working with the same software, and the same versions. This makes it easier to reproduce problems and bugs.
 
@@ -70,7 +70,7 @@ LDAP uses port 389 (not to be confused with RDP, which uses port 3389). LDAPS, L
 
 #### Central Authentication Service (CAS)
 
-A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP: using LDAP, users have sign in into every application and authentication happens on the LDAP.
+A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP. Using LDAP, users have sign in into every application and authentication happens on the LDAP.
 
 A CAS server provides multiple pluggable backends. You can plug in a SQL database, an LDAP server...
 
@@ -82,7 +82,7 @@ The architecture of edX is very complex. To give you a rough idea, in the codeba
 
 #### Differences between edX distributions
 
-edX has different distributions (often called *stacks*), each with a different purpose..
+edX has different distributions (often called *stacks*), each with a different purpose.
 
 ##### Devstack
 
@@ -182,7 +182,7 @@ Some people just want to participate in a course for personal education, but oth
 
 ##### Certification in edx
 
-Edx has the capability to provide a couple of forms of certification, here's a list of the types of certificates you can obtain in edx.
+Edx has the capability to provide a couple forms of certification, here's a list of the types of certificates you can obtain in edx.
 
 ###### Honor code certificates
 
@@ -260,7 +260,7 @@ This is what happens:
 
 ##### Accessing a running Vagrant devstack machine
 
-You can access a runnig Vagrant devstack machine through SSH:
+You can access a running Vagrant devstack machine through SSH:
 
     $ vagrant ssh
 
@@ -304,12 +304,6 @@ Occasionally, Vagrant will still have trouble (happens rarely, e.g. when the hos
 #### Devstack recipes
 
 This section assumes you have a running devstack virtual machine with Vagrant.
-
-##### Access to the Vagrant guest
-
-###### SSH access
-
-###### File access
 
 ###### Fixing MongoDB
 
@@ -382,14 +376,14 @@ You need to run (or restart if it's already running) `paver` to see the effect i
 
 ##### Using a custom theme in fullstack
 
-Edit the `/edx/app/edx_ansible/server-vars.yml` file on the fullstack server and add the following variables:
+Edit the `/edx/app/edx_ansible/server-vars.yml` file on the fullstack server and add the following variables
 
     edxapp_use_custom_theme: true
     edxapp_theme_name: 'howestx-theme'
     edxapp_theme_source_repo: 'git://github.com/howestx/howestx-theme.git'
     edxapp_theme_version: 'HEAD'
 
-Then run the update script:
+Then run the update script
 
     $ sudo /edx/bin/update edx-platform master
 
@@ -401,7 +395,7 @@ You may specify another branch of the `edx-platform` by changing `master` in the
 
 ###### On an Ubuntu 12.04 machine
 
-You can install a fullstack deployment on an Ubuntu 12.04. It's important that you do this on a "fresh" server (nothing installed yet) using the following:
+You can install a fullstack deployment on an Ubuntu 12.04. It's important that you do this on a "fresh" server (nothing installed yet) using the following
 
     $ sudo apt-get update -y
     $ sudo apt-get upgrade -y
@@ -420,7 +414,7 @@ Be aware that this does **not** work with Ubuntu 12.04.5 (the standard on Azure 
 
 ###### Elasticsearch SSL certificate trouble
 
-In the latest elease, you may see an error with Elasticsearch's certificate:
+In the latest release, you may see an error with Elasticsearch's certificate
 
     TASK: [elasticsearch | download elasticsearch] ****************************
 
@@ -428,7 +422,7 @@ In the latest elease, you may see an error with Elasticsearch's certificate:
 
     msg: Failed to validate the SSL certificate for download.elasticsearch.org:443. Use validate_certs=no or make sure your managed systems have a valid CA certificate installed. Paths checked for this platform: /etc/ssl/certs, /etc/pki/ca-trust/extracted/pem, /etc/pki/tls/certs, /usr/share/ca-certificates/cacert.org, /etc/ansible
 
-A work-around is to edit the Ansible configuration file:
+A work-around is to edit the Ansible configuration file
 
     $ vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
 
@@ -436,7 +430,7 @@ Change the variable `elasticsearch_url` from `https` to `http`. **Only use this 
 
     $ cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
 
-###### Using a edX platform fork
+###### Using an edX platform fork
 
 You use a custom `edx-platform` for the fullstack too. Add the following to `/edx/app/edx_ansible/server-vars.yml`:
 
@@ -468,7 +462,7 @@ Then update the codebase
     sudo /edx/bin/update configuration release
     sudo /edx/bin/update edx-platform release
     
-In case you get an 'Unable to resolve host' error, ass the following to `/etc/hosts`
+In case you get an 'Unable to resolve host' error, add the following to `/etc/hosts`
 
     127.0.1.1 {whatever ip}
     
@@ -486,7 +480,7 @@ The default authentication for the site is
     username: edx
     password: edx
     
-The dafeult logincredentials are
+The dafeult login credentials are
 
     user: staff@example.com
     password: edx
@@ -836,7 +830,7 @@ The platform already has a lot of succes, boasting more than 3 million users (as
 
 ##### Usability
 
-EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-i.n
+EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-in
 
 ##### Activity
 
@@ -900,7 +894,7 @@ See the attachments for this documentation.
 
 ## Evaluation and Conclusion
 
-We will now evaluate the edX platform according to criteria specified by Howest
+We will now evaluate the edX platform according to criteria specified by Howest.
 
 ### Is the platform user friendly?
 

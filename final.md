@@ -232,7 +232,7 @@ This is what happens:
 
 ##### Accessing a running Vagrant devstack machine
 
-You can access a runnig Vagrant devstack machine through SSH:
+You can access a running Vagrant devstack machine through SSH:
 
     $ vagrant ssh
 

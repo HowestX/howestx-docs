@@ -854,20 +854,6 @@ TODO
 
 The back-end workflow comprises editing of Python source files and Python configuration files.
 
-## Price
-
-### Case studies
-
-#### MongoDB University
-
-TODO
-
-* http://www.wiredacademic.com/2013/04/is-the-price-right-a-mooc-startup-case-study/
-* https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
-* http://moocnewsandreviews.com/edx-and-stanford-partnering-on-open-source-mooc-platform/
-* http://www.kurzweilai.net/online-learning-at-stanford-goes-open-source-with-openedx
-* https://groups.google.com/forum/#!msg/edx-code/YEJxCrCNpLM/x2NHZH7yZQIJ
-
 ## Evaluation and Conclusion
 
 We will now evaluate the edX platform according to criteria specified by Howest

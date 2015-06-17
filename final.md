@@ -661,6 +661,84 @@ Now sync and migrate the databases:
     $ ./manage.py lms syncdb --settings=aws
     $ ./manage.py cms migrate --settings=aws --delete-ghost-migrations
     $ ./manage.py lms migrate --settings=aws --delete-ghost-migrations
+
+##### Configuring certificates
+
+Access the Django administration website on `https://<host name of your Open edX instance>/admin`.
+Under `Site administration > Certificates`, add an HTML view configuration and select `Enables`.
+Modify the configuration parameters. You must set the following parameters
+
+    platform_name
+    company_about_url
+    company_privacy_url
+    company_tos_url
+    company_verified_certificate_url
+    logo_src
+    logo_url
+    
+For each course mode, such as "honor" or "verified" define a `certificate_type`, `certificate_title` and `document_body_class_append`. The mode name should match your course mode exactly.
+
+    {
+        "default": {
+            "accomplishment_class_append": "accomplishment-certificate",
+            "platform_name": "YourPlatformName",
+            "company_about_url":"http://www.YourOrganization.com/about-us",
+            "company_privacy_url": "http://www.YourOrganization.com/our-privacy-policy",
+            "company_tos_url": "http://www.YourOrganization.com/our-terms-service",
+            "company_verified_certificate_url": "http://www.YourOrganization.com/about_verified_certificates",
+            "logo_src": "/static/certificates/images/our_logo.svg",
+            "logo_url": "www.YourOrganization.com"
+        },
+        "honor": {
+            "certificate_type": "honor",
+            "certificate_title": "Honor Certificate",
+            "document_body_class_append": "is-honorcode"
+        },
+        "verified": {
+            "certificate_type": "verified",
+            "certificate_title": "Verified Certificate",
+            "document_body_class_append": "is-idverified"
+        },
+        "base": {
+            "certificate_type": "base",
+            "certificate_title": "Certificate of Achievement",
+            "document_body_class_append": "is-base"
+        },
+        "distinguished": {
+            "certificate_type": "distinguished",
+            "certificate_title": "Distinguished Certificate of Achievement",
+            "document_body_class_append": "is-distinguished"
+        }
+    }
+    
+Save the configuration parametes and exit the Django administration.
+Restart the LMS and CMS.
+
+##### Customize certificate templates
+
+Assets for HTML certificates exist in the following locations
+
+    lms/templates/certificates
+
+This folder contains .html files for certificates. The `valid.html` file is an example. Files with names starting with an underscore are partial files that can be referenced in the main certificate files.
+
+    lms/static/certifcates
+    
+Subfolders of this folder contain assets used in creating certificates, such as images, fonts and sass/css files.
+
+##### Configure certificates within each course
+
+TODO
+
+##### Generate certificates for a course
+
+To manually generate certificates for a course, do the following
+
+Obtain the course ID, it can be found in the URL when you view the course in your browser. For example `http://www.edx.org/course/course-v1:edX+demoX_Demo_2015`, the course ID is ` course-v1:edX+demoX_Demo_2015`.
+
+Run `manage.py` with the following settings, replacing `{CourseID}` with the actual course ID.
+
+    manage.py lms --settings=aws ungenerated_certs -c {CourseID}
     
 #### Importing and exporting courses
 

@@ -80,6 +80,10 @@ Using a CAS server is comparable to OAuth. When users click *Log in*, they are t
 
 The architecture of edX is very complex. To give you a rough idea, in the codebase you can find Python, Ruby, node.js and Java sources. Here, we will take a quick look at the edX Platform architecture, and took a quick look at how edX is expected to be used.
 
+#### Named releases
+
+TODO
+
 #### Differences between edX distributions
 
 edX has different distributions (often called *stacks*), each with a different purpose..

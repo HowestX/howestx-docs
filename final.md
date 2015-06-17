@@ -81,8 +81,29 @@ Using a CAS server is comparable to OAuth. When users click *Log in*, they are t
 The architecture of edX is very complex. To give you a rough idea, in the codebase you can find Python, Ruby, node.js and Java sources. Here, we will take a quick look at the edX Platform architecture, and took a quick look at how edX is expected to be used.
 
 #### Named releases
+Because the edX platform evolves at a rapid pace, "named releases" have been created. These are LTS-versions, comparable to how Ubuntu works. Upgrade paths will be made available between two named releases. It made sense to start working on the latest named release, since it's stable with a lot of support available. And it improves the maintainabiliy (since we'll no longer hav eto upgrade every day).
 
-TODO
+The first named release was `Aspen`. The current one is `Birch`. It was released quite recently, on februari 24 2015. The next one will be `Cypress`.
+
+An example of an upgrade from `Aspen` to `Birch`
+
+    ./migrate.sh -c devstack
+
+A single line of code, running a script that automates everything. We're very pleased with this, and it strengthens our trust in edX as a platform.
+
+##### Developing on a named release
+
+Development on a named release is easy, simply set an environment variable before you start the vagrant machine
+
+    export OPENEDX_RELEASE="named-release/birch"
+    vagrant up
+    
+Attention! You must execute this BEFORE you start the machine for the first time, otherwise you'll have to destroy and try again. All the steps are
+
+    curl -L https://raw.githubusercontent.com/edx/configuration/master/vagrant/release/devstack/Vagrantfile > Vagrantfile
+    vagrant plugin install vagrant-vbguest
+    export OPENEDX_RELEASE="named-release/birch"
+    vagrant up
 
 #### Differences between edX distributions
 

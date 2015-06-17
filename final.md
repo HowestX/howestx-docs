@@ -2,7 +2,7 @@
 
 ## Preface
 
-This is the documentation for HowestX. HowestX is a pilot project for Howest (Howest University College West Flanders). The goal of this project was to evaluate the feasibility of adapting a MOOC platform. Three groups each evaluated a MOOC platform of their choice, HowestX evaluated the edX Open Platform.
+This is the documentation for HowestX. HowestX is a pilot project for Howest (Howest University College West Flanders). The goal of this project was to evaluate the feasibility of adapting a MOOC platform. Three groups each evaluated a MOOC platform of their choice, HowestX evaluated the edX Open Platform. In this document you will find all of our documentation, findings, technical solutions and technical recipes.
 
 ## Technical documentation
 
@@ -16,11 +16,11 @@ Python is a dynamic, high-level programming language with a focus on readability
 
 ##### Virtual environments
 
-Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine: when upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
+Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine. When upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
 
 For this, the Python community has introduced *virtual environments*. These provide isolate packages in seperate environments. Usually, there will be one environment per application.
 
-Virtual environments (or *venvs* for short) need to be *activated* before you can do work in them. There will be a `bin/` folder in a virtual environment, containing multiple scripts. You can *source* the `activate` script to enable the virtual environment. This is done like this:
+Virtual environments (or *venvs* for short) need to be *activated* before you can do work in them. There will be a `bin/` folder in a virtual environment, containing multiple scripts. You can *source* the `activate` script to enable the virtual environment. This is done like this
 
     $ . ./venv/bin/activate
 
@@ -48,7 +48,7 @@ Secure Shell, or SSH, is a protocol for connecting to remote computers. It's als
 
 #### Vagrant
 
-The goal of Vagrant in the edX project is to give all developers the same development environment. It does this through the use of virtual machines: Vagrant is  a wrapper around a VM provider backend. For the edX platform, the VirtualBox backend is used.
+The goal of Vagrant in the edX project is to give all developers the same development environment. It does this through the use of virtual machines. Vagrant is  a wrapper around a VM provider backend. For the edX platform, the VirtualBox backend is used.
 
 In edX, Vagrant is used to run the development stack. This makes sure all developers are working with the same software, and the same versions. This makes it easier to reproduce problems and bugs.
 
@@ -70,7 +70,7 @@ LDAP uses port 389 (not to be confused with RDP, which uses port 3389). LDAPS, L
 
 #### Central Authentication Service (CAS)
 
-A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP: using LDAP, users have sign in into every application and authentication happens on the LDAP.
+A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP. Using LDAP, users have sign in into every application and authentication happens on the LDAP.
 
 A CAS server provides multiple pluggable backends. You can plug in a SQL database, an LDAP server...
 
@@ -86,7 +86,7 @@ TODO
 
 #### Differences between edX distributions
 
-edX has different distributions (often called *stacks*), each with a different purpose..
+edX has different distributions (often called *stacks*), each with a different purpose.
 
 ##### Devstack
 
@@ -186,7 +186,7 @@ Some people just want to participate in a course for personal education, but oth
 
 ##### Certification in edx
 
-Edx has the capability to provide a couple of forms of certification, here's a list of the types of certificates you can obtain in edx.
+Edx has the capability to provide a couple forms of certification, here's a list of the types of certificates you can obtain in edx.
 
 ###### Honor code certificates
 
@@ -264,7 +264,7 @@ This is what happens:
 
 ##### Accessing a running Vagrant devstack machine
 
-You can access a runnig Vagrant devstack machine through SSH:
+You can access a running Vagrant devstack machine through SSH:
 
     $ vagrant ssh
 
@@ -308,12 +308,6 @@ Occasionally, Vagrant will still have trouble (happens rarely, e.g. when the hos
 #### Devstack recipes
 
 This section assumes you have a running devstack virtual machine with Vagrant.
-
-##### Access to the Vagrant guest
-
-###### SSH access
-
-###### File access
 
 ###### Fixing MongoDB
 
@@ -386,14 +380,14 @@ You need to run (or restart if it's already running) `paver` to see the effect i
 
 ##### Using a custom theme in fullstack
 
-Edit the `/edx/app/edx_ansible/server-vars.yml` file on the fullstack server and add the following variables:
+Edit the `/edx/app/edx_ansible/server-vars.yml` file on the fullstack server and add the following variables
 
     edxapp_use_custom_theme: true
     edxapp_theme_name: 'howestx-theme'
     edxapp_theme_source_repo: 'git://github.com/howestx/howestx-theme.git'
     edxapp_theme_version: 'HEAD'
 
-Then run the update script:
+Then run the update script
 
     $ sudo /edx/bin/update edx-platform master
 
@@ -405,7 +399,7 @@ You may specify another branch of the `edx-platform` by changing `master` in the
 
 ###### On an Ubuntu 12.04 machine
 
-You can install a fullstack deployment on an Ubuntu 12.04. It's important that you do this on a "fresh" server (nothing installed yet) using the following:
+You can install a fullstack deployment on an Ubuntu 12.04. It's important that you do this on a "fresh" server (nothing installed yet) using the following
 
     $ sudo apt-get update -y
     $ sudo apt-get upgrade -y
@@ -424,7 +418,7 @@ Be aware that this does **not** work with Ubuntu 12.04.5 (the standard on Azure 
 
 ###### Elasticsearch SSL certificate trouble
 
-In the latest elease, you may see an error with Elasticsearch's certificate:
+In the latest release, you may see an error with Elasticsearch's certificate
 
     TASK: [elasticsearch | download elasticsearch] ****************************
 
@@ -432,7 +426,7 @@ In the latest elease, you may see an error with Elasticsearch's certificate:
 
     msg: Failed to validate the SSL certificate for download.elasticsearch.org:443. Use validate_certs=no or make sure your managed systems have a valid CA certificate installed. Paths checked for this platform: /etc/ssl/certs, /etc/pki/ca-trust/extracted/pem, /etc/pki/tls/certs, /usr/share/ca-certificates/cacert.org, /etc/ansible
 
-A work-around is to edit the Ansible configuration file:
+A work-around is to edit the Ansible configuration file
 
     $ vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
 
@@ -440,7 +434,7 @@ Change the variable `elasticsearch_url` from `https` to `http`. **Only use this 
 
     $ cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
 
-###### Using a edX platform fork
+###### Using an edX platform fork
 
 You use a custom `edx-platform` for the fullstack too. Add the following to `/edx/app/edx_ansible/server-vars.yml`:
 
@@ -472,7 +466,7 @@ Then update the codebase
     sudo /edx/bin/update configuration release
     sudo /edx/bin/update edx-platform release
     
-In case you get an 'Unable to resolve host' error, ass the following to `/etc/hosts`
+In case you get an 'Unable to resolve host' error, add the following to `/etc/hosts`
 
     127.0.1.1 {whatever ip}
     
@@ -490,7 +484,7 @@ The default authentication for the site is
     username: edx
     password: edx
     
-The dafeult logincredentials are
+The dafeult login credentials are
 
     user: staff@example.com
     password: edx
@@ -667,6 +661,95 @@ Now sync and migrate the databases:
     $ ./manage.py lms syncdb --settings=aws
     $ ./manage.py cms migrate --settings=aws --delete-ghost-migrations
     $ ./manage.py lms migrate --settings=aws --delete-ghost-migrations
+
+##### Configuring certificates
+
+Access the Django administration website on `https://<host name of your Open edX instance>/admin`.
+Under `Site administration > Certificates`, add an HTML view configuration and select `Enables`.
+Modify the configuration parameters. You must set the following parameters
+
+    platform_name
+    company_about_url
+    company_privacy_url
+    company_tos_url
+    company_verified_certificate_url
+    logo_src
+    logo_url
+    
+For each course mode, such as "honor" or "verified" define a `certificate_type`, `certificate_title` and `document_body_class_append`. The mode name should match your course mode exactly.
+
+    {
+        "default": {
+            "accomplishment_class_append": "accomplishment-certificate",
+            "platform_name": "YourPlatformName",
+            "company_about_url":"http://www.YourOrganization.com/about-us",
+            "company_privacy_url": "http://www.YourOrganization.com/our-privacy-policy",
+            "company_tos_url": "http://www.YourOrganization.com/our-terms-service",
+            "company_verified_certificate_url": "http://www.YourOrganization.com/about_verified_certificates",
+            "logo_src": "/static/certificates/images/our_logo.svg",
+            "logo_url": "www.YourOrganization.com"
+        },
+        "honor": {
+            "certificate_type": "honor",
+            "certificate_title": "Honor Certificate",
+            "document_body_class_append": "is-honorcode"
+        },
+        "verified": {
+            "certificate_type": "verified",
+            "certificate_title": "Verified Certificate",
+            "document_body_class_append": "is-idverified"
+        },
+        "base": {
+            "certificate_type": "base",
+            "certificate_title": "Certificate of Achievement",
+            "document_body_class_append": "is-base"
+        },
+        "distinguished": {
+            "certificate_type": "distinguished",
+            "certificate_title": "Distinguished Certificate of Achievement",
+            "document_body_class_append": "is-distinguished"
+        }
+    }
+    
+Save the configuration parametes and exit the Django administration.
+Restart the LMS and CMS.
+
+##### Customize certificate templates
+
+Assets for HTML certificates exist in the following locations
+
+    lms/templates/certificates
+
+This folder contains .html files for certificates. The `valid.html` file is an example. Files with names starting with an underscore are partial files that can be referenced in the main certificate files.
+
+    lms/static/certifcates
+    
+Subfolders of this folder contain assets used in creating certificates, such as images, fonts and sass/css files.
+
+##### Configure certificates within each course
+
+###### Create a certificate configuration
+
+In studio, from the `Settings` menu select `Certificates`.
+On the certificates page, select `Add a new certificate`.
+Upload your organization's logo image file.
+Add a signatory for each person associated with the course or organization whose name and title you want to appear on the certificate, up to a maximum of four.
+When you have finished creating your certificat configuration, select `Create`.
+
+###### Activate a certificate configuration
+
+In studio, from the `Settings` menu, select `Certificates`.
+On the certificates page, click `Activate`.
+
+##### Generate certificates for a course
+
+To manually generate certificates for a course, do the following
+
+Obtain the course ID, it can be found in the URL when you view the course in your browser. For example `http://www.edx.org/course/course-v1:edX+demoX_Demo_2015`, the course ID is ` course-v1:edX+demoX_Demo_2015`.
+
+Run `manage.py` with the following settings, replacing `{CourseID}` with the actual course ID.
+
+    manage.py lms --settings=aws ungenerated_certs -c {CourseID}
     
 #### Importing and exporting courses
 
@@ -753,7 +836,7 @@ The platform already has a lot of succes, boasting more than 3 million users (as
 
 ##### Usability
 
-EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-i.n
+EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-in
 
 ##### Activity
 
@@ -817,7 +900,7 @@ See the attachments for this documentation.
 
 ## Evaluation and Conclusion
 
-We will now evaluate the edX platform according to criteria specified by Howest
+We will now evaluate the edX platform according to criteria specified by Howest.
 
 ### Is the platform user friendly?
 
@@ -870,4 +953,6 @@ No paid support is offered, however edX provides some support to any organisatio
 
 ### What are the possibiltie for the future?
 
-This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org . The next named release is to be called `Cypress` and will be released between July 15th and 20th with a first release candidate planned for June 26th. It will allegedly contain changes in social profile, 3rd party auth and single sign on, among other features. The 3rd party auth and single sign on are looking very interesting, as they would fit Howest's needs perfectly.
+This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org . The next named release is to be called `Cypress` and will be released between July 15th and 20th with a first release candidate planned for June 26th. It will allegedly contain changes in social profile, 3rd party auth and single sign on, among other features. The 3rd party auth and single sign on are looking very interesting, as they would fit Howest's needs perfectly. 
+EdX also offers an open source mobile app that could be adapted to Howest's needs.
+More on the mobile app: http://edx-installing-configuring-and-running.readthedocs.org/en/latest/mobile.html

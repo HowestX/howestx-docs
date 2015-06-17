@@ -178,7 +178,35 @@ This makes it easy to release the theme: the production edX platform can just pu
 
 #### Certificates
 
-Some people 
+Some people just want to participate in a course for personal education, but others want to participate in order to obtain proof they are qualified in certain subjects. These last people require certification in order to proof they have the necessary skills to get a certain job or be accepted in certain educational institutions.
+
+##### Certification in edx
+
+Edx has the capability to provide a couple of forms of certification, here's a list of the types of certificates you can obtain in edx.
+
+### Honor code certificates
+
+These a basic certificates that say you passed a certain course, there is however no verification at all about your identity. This makes this an easy to obtain certificate, but with little real value.
+
+### Verified certificates
+
+These certificates say you passed a course and verifies your identity. This happens by using pictures from your webcam and your ID. To obtain one of these certificates, a user must specify he is interested in one when he participates in a course. The user will also have to pay a fee for this certificate that can vary on a course-to-course basis.
+
+### XSeries certificates
+
+XSeries certificates can be obtained when you pass for a series of courses that all fit within a certain subject. These might be useful in implementing the Howest tracks. There could be an XSeries certificate for a web developer, for example. XSeries certificates also require a fee that can vary.
+
+## What about archived courses?
+
+There are no certificates available for archived courses. These courses can only be audited and some features, such as the discussion forums, may not be available.
+
+## Are refunds possible?
+
+Yes, there is a period of 2 weeks from the start date of a course that someone can change their mind. He can still continue his course, but without the intention of obtaining a certificate.
+
+## What happens when someone obtains a certificate?
+
+The certificate will be generated and sent to the user via email. In that email will be a link to a PDF-file that contains the certificate.
 
 #### Configuration
 
@@ -232,7 +260,7 @@ This is what happens:
 
 ##### Accessing a running Vagrant devstack machine
 
-You can access a running Vagrant devstack machine through SSH:
+You can access a runnig Vagrant devstack machine through SSH:
 
     $ vagrant ssh
 

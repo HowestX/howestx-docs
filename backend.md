@@ -36,28 +36,6 @@ Uiteindelijk kunnen we nog de upstream remote toevoegen als `upstream`:
 
 Pullen doen we met `git pull release origin`. Enkel en alleen objecten ophalen kan met `git fetch`. Om een remote in te stellen voor een branch kan je bijvoorbeeld `git branch --set-upstream-to=origin/release release` gebruiken voor een branch die `release` noemt.
 
-# LDAP
-
-## Beschrijving protocol
-
-Light-weight Directory Access Protocol (LDAP) is een protocol dat ons toelaat om directoryservices aan te spreken. Directoryservices slaan informatie hiërarchisch op. Het meest voorkomende gebruik van LDAP is het authenticeren van gebruikers.
-LDAP maakt gebruik van poort 389 (verwar niet met RDP, dat op poort 3389 werkt). LDAPS, LDAPS over SSL, werkt standaard op poort 636. LDAP maakt gebruik van zowel TCP als UDP.
-
-### Bronnen
-
-http://en.wikipedia.org/wiki/Directory_service 
-http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol 
-https://msdn.microsoft.com/en-us/library/aa367008(v=vs.85).aspx 
-
-## LDAP testen op \*NIX
-
-Het programma ldapsearch (veelal te vinden in een package die ldap-utils noemt) kan gebruikt worden om LDAP te testen.
-Hier testen we bijvoorbeeld het inloggen (binden in LDAP-taal):
-ldapsearch -D "glenn@howestedx.local" -W -H ldap://howest-test-ad.cloudapp.net -b "dc=howestedx,dc=local"
-
-### Bronnen
-http://linux.die.net/man/1/ldapsearch 
-
 # Django
 
 ## LDAP integreren in een test-app

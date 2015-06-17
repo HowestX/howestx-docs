@@ -639,6 +639,8 @@ Now we can try to authenticate (*bind*) to the LDAP server:
 
 If you don't get any exceptions, you have connected successfully.
 
+##### Using LDAP with edX
+
 #### Certificates recipes
 
 ##### Turning on certificates in fullstack
@@ -666,7 +668,7 @@ Now sync and migrate the databases:
 
 EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
 
-To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gzip`.
+To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gz` format.
 
 #### Internationalisation recipes
 

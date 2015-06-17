@@ -16,7 +16,7 @@ Python is a dynamic, high-level programming language with a focus on readability
 
 ##### Virtual environments
 
-Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine: when upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
+Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine: when upgrading a packages for one application, the second application may break if it depends on a different version than the new dependencies.
 
 For this, the Python community has introduced *virtual environments*. These provide isolate packages in seperate environments. Usually, there will be one environment per application.
 
@@ -24,7 +24,7 @@ Virtual environments (or *venvs* for short) need to be *activated* before you ca
 
     $ . ./venv/bin/activate
 
-Notice the dot. This means the argument will a script to source.
+Notice the dot. This means the argument will script to source.
 
 After sourcing, you will notice that your shell `$PATH` has changed. The `python`, `pip` and other executables will be those from inside the virtual environment. When you install a package with `pip`, it will be installed in the virtual environment.
 
@@ -60,7 +60,7 @@ The first time a box is started, it will be *provisioned*. The base image will b
 
 #### Ansible
 
-Ansible is a way to automate provisioning of  (virtual) machines. It's used extensively in the edX project due to the complexity of edX deployments. With Ansible, task are neatly split up (there are roles to set up repositories, roles to set up ElasticSearch, roles to install Python packages, ...).
+Ansible is a way to automate provisioning of (virtual) machines. It's used extensively in the edX project due to the complexity of edX deployments. With Ansible, task are neatly split up (there are roles to set up repositories, roles to set up ElasticSearch, roles to install Python packages, ...).
 
 #### LDAP
 
@@ -100,7 +100,7 @@ The *production stack* is what is recommended for production. The production sta
 
 #### Persistance
 
-There are main database systems in use for edX:
+These are the main database systems in use for edX:
 
 * MySQL, a popular relational database
 * MongoDB, a popular JSON-based NoSQL database
@@ -178,7 +178,7 @@ This makes it easy to release the theme: the production edX platform can just pu
 
 #### Certificates
 
-Some people 
+Some people ####NOG DOEN !!!
 
 #### Configuration
 
@@ -227,7 +227,7 @@ This is what happens:
 * We then install the `vagrant-vbguest` plugin. This only needs to happen once.
 * Then we start up the virtual machine using `vagrant up`:
   - If this is the first time you set up an edX Vagrant development box, it will have to download a VirtualBox base image. This image will be roughly 3GB.
-  - If this is the first time this specific virtual machine starts up, the machine be provisioned. This happens automatically. The virtual machine will download and run ansible scripts. This may take a while (15 minutes). This only happens once, unless you destroy or reprovision the virtual machine.
+  - If this is the first time this specific virtual machine starts up, the machine be provisioned. This happens automatically. The virtual machine will download and run ansible scripts. This may take a while (~15 minutes). This only happens once, unless you destroy or reprovision the virtual machine.
   - If the virtual machine already exists, it will be booted. This only takes a few minutes.
 
 ##### Accessing a running Vagrant devstack machine
@@ -651,7 +651,7 @@ The platform already has a lot of succes, boasting more than 3 million users (as
 
 ##### Usability
 
-EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-i.n
+EdX as a platform is very usable to an end user, it offers an intuitive user interface which is also rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-i.n
 
 ##### Activity
 
@@ -667,7 +667,7 @@ EdX so far appears to be the perfect choice for any school interested in setting
 
 EdX is an absolutely huge platform, that is also highly fragmented. Simply finding the source code of a specific part of it is a huge task on it’s own.
 
-However, there is also an immense amout of documentation and an active community ready to help. edX claims to offer support to an institution attempting to adapt edX to it’s own needs.
+However, there is also an immense amout of documentation and an active community ready to help. EdX claims to offer support to an institution attempting to adapt edX to it’s own needs.
 
 #### Peer 2 Peer University
 
@@ -695,7 +695,7 @@ OpenMooc is a MOOC platform that hails from Spain, it was made to promote virtua
 OpenMooc’s default user interface is atrocious. It's also not mobile ready. A lot of work would have to be put in to make this a usable platform. A couple of things did draw our attention however, like the platform's ability to follow up on your own as well as other people's questions and it's native support for LDAP.
 
 ##### Activity
-As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s GitHub is also very inactive, most commits are already a year old. Google trends also confirms this.
+As far as we can tell, OpenMooc isn’t a widely used platform. A couple of smaller institutions allegedly use it but there is no proof of any major organisation showing interest in this platform. It’s GitHub is also very inactive, most commits are already a year old. Google trends also confirm this.
 
 ![Google trends graphic on OpenMooc](images/GoogleTrends_OpenMooc.png "OpenMooc on Google trends")
 
@@ -745,8 +745,6 @@ The front-end developer should have a provisioned Vagrant machine, with a custom
 
 ###### Example: updating the color of a link
 
-TODO
-
 * After looking up which LESS file is responsible for the link color, the frontend developer opens it in his local editor. He can open the file through the NFS share, there is no need to edit from within Vagrant (although this is possible).
 * When saving, grunt will automatically pick this up, and recompile the assets.
 * On reloading the browser, the frontend developer can immediately check his work and repeat the edit-check cycle if necessary.
@@ -754,23 +752,13 @@ TODO
 
 ###### Example: editing a template
 
+* If a HTML file needs to be edited, the frontend developer should copy the file in question from the lms folder in the devstack to the custom theme folder. The folder structure should be be the same from the lms folder.
+* EdX will then use the custom HTML page instead of the default one.
+* It sometimes takes several minutes for the custom HTML to show up in the browser. Clearing the browsercache can speed up this process.
+
 ##### Back-end workflow
 
 The back-end workflow comprises editing of Python source files and Python configuration files.
-
-## Price
-
-### Case studies
-
-#### MongoDB University
-
-TODO
-
-* http://www.wiredacademic.com/2013/04/is-the-price-right-a-mooc-startup-case-study/
-* https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
-* http://moocnewsandreviews.com/edx-and-stanford-partnering-on-open-source-mooc-platform/
-* http://www.kurzweilai.net/online-learning-at-stanford-goes-open-source-with-openedx
-* https://groups.google.com/forum/#!msg/edx-code/YEJxCrCNpLM/x2NHZH7yZQIJ
 
 ## Evaluation and Conclusion
 

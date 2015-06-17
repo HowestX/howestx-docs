@@ -728,7 +728,18 @@ Subfolders of this folder contain assets used in creating certificates, such as 
 
 ##### Configure certificates within each course
 
-TODO
+###### Create a certificate configuration
+
+In studio, from the `Settings` menu select `Certificates`.
+On the certificates page, select `Add a new certificate`.
+Upload your organization's logo image file.
+Add a signatory for each person associated with the course or organization whose name and title you want to appear on the certificate, up to a maximum of four.
+When you have finished creating your certificat configuration, select `Create`.
+
+###### Activate a certificate configuration
+
+In studio, from the `Settings` menu, select `Certificates`.
+On the certificates page, click `Activate`.
 
 ##### Generate certificates for a course
 

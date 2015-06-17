@@ -510,6 +510,19 @@ This example command can be used to *bind* to an LDAP server:
 
     $ ldapsearch -D "glenn@howestedx.local" -W -H ldap://howest-test-ad.cloudapp.net -b "dc=howestedx,dc=local"
 
+##### Using a GUI for LDAP testing
+
+You can use [Apache Directory Studio](https://directory.apache.org/studio/) (not to be confused with Apache Directory), a tool based on Eclipse, to experiment with LDAP.
+
+After downloading, run the Apache Directory Studio and create a new connection:
+
+![Adding a new connection: specifying the hostname](images/ads-new-connection-1.png "Adding a new connection: specifying the hostname")
+![Adding a new connection: providing the username and password for a simple bind](images/ads-new-connection-2.png "Adding a new connection: providing the username and password for a simple bind")
+
+Now we can browse the LDAP server:
+
+![An overview of user information retrieved over LDAP](images/ads-overview.png "An overview of user information retrieved over LDAP")
+
 ##### Using LDAP with Python
 
 *Note: some networks (the one at Howest GKG in particular) block LDAP traffic to outside networks. You may circumvent this by using a VPN, or by using an LDAP server inside that network.*
@@ -595,7 +608,7 @@ Give it the following content
 Change 'user' and 'pass' to your own credentials. Token is to remain empty.
 Then run the following commands
 
-    $ source /edx/app/edxapp/edxapp_env
+    $ . /edx/app/edxapp/edxapp_env
     $ cd /edx/app/edxapp/edx-platform
 
 Now we must make sure that the languages we wish to support are marked as active in `conf/locale/config.yaml`.

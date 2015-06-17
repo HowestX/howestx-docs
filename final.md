@@ -24,7 +24,7 @@ Virtual environments (or *venvs* for short) need to be *activated* before you ca
 
     $ . ./venv/bin/activate
 
-Notice the dot. This means the argument will a script to source.
+Notice the dot. This means the argument will be a script to source.
 
 After sourcing, you will notice that your shell `$PATH` has changed. The `python`, `pip` and other executables will be those from inside the virtual environment. When you install a package with `pip`, it will be installed in the virtual environment.
 
@@ -60,7 +60,7 @@ The first time a box is started, it will be *provisioned*. The base image will b
 
 #### Ansible
 
-Ansible is a way to automate provisioning of  (virtual) machines. It's used extensively in the edX project due to the complexity of edX deployments. With Ansible, task are neatly split up (there are roles to set up repositories, roles to set up ElasticSearch, roles to install Python packages, ...).
+Ansible is a way to automate provisioning of (virtual) machines. It's used extensively in the edX project due to the complexity of edX deployments. With Ansible, task are neatly split up (there are roles to set up repositories, roles to set up ElasticSearch, roles to install Python packages, ...).
 
 #### LDAP
 
@@ -100,7 +100,7 @@ The *production stack* is what is recommended for production. The production sta
 
 #### Persistance
 
-There are main database systems in use for edX:
+These are the main database systems in use for edX:
 
 * MySQL, a popular relational database
 * MongoDB, a popular JSON-based NoSQL database
@@ -840,8 +840,6 @@ The front-end workflow comprises editing of template files and styling.
 The front-end developer should have a provisioned Vagrant machine, with a custom theme and grunt running as described in the frontend documentation.
 
 ###### Example: updating the color of a link
-
-TODO
 
 * After looking up which LESS file is responsible for the link color, the frontend developer opens it in his local editor. He can open the file through the NFS share, there is no need to edit from within Vagrant (although this is possible).
 * When saving, grunt will automatically pick this up, and recompile the assets.

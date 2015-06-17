@@ -1,0 +1,22 @@
+root@howestx-staging:/edx/app/edx_ansible# cat server-vars.yml 
+edxapp_use_custom_theme: true
+edxapp_theme_name: 'howestx-theme'
+edxapp_theme_source_repo: 'git://github.com/howestx/howestx-theme.git'
+edxapp_theme_version: 'HEAD'
+EDXAPP_PLATFORM_NAME: 'howestX'
+edx_platform_repo: "https://github.com/HowestX/edx-platform.git"
+EDXAPP_LANGUAGE_CODE: "en"
+
+EDXAPP_LMS_BASE: "howestx.be"
+EDXAPP_PREVIEW_LMS_BASE: "howestx.be"
+EDXAPP_CMS_BASE: "studio.howestx.be"
+
+FEATURES:
+    - ENABLE_DASHBOARD_SEARCH: true
+    - ENABLE_COURSEWARE_SEARCH: true
+    - ENABLE_COURSE_DISCOVERY: true
+    - ENABLE_COURSEWARE_INDEX: true
+    - ENABLE_LIBRARY_INDEX: true
+    - SEARCH_ENGINE: "search.tests.mock_search_engine.MockSearchEngine"
+    - CERTIFICATES_ENABLED: true
+

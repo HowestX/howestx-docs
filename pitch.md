@@ -65,7 +65,7 @@ De voorbije week werden er heel wat dingen klaargemaakt om zo efficiënt mogelij
 
 # Sitemap
 
-TODO
+![Image on sitemap](images/Sitemap.png "Image sitemap")
 
 # Design
 

@@ -186,7 +186,7 @@ Some people just want to participate in a course for personal education, but oth
 
 ##### Certification in edx
 
-Edx has the capability to provide a couple forms of certification, here's a list of the types of certificates you can obtain in edx.
+edX has the capability to provide a couple forms of certification, here's a list of the types of certificates you can obtain in edx.
 
 ###### Honor code certificates
 
@@ -639,6 +639,112 @@ If you don't get any exceptions, you have connected successfully.
 
 ##### Using LDAP with edX
 
+Now we want to integrate LDAP with edX. This is split up in parts, since it's non-trivial.
+
+###### Install necessary packages
+
+Log in to your server (either devstack or fullstack) on a user with which you have `sudo` rights (on the devstack, this is the `vagrant` user, its password is `vagrant`). Install the following `apt` packages, they ar necessary for the the Python packages.
+
+    sudo apt-get install libldap2-dev libsasl2-dev
+
+Now we can install the Python package. First activate the correct virtual environment, then install the package:
+
+    $ . ../venvs/edxapp/bin/activate
+    $ pip install django-auth-ldap
+
+The `django-auth-ldap` provides an LDAP authentication backend for Django.
+
+###### Configure the LDAP backend
+
+We will now configure the LDAP backend. This is done in the `lms/envs/common.py` file.
+
+At the top, import `ldap` and `LDAPSearch`:
+
+    import ldap
+    from django_auth_ldap.config import LDAPSearch
+
+Above `AUTHENTICATION_BACKENDS`, add in the LDAP config:
+
+    # LDAP CONF
+    AUTH_LDAP_SERVER_URI = "ldap://howest-test-ad.cloudapp.net"
+
+    AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+
+    AUTH_LDAP_USER_DN_TEMPLATE = '%(user)s'
+
+    AUTH_LDAP_ALWAYS_UPDATE_USER = True
+
+    AUTH_LDAP_USER_ATTR_MAP = {
+        "first_name": "givenName",
+        "last_name": "sn",
+        "email": "mail",
+    }
+
+    AUTH_LDAP_CONNECTION_OPTIONS = {
+        ldap.OPT_DEBUG_LEVEL: 1,
+        ldap.OPT_REFERRALS: 0,
+        ldap.OPT_PROTOCOL_VERSION: 3
+    }
+
+Now add an authentication backend:
+
+    AUTHENTICATION_BACKENDS = (
+        'student.models.LDAPHowestBackend',
+        'ratelimitbackend.backends.RateLimitModelBackend',
+    )
+
+Again, make sure your LDAP server is reachable from your server!
+
+
+###### Adding a custom backend
+
+Add this in `common/djangoapps/student/models.py` at the end:
+
+    from django_auth_ldap.backend import LDAPBackend
+
+    class LDAPHowestBackend(LDAPBackend):
+        def ldap_to_django_username(self, username):
+            return username.replace('.', '').split('@')[0][:30]
+
+        def django_to_ldap_username(self, username):
+            return username + '@howestedx.local'
+
+        def authenticate(self, username, password, **kwargs):
+            if username == '':
+                return None
+
+            return LDAPBackend.authenticate(self, username, password, **kwargs)
+
+        def get_or_create_user(self, username, ldap_user):
+            print '[get_or_create_user] *' * 400
+            print 'Username : *%s*' % username
+            return LDAPBackend.get_or_create_user(self, username, ldap_user)
+
+###### Turning off third-party authentication and calling the LDAP backend with the email address
+
+Now edit `common/djangoapps/student/views.py`. Comment `third_party_auth_requested = third_party_auth.is_enabled() and pipeline.running(request)` in the `login_user` method and replace it by `third_party_auth_requested = False`.
+
+    -    third_party_auth_requested = third_party_auth.is_enabled() and pipeline.running(request)
+    +    #third_party_auth_requested = third_party_auth.is_enabled() and pipeline.running(request)
+    +    third_party_auth_requested = False
+
+This may seem counter-intuitive, since LDAP is third-party authentication, but because we use an LDAP authentication backend, it's now considered first-party authentication.
+
+The problem is that Django will now try to resolve the email address to a username, and then use that username to authenticate with LDAP. But if the user isn't registered yet, the authentication will always fail, since he's not in the Django database.
+
+Therefore, further in the `login_user` method, add this:
+
+        if not third_party_auth_successful:
+            try:
+                user = authenticate(username=username, password=password, request=request)
+
+    +           if user == None:
+    +               # try LDAP backend
+    +               user = authenticate(username=request.POST.get('email'), password=password, request=request)
+
+This will authenticate to the LDAP backend using the email address if the standard Django `ModelBackend`
+fails (e.g. if the user is not found in the Django database).
+
 #### Certificates recipes
 
 ##### Turning on certificates in fullstack
@@ -753,7 +859,7 @@ Run `manage.py` with the following settings, replacing `{CourseID}` with the act
     
 #### Importing and exporting courses
 
-EdX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
+edX already provedes the functionality to import and export courses. This provides an easy way to for example take a course from your platform and put it on edX's own platform.
 
 To Export or import a course, open the course in the studio. Then click on `settings`. In the sub-menu that opens you have the options to import and export. Courses are saved in a `.tar.gz` format.
 
@@ -830,13 +936,13 @@ We are interested in the following criteria:
 
 #### edX
 
-EdX is a large open souce MOOC platform that was developed as a joint venture between the Massachussets Institute of Technology and the Harvard university. UC Berkeley has also joined.
+edX is a large open souce MOOC platform that was developed as a joint venture between the Massachussets Institute of Technology and the Harvard university. UC Berkeley has also joined.
 
 The platform already has a lot of succes, boasting more than 3 million users (as of October 2014), and being used by institutions such as Stanford.
 
 ##### Usability
 
-EdX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-in
+edX as a platform is very usable to an end user, it offers an intuitive user interface which is alo rather attractive to the eye. This does not translate over to mobile, as the default theme is not mobile ready. It also seems to have a lot of functionality already built-in
 
 ##### Activity
 
@@ -844,13 +950,13 @@ We were happy to see edX being a very active platform. Not only does it have a r
 
 It’s also a rather ‘hot topic’ online, showing a surge in activity.
 
-![Google trends graphic on edX](images/GoogleTrends_edX.png "EdX on Google trends")
+![Google trends graphic on edX](images/GoogleTrends_edX.png "edX on Google trends")
 
 ##### Complexity
 
-EdX so far appears to be the perfect choice for any school interested in setting up a MOOC platform of their own. However, it’s sheer complexity might cause some issues.
+edX so far appears to be the perfect choice for any school interested in setting up a MOOC platform of their own. However, it’s sheer complexity might cause some issues.
 
-EdX is an absolutely huge platform, that is also highly fragmented. Simply finding the source code of a specific part of it is a huge task on it’s own.
+edX is an absolutely huge platform, that is also highly fragmented. Simply finding the source code of a specific part of it is a huge task on it’s own.
 
 However, there is also an immense amout of documentation and an active community ready to help. edX claims to offer support to an institution attempting to adapt edX to it’s own needs.
 
@@ -902,57 +1008,69 @@ See the attachments for this documentation.
 
 We will now evaluate the edX platform according to criteria specified by Howest.
 
-### Is the platform user friendly?
+### Evaluation
 
-EdX as a platform is very user friendly. For students it has a very nice user interface that allows them to quickly find what they need. Teachers can easily create, manage and share courses.
+#### Is the platform user friendly?
 
-### Can the platform be put in production easily?
+edX as a platform is very user friendly. For students it has a very nice user interface that allows them to quickly find what they need. Teachers can easily create, manage and share courses.
 
-This is where the most issues will be found. EdX is an immensely complex system that is difficult to set up. Furhermore when we tried to setup a named release, it kept failing to deploy. EdX was also developed with AWS in mind, not really offering a lot of support for Azure.
+#### Can the platform be put in production easily?
 
-### Is the platform still being developed?
+This is where the most issues will be found. edX is an immensely complex system that is difficult to set up. Furhermore when we tried to setup a named release, it kept failing to deploy. edX was also developed with AWS in mind, not really offering a lot of support for Azure.
+
+#### Is the platform still being developed?
 
 There is still a very healthy and active development going on. When checking the github page we generally see commits that are 2-3 hours old. More and more people are also starting to use edX and there are eve  consultants who are specializing in this platform.
 
-### Is the future of the platform certain?
+#### Is the future of the platform certain?
 
-EdX has an immense userbase and a lot of big organisations like MIT and Harvard backing it up. Google trends is also showing a positive trend.
+edX has an immense userbase and a lot of big organisations like MIT and Harvard backing it up. Google trends is also showing a positive trend.
 
-### Are others also using the platform?
+#### Are others also using the platform?
 
 Yes, it's a very widely used platform. A lot of major intitutions have opted for edX as their MOOC platform of choice.
 It also boasts more than 3 million users (as of 2014).
 
-### Is it easy to adapt the platform?
+#### Is it easy to adapt the platform?
 
 It's a very big and complex platform, adapting it is not an easy matter. Somtimes simply finding the correct files to work in can be a task on it's own. However, there is plenty of very detailed documentation and a very active and helpful community that should alleviate most issues.
 
-### Is is easy to set up a development environment?
+#### Is is easy to set up a development environment?
 
 In order to set up a development environment, vagrant is preferrable. On Linux and Mac this is an easy thing to use, but on Windows it has proven to be very difficult. It's also very fragile and can break easily, requiring you to reset the development environment.
 
-### Is the platform maintainable?
+#### Is the platform maintainable?
 
 Once the development environments are set up, maintaining is easy. The back-end and front-end are fully seperated and fully pluggable, leading to easy development.
 
-### Is there internationalisation within the platform?
+#### Is there internationalisation within the platform?
 
-EdX provides internationalisation that is a breeze to set up. You can make use of a simple web interface. It makes use of transifex to obtain it's translations. Sadly, dutch is not yet translated.
+edX provides internationalisation that is a breeze to set up. You can make use of a simple web interface. It makes use of transifex to obtain it's translations. Sadly, dutch is not yet translated.
 
-### Can we monetise the platform?
+#### Can we monetise the platform?
 
 Yes, it's possible to ask money for verified certificates. This model has workde for organisations such as edx.org, MongoDB university,...
 
-### Can we brand the platform?
+#### Can we brand the platform?
 
 It's possible to brand the entire platform, there is no dependance on edX for this matter. It's also very easy to do this.
 
-### Is there paid support?
+#### Is there paid support?
 
 No paid support is offered, however edX provides some support to any organisation looking to set up their own fork. The community is also a source of help just like the excellent documentation. If necessary there are even paid consultants specialised in edX.
 
-### What are the possibiltie for the future?
+#### What are the possibilities for the future?
 
 This platform can certainly be used as a base to develop upon. There is a lot that can be done with interactivity, Azure Active Directory can be integrated and courses could be published on edx.org . The next named release is to be called `Cypress` and will be released between July 15th and 20th with a first release candidate planned for June 26th. It will allegedly contain changes in social profile, 3rd party auth and single sign on, among other features. The 3rd party auth and single sign on are looking very interesting, as they would fit Howest's needs perfectly. 
-EdX also offers an open source mobile app that could be adapted to Howest's needs.
+
+edX also offers an open source mobile app that could be adapted to Howest's needs.
 More on the mobile app: http://edx-installing-configuring-and-running.readthedocs.org/en/latest/mobile.html
+
+### Final conclusion
+
+Is the edX platform ready for adoption with Howest? We believe the answer to be "yes", as long as the following conditions are met:
+
+* Howest's IT team needs to be educated on the use of git, Vagrant, Python, Django and Ansible,
+* Howest's teaching team needs to be trained to use the full capacity of edX Studio. edX Studio is very intuitive, but to use it to its full capacity, we believe training is in order,
+* The platform should be hosted on AWS to ensure low-latency.
+

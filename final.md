@@ -1098,3 +1098,35 @@ Is the edX platform ready for adoption with Howest? We believe the answer to be 
 * Howest's teaching team needs to be trained to use the full capacity of edX Studio. edX Studio is very intuitive, but to use it to its full capacity, we believe training is in order,
 * The platform should be hosted on AWS to ensure low-latency.
 
+### Sources
+
+Here are the main sources we used:
+
+* http://edx-installing-configuring-and-running.readthedocs.org/en/latest/
+* http://edx-installing-configuring-and-running.readthedocs.org/en/latest/configuration/enable_certificates.html
+* https://media.readthedocs.org/pdf/edx-installing-configuring-and-running/latest/edx-installing-configuring-and-running.pdf
+* https://open.edx.org/
+* https://github.com/edx/configuration/wiki/edX-Managing-the-Full-Stack
+* https://github.com/edx/configuration/wiki/edX-Developer-Stack
+* https://github.com/edx/configuration/wiki/edX-Full-Stack
+* https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation
+* https://pythonhosted.org/django-auth-ldap/
+* https://pypi.python.org/pypi/django-auth-ldap
+* http://stackoverflow.com/questions/19940466/understanding-django-ldap-authentication
+* https://docs.djangoproject.com/en/1.8/topics/auth/customizing/
+* https://github.com/susundberg/django-auth-ldap-ad
+* https://docs.djangoproject.com/en/1.8/topics/auth/
+* http://www.gracion.com/server/whatldap.html
+* http://linux.die.net/man/1/ldapsearch
+* http://stackoverflow.com/questions/663402/what-are-the-differences-between-ldap-and-active-directory
+* http://azure.microsoft.com/en-us/services/active-directory/
+* http://timsneath.com/installing-open-edx-on-microsoft-azure/
+* https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
+* http://jasig.github.io/cas/4.0.x/index.html
+* http://lesscss.org/
+* http://sass-lang.com/
+* https://www.edx.org/mobile
+* https://www.vagrantup.com/
+* https://github.com/edx/edx-platform/wiki/Internationalization-and-localization
+* https://www.transifex.com/projects/p/edx-platform/
+

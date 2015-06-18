@@ -18,7 +18,7 @@ Python is a dynamic, high-level programming language with a focus on readability
 
 Python uses packages to manage dependencies. This can introduce problems when you run multiple Python applications on a single machine. When upgrading a packages for one application, the second application may break if depends on a different version than the new dependencies.
 
-For this, the Python community has introduced *virtual environments*. These provide isolate packages in seperate environments. Usually, there will be one environment per application.
+For this, the Python community has introduced *virtual environments*. These provide isolated packages in seperate environments. Usually, there will be one environment per application.
 
 Virtual environments (or *venvs* for short) need to be *activated* before you can do work in them. There will be a `bin/` folder in a virtual environment, containing multiple scripts. You can *source* the `activate` script to enable the virtual environment. This is done like this
 
@@ -38,7 +38,7 @@ Django is the most popular Python web framework.
 
 #### Less and Sass
 
-Less and Sass are CSS pre-processors. They extend CSS with variables and functions, leading to a more maintable frontend codebase. Less and Sass files are compiled down to CSS files so a browser can read them.
+Less and Sass are CSS pre-processors. They extend CSS with variables and functions, leading to a more maintainable frontend codebase. Less and Sass files are compiled down to CSS files so a browser can read them.
 
 Less and Sass serve the same purpose, and have similar features, but are not compatible. Sass is mostly used in the Ruby world, Less is mostly used in the node.js world.
 
@@ -70,7 +70,7 @@ LDAP uses port 389 (not to be confused with RDP, which uses port 3389). LDAPS, L
 
 #### Central Authentication Service (CAS)
 
-A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP. Using LDAP, users have sign in into every application and authentication happens on the LDAP.
+A CAS server provides Single Sign-On for an organisation. This means that users sign in once, and are then signed in automatically across other applications. This is not the case with LDAP. Using LDAP, users have to sign in into every application and authentication happens on the LDAP server.
 
 A CAS server provides multiple pluggable backends. You can plug in a SQL database, an LDAP server...
 
@@ -78,10 +78,10 @@ Using a CAS server is comparable to OAuth. When users click *Log in*, they are t
 
 ### edX architecture
 
-The architecture of edX is very complex. To give you a rough idea, in the codebase you can find Python, Ruby, node.js and Java sources. Here, we will take a quick look at the edX Platform architecture, and took a quick look at how edX is expected to be used.
+The architecture of edX is very complex. To give you a rough idea, in the codebase you can find Python, Ruby, node.js and Java sources. Here, we will take a quick look at the edX Platform architecture, and take a quick look at how edX is expected to be used.
 
 #### Named releases
-Because the edX platform evolves at a rapid pace, "named releases" have been created. These are LTS-versions, comparable to how Ubuntu works. Upgrade paths will be made available between two named releases. It made sense to start working on the latest named release, since it's stable with a lot of support available. And it improves the maintainabiliy (since we'll no longer hav eto upgrade every day).
+Because the edX platform evolves at a rapid pace, "named releases" have been created. These are LTS-versions, comparable to how Ubuntu works. Upgrade paths will be made available between two named releases. It made sense to start working on the latest named release, since it's stable with a lot of support available. And it improves the maintainabiliy (since we'll no longer have to upgrade every day).
 
 The first named release was `Aspen`. The current one is `Birch`. It was released quite recently, on februari 24 2015. The next one will be `Cypress`.
 
@@ -123,7 +123,7 @@ The *fullstack* is a distribution that runs edX in production mode, with all ser
 
 The *production stack* is what is recommended for production. The production stack is hard to deploy, since it's very complex, but an Amazon Web Services template is provided. It contains multiple machines, databases and load balancers.
 
-#### Persistance
+#### Persistence
 
 These are the main database systems in use for edX:
 
@@ -159,7 +159,7 @@ Thus, CAS is not a good match if you want hybrid authentication (authentication 
 There are a number of default user accounts accounts available:
 
 * `staff@example.com`, password: `edx`, staff account that can create courses
-* `verified@example.com`, password: `edx`, student account for testing verified courses
+* `verified@xeample.com`, password: `edx`, student account for testing verified courses
 * `audit@example.com`, password: `edx`, student account for testing course auditing (meaning: following the course without paying for it)
 * `honor@example.com`, student account for testing honor code certificates
 
@@ -186,7 +186,7 @@ Themes go into a `themes/` folder. The theme to use can then be specified in the
 There are only a few existing themes on which we can base a custom theme.
 
 * The built-in theme: this is the theme that is inside the edX platform core, and the default that gets loaded. This means that you have to edit the platform to update the theme, which is not something you want to do, especially since edX supports external themes.
-* The Standford theme: this is the theme that Stanford University uses. This theme is not responsive, which was a dealbreaker for us.
+* The Stanford theme: this is the theme that Stanford University uses. This theme is not responsive, which was a dealbreaker for us.
 * IONISx theme: the theme developed by the French IONIS Education Group. This theme is based on Bootstrap, and responsive by default.
 
 ##### Choice of theme
@@ -375,7 +375,7 @@ To use a custom theme in the devstack, you can update `lms.env.json`. This file 
 
     $ vim ~/lms.env.json
 
-Two modifications need to be made:
+Two modifications need to be made
 
 1. In the `FEATURES` list, set `USE_CUSTOM_THEME` to `true`
 1. Set the `THEME_NAME` entry to the name of your theme (for example, `howestx-theme`)
@@ -426,11 +426,11 @@ You can install a fullstack deployment on an Ubuntu 12.04. It's important that y
     $ sudo apt-get upgrade -y
     $ sudo reboot
 
-After rebooting, you can install using the one-step install script:
+After rebooting, you can install using the one-step install script
 
     $ wget https://raw.githubusercontent.com/edx/configuration/master/util/install/sandbox.sh -O - | bash
 
-You can also install using  named release:
+You can also install using  named release
 
     $ export OPENEDX_RELEASE=named-release/birch
     $ wget https://raw.githubusercontent.com/edx/configuration/$OPENEDX_RELEASE/util/install/vagrant.sh -O - | bash
@@ -451,21 +451,21 @@ A work-around is to edit the Ansible configuration file
 
     $ vim /var/tmp/configuration/playbooks/roles/elasticsearch/defaults/main.yml
 
-Change the variable `elasticsearch_url` from `https` to `http`. **Only use this as a temporary work-around for testing!** The certificate will probably be fixed in a coming release. You now need to reprovision the server:
+Change the variable `elasticsearch_url` from `https` to `http`. **Only use this as a temporary work-around for testing!** The certificate will probably be fixed in a coming release. You now need to reprovision the server
 
     $ cd /var/tmp/configuration/playbooks && sudo ansible-playbook -c local ./edx_sandbox.yml -i "localhost,"
 
 ###### Using an edX platform fork
 
-You use a custom `edx-platform` for the fullstack too. Add the following to `/edx/app/edx_ansible/server-vars.yml`:
+You use a custom `edx-platform` for the fullstack too. Add the following to `/edx/app/edx_ansible/server-vars.yml`
 
     edx_platform_repo: "https://github.com/HowestX/edx-platform.git"
 
-Obviously using your own repository. Then you need to remove the existing platform:
+Obviously using your own repository. Then you need to remove the existing platform
 
     $ sudo rm -rf /edx/app/edxapp/edx-platform
 
-Then reprovision the server:
+Then reprovision the server
 
     $ sudo /edx/bin/update edx-platform release
 
@@ -537,7 +537,7 @@ Give these variable the appropriate content, an example could be
 
 ##### Reprovision the server
 
-If, for any reason, you want to reprovision the fullstack server, use the following command:
+If, for any reason, you want to reprovision the fullstack server, use the following command
 
     $ sudo /edx/bin/update edx-platform release
 
@@ -545,7 +545,7 @@ You can use any branch instead of `release`.
 
 ##### Change the name of the platform
 
-Edit `/edx/app/edx_ansible/server-vars.yml`, and add the following:
+Edit `/edx/app/edx_ansible/server-vars.yml`, and add the following
 
     EDXAPP_PLATFORM_NAME: 'howestX'
 
@@ -563,7 +563,7 @@ By default, there is no search possibility in fullstack. Edit `/edx/app/edx_ansi
         - ENABLE_LIBRARY_INDEX: true
         - SEARCH_ENGINE: "search.tests.mock_search_engine.MockSearchEngine"
 
-Now reprovision the server:
+Now reprovision the server
 
     $ sudo /edx/bin/update edx-platform release
 
@@ -571,14 +571,14 @@ Now reprovision the server:
 
 If you have created a few test courses, you will have noticed there is no `delete` functionality in edX Studio. You have to delete courses manually from MongoDB.
 
-To do this, log in to your fullstack server and start a `mongo` shell:
+To do this, log in to your fullstack server and start a `mongo` shell
 
     root@howestx-staging:~# mongo
     MongoDB shell version: 2.6.10
     connecting to: test
     > 
 
-We first need to select the correct database, just like in SQL shells:
+We first need to select the correct database, just like in SQL shells
 
     > use edxapp
     switched to db edxapp
@@ -598,7 +598,7 @@ Now we can check if we are using the correct database. The name of the document 
       "definition" : {
     ...
 
-This is the correct database. Now we can remove the record we want:
+This is the correct database. Now we can remove the record we want
 
     > db.modulestore.remove({ "_id.course": "CAT1_W110"})
 
@@ -608,7 +608,7 @@ This is the correct database. Now we can remove the record we want:
 
 You can use the `ldapsearch` program (packaged in a package called `ldap-utils` by most distributions) to query LDAP servers and test them.
 
-This example command can be used to *bind* to an LDAP server:
+This example command can be used to *bind* to an LDAP server
 
     $ ldapsearch -D "glenn@howestedx.local" -W -H ldap://howest-test-ad.cloudapp.net -b "dc=howestedx,dc=local"
 
@@ -616,12 +616,12 @@ This example command can be used to *bind* to an LDAP server:
 
 You can use [Apache Directory Studio](https://directory.apache.org/studio/) (not to be confused with Apache Directory), a tool based on Eclipse, to experiment with LDAP.
 
-After downloading, run the Apache Directory Studio and create a new connection:
+After downloading, run the Apache Directory Studio and create a new connection
 
 ![Adding a new connection: specifying the hostname](images/ads-new-connection-1.png "Adding a new connection: specifying the hostname")
 ![Adding a new connection: providing the username and password for a simple bind](images/ads-new-connection-2.png "Adding a new connection: providing the username and password for a simple bind")
 
-Now we can browse the LDAP server:
+Now we can browse the LDAP server
 
 ![An overview of user information retrieved over LDAP](images/ads-overview.png "An overview of user information retrieved over LDAP")
 
@@ -629,12 +629,12 @@ Now we can browse the LDAP server:
 
 *Note: some networks (the one at Howest GKG in particular) block LDAP traffic to outside networks. You may circumvent this by using a VPN, or by using an LDAP server inside that network.*
 
-You can try this out in a Vagrant devstack box. We recommend working in a Python virtual environment. First of all, install the `python-ldap` package and its dependencies:
+You can try this out in a Vagrant devstack box. We recommend working in a Python virtual environment. First of all, install the `python-ldap` package and its dependencies
 
     $ sudo apt-get install libldap2-dev libsasl2-dev
     $ pip install python-ldap
 
-Now you can start the Python interpreter and import `python-ldap`:
+Now you can start the Python interpreter and import `python-ldap`
 
     $ python
     Python 2.7.10 (default, Jun  1 2015, 16:21:46) 
@@ -647,7 +647,7 @@ You can now create a connection to the LDAP server. This will only create a conn
 
     >>> conn = ldap.initialize('ldap://howest-test-ad.cloudapp.net')
 
-We need to set up a few parameters on this object before we can start querying:
+We need to set up a few parameters on this object before we can start querying
 
     >>> conn.protocol_version = 3
     >>> conn.set_option(ldap.OPT_REFERRALS, 0)
@@ -664,11 +664,11 @@ Now we want to integrate LDAP with edX. This is split up in parts, since it's no
 
 ###### Install necessary packages
 
-Log in to your server (either devstack or fullstack) on a user with which you have `sudo` rights (on the devstack, this is the `vagrant` user, its password is `vagrant`). Install the following `apt` packages, they ar necessary for the the Python packages.
+Log in to your server (either devstack or fullstack) on a user with which you have `sudo` rights (on the devstack, this is the `vagrant` user, its password is `vagrant`). Install the following `apt` packages, they are necessary for the the Python packages.
 
     sudo apt-get install libldap2-dev libsasl2-dev
 
-Now we can install the Python package. First activate the correct virtual environment, then install the package:
+Now we can install the Python package. First activate the correct virtual environment, then install the package
 
     $ . ../venvs/edxapp/bin/activate
     $ pip install django-auth-ldap
@@ -679,12 +679,12 @@ The `django-auth-ldap` provides an LDAP authentication backend for Django.
 
 We will now configure the LDAP backend. This is done in the `lms/envs/common.py` file.
 
-At the top, import `ldap` and `LDAPSearch`:
+At the top, import `ldap` and `LDAPSearch`
 
     import ldap
     from django_auth_ldap.config import LDAPSearch
 
-Above `AUTHENTICATION_BACKENDS`, add in the LDAP config:
+Above `AUTHENTICATION_BACKENDS`, add in the LDAP config
 
     # LDAP CONF
     AUTH_LDAP_SERVER_URI = "ldap://howest-test-ad.cloudapp.net"
@@ -707,7 +707,7 @@ Above `AUTHENTICATION_BACKENDS`, add in the LDAP config:
         ldap.OPT_PROTOCOL_VERSION: 3
     }
 
-Now add an authentication backend:
+Now add an authentication backend
 
     AUTHENTICATION_BACKENDS = (
         'student.models.LDAPHowestBackend',
@@ -719,7 +719,7 @@ Again, make sure your LDAP server is reachable from your server!
 
 ###### Adding a custom backend
 
-Add this in `common/djangoapps/student/models.py` at the end:
+Add this in `common/djangoapps/student/models.py` at the end
 
     from django_auth_ldap.backend import LDAPBackend
 
@@ -753,7 +753,7 @@ This may seem counter-intuitive, since LDAP is third-party authentication, but b
 
 The problem is that Django will now try to resolve the email address to a username, and then use that username to authenticate with LDAP. But if the user isn't registered yet, the authentication will always fail, since he's not in the Django database.
 
-Therefore, further in the `login_user` method, add this:
+Therefore, further in the `login_user` method, add this
 
         if not third_party_auth_successful:
             try:
@@ -770,19 +770,19 @@ fails (e.g. if the user is not found in the Django database).
 
 ##### Turning on certificates in fullstack
 
-To turn on certifates in fullstack, first edit the `lms/envs/common.py` and `cms/envs/common.py` files:
+To turn on certifates in fullstack, first edit the `lms/envs/common.py` and `cms/envs/common.py` files
 
     $ vim /edx/app/edxapp/edx-platform/lms/envs/common.py
     $ vim /edx/app/edxapp/edx-platform/cms/envs/common.py
 
-Search for an option called `CERTIFICATES_HTML_VIEW` in both of the files, and set it to true:
+Search for an option called `CERTIFICATES_HTML_VIEW` in both of the files, and set it to true
 
     ...
     # Certificates Web/HTML Views
     'CERTIFICATES_HTML_VIEW': True,
     ...
 
-Now sync and migrate the databases:
+Now sync and migrate the databases
 
     $ . . ../venvs/edxapp/bin/activate
     $ ./manage.py cms syncdb --settings=aws
@@ -930,7 +930,7 @@ Restart the lms and cms
 
 Now go to the language settings on your Django admin panel, you can find these at `<your_website>/admin/dark_lang`. For example:  `http://www.howestx.be/admin/dark_lang`.
 
-There you must add a configuration, this configuration contains what languages users can select. Note that everything must be typed in lowercase, that '_' becomes '-', and everything should be comma seperated. For example:
+There you must add a configuration, this configuration contains what languages users can select. Note that everything must be typed in lowercase, that '_' becomes '-', and everything should be comma seperated. For example
 
     en,nl-nl,fr,ar,es-419
 
@@ -960,7 +960,7 @@ We are interested in the following criteria:
 
 edX is a large open souce MOOC platform that was developed as a joint venture between the Massachussets Institute of Technology and the Harvard university. UC Berkeley has also joined.
 
-The platform already has a lot of succes, boasting more than 3 million users (as of October 2014), and being used by institutions such as Stanford.
+The platform already has a lot of succes, boasting more than 3 million users (as of October 2014), and is being used by institutions such as Stanford.
 
 ##### Usability
 

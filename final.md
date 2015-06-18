@@ -770,11 +770,12 @@ fails (e.g. if the user is not found in the Django database).
 
 ##### Turning on certificates in fullstack
 
-To turn on certifates in fullstack, first edit the `lms/envs/common.py` file:
+To turn on certifates in fullstack, first edit the `lms/envs/common.py` and `cms/envs/common.py` files:
 
     $ vim /edx/app/edxapp/edx-platform/lms/envs/common.py
+    $ vim /edx/app/edxapp/edx-platform/cms/envs/common.py
 
-Search for an option called `CERTIFICATES_HTML_VIEW`, and set it to true:
+Search for an option called `CERTIFICATES_HTML_VIEW` in both of the files, and set it to true:
 
     ...
     # Certificates Web/HTML Views

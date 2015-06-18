@@ -34,7 +34,7 @@ Om het platform naar onze hand te zetten en zo functioneler te maken voor het Ho
 
 ## Technologieën
 
-![Image on front-facing](images/Front-facingTechnologieën.png "Image front-facing")
+![Image on front-facing](images/Front-facingTechnologieen.png "Image front-facing")
 Op bovenstaande afbeelding is de technische analuse voor de front-facing site (het LMS) terug te vinden
 
 ### Authenticatie
@@ -100,17 +100,19 @@ Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in or
 
 [Image courses ](images/CoursesOntwerp.png "Image courses")
 
-# WBS: Week 2
+# WBS
+
+## Week 2
 
 ![Image WBS week 2](images/WBS week 2.png "Image WBS week 2")
 ![Image legende](images/Legende.png	"Image legende")
 
-# WBS: Week 3
+## Week 3
 
 ![Image WBS week 3](images/WBS week 3.png "Image WBS week 3")
 ![Image legende](images/Legende.png	"Image legende")
 
-# WBS: Week 4
+## Week 4
 
 Zoals u op onderstaande figuur kunt zien, werd heel wat afgewerkt in week 4. Enkele dingen moeten wel in acht genomen worden.
 
@@ -144,5 +146,5 @@ We zijn tijdens het werken heel wat problemen tegengekomen. In dit hoofdstuk wor
 
 * Het implementeren van LDAP is een zeer complexe en problematische opgave. Door de complexiteit van edX was het dan ook zeer lastig om de correcte files te vinden. Het feit dat edX veel settingfiles inlaadt en overschrijft helpt niet. Eens we de correcte files gevonden hadden en LDAP erin verwerkt hadden bleek het ook nog eens lastig te zijn om de user properties correct te binden in Django. Uiteindelijk is LDAP werkend geraakt mits een kleine beperking omtrent de username die gebruikt moet worden.
 * Het opzetten van een fullstack installatie in de cloud is ook en probleempunt. Dit doordat de installatie telkens crasht bij het onderdeel ‘xqwatcher’.
-* Een ander probleem dat we tegenkwamen was het feit de certificaten niet werkten.
+* Een ander probleem dat we tegenkwamen was het feit de certificaten niet werkten. De edX-documentatie was niet up to date, en beschreven stappen werkten niet.
 

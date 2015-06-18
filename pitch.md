@@ -158,8 +158,55 @@ Werken met Azure Active Directory zou een perfecte match zijn voor Howest.
 Dit omdat Howest al zo een Directory heeft die gesyncd wordt met de on-premises AD.
 Wat wel raar is, is dat AAD geen LDAP gebruikt, het maakt gebruik van OAuth. Daar is wel al een Django plugin voor voorzien, maar nog niet in edX. Daar wordt wel aan gewerkt, maar dit is nog vrij recent en de discussie daarrond is nog volop bezig.
 
+# Huidige tijdregistratie - week 3
+Niet alles die in deze lijst staat is reeds afgewerkt. Er zijn wel al wat dingen waar we aan begonnen zijn en waar reeds wat tijd aanbesteed is. In de WBS achteraan kan er geraadpleegd worden wat er allemaal al klaar is. Hieronder kunt u wel een lijst raadplegen over de hoeveelheid tijd die al besteed is geweest. Ook het tussentijdse verschil kunt u zien.
+
+Een belangrijk punt om op te merken is het feit dat er bij deployment van edX op Azure momenteel 10 uur staat, maar dit is nog NIET afgewerkt. Er kan algemeen besloten worden dat er qua tijd redelijk kleine verschillen zijn en dat sommige dingen sneller verlopen dan gepland.
+
+
+![Image planning week 3](images/Planningweek3.png "Image planning week 3")
+
+# WBS: Week 2
+
+![Image WBS week 2](images/WBS week 2.png "Image WBS week 2")
+![Image legende](images/Legende.png	"Image legende")
+
+# WBS: Week 3
+![Image WBS week 3](images/WBS week 3.png "Image WBS week 3")
+![Image legende](images/Legende.png	"Image legende")
+
+# WBS: Week 4
+Zoals u op onderstaande figuur kunt zien, werd heel wat afgewerkt in week 4. Enkele dingen moeten wel in acht genomen worden.
+Zo is de cursus online geplaatst maar zijn er geen extra elementen aangepast om de cursus printable te maken. We hebben hier geen extra tijd meer ingestoken omdat er achteraf gezien niet zo'n grote vraag aanwezig is voor het afdrukken van de cursus. Dit komt omdat er heel wat filmpjes aanwezig zullen zijn.
+
+De progress van leerlingen kan ook bijgehouden worden maar er kan bij ons systeem nog niet gewerkt worden met certificaten. In de documentatie is wel volledig terug te vinden hoe dit opgezet moet worden.
+
+![Image WBS week 3](images/WBSWeek4.png "Image WBS week 3")
+
+# Finale design
+Aan het design dat in de vorige weken werd gemaakt werden tijdens week 3 en 4 toch nog heel wat dingen aangepast. We zijn met ons definitief ontwerp ook eventjes naar een professionele designer namelijk Angelo Fallein. Op onderstaande afbeeldingen is te zien hoe het design er nu werkelijk uitziet
 
 
 
+# Problemen
+We zijn tijdens het werken heel wat problemen tegengekomen. In dit hoofdstuk worden de belangrijkste problemen aangehaald.
+
+## Algemeen
+* Vagrant blijft vaak lastig doen. Het is dan ook soms nodig een ‘vagrant destroy’ uit te voeren. Dit neemt heel wat kostbare tijd in beslag daar de hele vagrant VM opnieuw geïnstalleerd en klaargezet moet worden.
+
+* Windows zorgde ook voor vele problemen, dit door het feit dat onze vagrant VM en Windows niet samengaan. De VM maakt gebruik van symlinks die niet worden herkend door windows. Dit zorgde ervoor dat we hebben moeten overschakelen naar linux, wat alweer tijd in beslag nam.
+
+* Wanneer er op het platform huiswerk of een examen aangemaakt wil worden, kan dit niet door middel van bijvoorbeeld een vinkje aan te zetten. Er moet echter altijd ‘Homework:’ of “Final exam: ” in de titel meegeven worden.
 
 
+## Front-end
+* Doordat sommige CSS klassen 3 keer overschreven worden is het soms moeilijk om te weten waar je de styling precies moet aanpassen. Het is een struikelblok, maar eenmaal je de structuur van het theme door hebt, loopt het aanpassen al wat vlotter.
+
+* Als we een html-file toevoegen of aanpassen moeten we lang wachten tot deze te zien is in de browser.
+
+## Back-end
+* Het implementeren van LDAP is een zeer complexe en problematische opgave. Door de complexiteit van edX was het dan ook zeer lastig om de correcte files te vinden. Het feit dat edX veel settingfiles inlaadt en overschrijft helpt niet. Eens we de correcte files gevonden hadden en LDAP erin verwerkt hadden bleek het ook nog eens lastig te zijn om de user properties correct te binden in Django. Uiteindelijk is LDAP werkend geraakt mits een kleine beperking omtrent de username die gebruikt moet worden.
+
+* Het opzetten van een fullstack installatie in de cloud is ook en probleempunt. Dit doordat de installatie telkens crasht bij het onderdeel ‘xqwatcher’.
+
+* Een andere probleem die we tegenkwamen was het feit de certificaten niet werken. 

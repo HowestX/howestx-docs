@@ -947,11 +947,13 @@ If you would want to change the default language of the entire platform, you mus
 If a modern college is interested in offering the capability of massive online learning, a MOOC platform is the way to go. However, developing one is an extremely complex and time consuming process. Luckily there are already a lot of free open source MOOC platforms that could, in theory, be easily adapted to fit a college’s specific needs. Here, we are going to briefly compare a couple of MOOC platforms.
 
 We will compare the following platforms:
+
 * edX
 * Peer 2 Peer University
 * openMooc
 
 We are interested in the following criteria:
+
 * Usability (is the platform easy to use as an end user?)
 * Activity (is the platform still actively developed?)
 * Complexity and adaptability (is it easy to adapt to our needs?)

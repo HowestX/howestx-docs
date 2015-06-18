@@ -217,4 +217,4 @@ We zijn tijdens het werken heel wat problemen tegengekomen. In dit hoofdstuk wor
 
 * Het opzetten van een fullstack installatie in de cloud is ook en probleempunt. Dit doordat de installatie telkens crasht bij het onderdeel ‘xqwatcher’.
 
-* Een ander probleem die we tegenkwamen was het feit de certificaten niet werken. 
+* Een ander probleem die we tegenkwamen was het feit de certificaten niet werkten. 

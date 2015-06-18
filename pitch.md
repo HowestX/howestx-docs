@@ -100,19 +100,17 @@ Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in or
 
 [Image courses ](images/CoursesOntwerp.png "Image courses")
 
-# WBS
-
-## Week 2
+# WBS: Week 2
 
 ![Image WBS week 2](images/WBS week 2.png "Image WBS week 2")
 ![Image legende](images/Legende.png	"Image legende")
 
-## Week 3
+# WBS: Week 3
 
 ![Image WBS week 3](images/WBS week 3.png "Image WBS week 3")
 ![Image legende](images/Legende.png	"Image legende")
 
-## Week 4
+# WBS: Week 4
 
 Zoals u op onderstaande figuur kunt zien, werd heel wat afgewerkt in week 4. Enkele dingen moeten wel in acht genomen worden.
 
@@ -125,6 +123,15 @@ De progress van leerlingen kan ook bijgehouden worden maar er kan bij ons systee
 # Finale design
 
 Aan het design dat in de vorige weken werd gemaakt werden tijdens week 3 en 4 toch nog heel wat dingen aangepast. We zijn met ons definitief ontwerp ook eventjes naar een professionele designer namelijk Angelo Fallein. Op onderstaande afbeeldingen is te zien hoe het design er nu werkelijk uitziet
+
+![Image homepage definitief](images/HomepageDefenitieve.png "Image homepage definitief")
+
+![Image Course definitief](images/CourseDefinitieve.png "Image course definitief")
+
+![Image login definitief](images/Logindefinitief.png "Image login definitief")
+
+![Image overzicht course](images/Overzichtcourse.png "Image overzicht coursef")
+
 
 # Problemen
 

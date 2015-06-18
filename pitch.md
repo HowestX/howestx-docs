@@ -6,7 +6,7 @@
 
 ### Uitleg
 
-Het front-facing platform is de plaats waar student op terecht komen. Het is dus het learning management system (LMS) zelf. De studenten loggen hier in met hun Howestlogingevens. Studenten die echter niet studeren aan de Howest hebben ook de mogelijkheid zich te registreren. Ingelogde studenten kunnen hier courses bekijken, oefeningen maken…. De progress van studenten worden automatisch bijgehouden.
+Het front-facing platform is de plaats waar student op terechtkomen. Het is dus het learning management system (LMS) zelf. De studenten loggen hier in met hun Howestlogingevens. Studenten die echter niet studeren aan de Howest hebben ook de mogelijkheid zich te registreren. Ingelogde studenten kunnen hier courses bekijken, oefeningen maken…. De progress van studenten worden automatisch bijgehouden.
 
 ## Back-facing
 
@@ -65,7 +65,7 @@ De voorbije week werden er heel wat dingen klaargemaakt om zo efficiënt mogelij
 
 # Sitemap
 
-TODO
+![Image on sitemap](images/Sitemap.png "Image sitemap")
 
 # Design
 

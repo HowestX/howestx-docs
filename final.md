@@ -1129,4 +1129,5 @@ Here are the main sources we used:
 * https://www.vagrantup.com/
 * https://github.com/edx/edx-platform/wiki/Internationalization-and-localization
 * https://www.transifex.com/projects/p/edx-platform/
+* http://thomastoye.be/2015/ldap-with-python-and-ad/
 

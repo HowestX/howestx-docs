@@ -1,8 +1,8 @@
-# HowestX documentation
+# howestX documentation
 
 ## Preface
 
-This is the documentation for HowestX. HowestX is a pilot project for Howest (Howest University College West Flanders). The goal of this project was to evaluate the feasibility of adapting a MOOC platform. Three groups each evaluated a MOOC platform of their choice, HowestX evaluated the edX Open Platform. In this document you will find all of our documentation, findings, technical solutions and technical recipes.
+This is the documentation for howestX. howestX is a pilot project for Howest (Howest University College West Flanders). The goal of this project was to evaluate the feasibility of adapting a MOOC platform. Three groups each evaluated a MOOC platform of their choice, howestX evaluated the edX Open Platform. In this document you will find all of our documentation, findings, technical solutions and technical recipes.
 
 ## Technical documentation
 

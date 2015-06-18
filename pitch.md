@@ -6,7 +6,7 @@
 
 ### Uitleg
 
-Het front-facing platform is de plaats waar student op terechtkomen. Het is dus het learning management system (LMS) zelf. De studenten loggen hier in met hun Howest-logingegevens. Studenten die echter niet studeren aan de Howest hebben ook de mogelijkheid zich te registreren. Ingelogde studenten kunnen hier courses bekijken, oefeningen maken... De progress van studenten worden automatisch bijgehouden.
+Het front-facing platform is de plaats waar studenten op terechtkomen. Dit is het Learning Management System (LMS) zelf. De studenten loggen hier in met hun Howest-logingegevens. Studenten die echter niet studeren aan de Howest hebben ook de mogelijkheid zich te registreren. Ingelogde studenten kunnen hier courses bekijken, oefeningen maken... De voortgang van studenten worden automatisch bijgehouden.
 
 ## Back-facing
 
@@ -14,7 +14,7 @@ Het front-facing platform is de plaats waar student op terechtkomen. Het is dus 
 
 ## Uitleg
 
-Het back-facing platform is de plaats waar courses aangemaakt worden. Hier kunnen leerkrachten lessen aanmaken. Het back-facing platform wordt onder edX de ‘Studio’ genoemd. Leerkrachten kunnen hier inloggen met hun standaard howestlogin. 
+Het back-facing platform is de plaats waar courses aangemaakt worden. Hier kunnen leerkrachten lessen aanmaken. Het back-facing platform wordt onder edX de ‘Studio’ genoemd. Leerkrachten kunnen hier inloggen met hun standaard Howestlogin.
 
 Nadat leerkrachten ingelogd zijn kunnen ze lessen aanmaken,bewerken, ...
 
@@ -31,7 +31,7 @@ Om het platform naar onze hand te zetten en functioneler te maken voor het Howes
 
 * Een LDAP server moet toegevoegd worden als extra authentication store om het inloggen met Howestgegevens mogelijk te maken.
 * Aangezien het bestaande platform niet responsief is, zullen we er ook voor zorgen dat ons platform wel responsief is en zo makkelijk te gebruiken is voor de eindgebruiker. Hiervoor bouwen we verder op het IONISx theme. 
-* In plaats van SASS zullen we LESS gebruiken voor de CSS opmaak, we gebruiken LESS omdat dit standaard wordt gebruikt bij het IONISx theme.
+* In plaats van SASS zullen we LESS gebruiken voor de CSS opmaak, omdat dit standaard wordt gebruikt bij het IONISx theme.
 * Het volledige thema voor de front-facing site moet aangepast worden.
 
 # Functionele analyse
@@ -58,7 +58,7 @@ Om de effectieve plaats en kleuren van elementen te bepalen is het noodzakelijk 
 
 Op de eerste afbeelding is de homepage te zien. Hierop is bovenaan de header terug te vinden, deze bevat het logo, een registerlink en knoppen ( 1 om in te loggen en 1 om te navigeren naar de cursussen). Onder de header is er dan een zoekbalk terug te vinden zodat de gebruiker makkelijk een cursus kan opzoeken. Onderaan is er dan een footer terug te vinden met enkele links en de naam van de instelling. 
 
-Tussen de header & de footer is er een ‘witgedeelte’ terug te vinden. Dit gedeelte bevat de featured vakken. Deze vakken zijn momenteel deze van NMCT, maar kunnen uiteraard aangepast worden. De kleuren die bij deze vakken gebruikt worden, zijn de kleuren van de vakken zelf, zodat dit voor de gebruiker visueel zeer duidelijk is. Wanneer er over de vakken wordt gehoverd, wordt er een kleine border zichtbaar in het kleur van het vak.
+Tussen de header en de footer is er een ‘witgedeelte’ terug te vinden. Dit gedeelte bevat de featured vakken. Deze vakken zijn momenteel deze van NMCT, maar kunnen uiteraard aangepast worden. De kleuren die bij deze vakken gebruikt worden, zijn de kleuren van de vakken zelf, zodat dit voor de gebruiker visueel zeer duidelijk is. Wanneer er over de vakken wordt gehoverd, wordt er een kleine border zichtbaar in het kleur van het vak.
 
 ![Image design homepage](images/HomepageDesign.png "Image design homepage")
 
@@ -68,20 +68,21 @@ Vakken worden gesorteerd op meest recente gebruik. Het vak dat het meest recents
 
 ![Image design courses](images/CoursesDesign.png "Image design courses")
 
-Op onderstaande afbeelding worden de courses voorgesteld. Dit scherm lijkt qua lay-out heel sterk op deze van het dashboard met dat verschil dat er bovenaan nog een extra navigatie aanwezig is. Zo navigeert de gebruiker tussen cursussen. Daarnaast is navigatie ook mogelijk aan de hand van de vakken waartoe cursussen behoren.
+Op onderstaande afbeelding worden de courses voorgesteld. Dit scherm lijkt qua layout heel sterk op deze van het dashboard met dat verschil dat er bovenaan nog een extra navigatie aanwezig is. Zo navigeert de gebruiker tussen cursussen. Daarnaast is navigatie ook mogelijk aan de hand van de vakken waartoe cursussen behoren.
 
 ![Image design navigatie courses](images/Courses.png "Image design navigatie courses")
 
 # Ontwikkeling front-end
-In een vroeger stadium werd het kleurenpalet van Howest reeds onderzocht. Deze kleuren zijn ondertussen geïmplementeerd in het theme. Zo kreeg de header en de footer de juiste kleur , namelijk de blauwe kleur van Howest en werden titels roze gekleurd. 
 
-Ondertussen is al heel wat gewerkt aan de front-end. De header & de footer werden al onderhanden genomen. Er kan intussen besloten worden dat deze klaar zijn. In de header staat linksboven het howestX logo, dit is gebaseerd op het alom bekende witte Howest logo.  Verder bevat de header nog een knop ‘Courses’. Deze navigeert uiteraard naar een overzicht van de courses. Helemaal rechts is er ook nog een ‘Sign in’ knop terug te vinden die de gebruiker doorverwijst naar de loginpagina. 
+In een vroeger stadium werd het kleurenpalet van Howest reeds onderzocht. Deze kleuren zijn ondertussen geïmplementeerd in het theme. Zo kreeg de header en de footer de juiste kleur, namelijk de blauwe kleur van Howest en worden titels roze gekleurd.
 
-De loginpagina is ondertussen ook afgewerkt. Zowel de header en footer als de logintab zijn te zien op onderstaande afbeelding. Hier is te zien dat zowel de titel als de link een howestroze kleur heeft. De knop is dan weer het intussen bekende howestblauw.
+Ondertussen is al heel wat gewerkt aan de front-end. De header en de footer werden al onderhanden genomen. Er kan intussen besloten worden dat deze klaar zijn. In de header staat linksboven het howestX logo, dit is gebaseerd op het alom bekende witte Howest logo.  Verder bevat de header nog een knop ‘Courses’. Deze navigeert uiteraard naar een overzicht van de courses. Helemaal rechts is er ook nog een ‘Sign in’ knop terug te vinden die de gebruiker doorverwijst naar de loginpagina. 
+
+De loginpagina is ondertussen ook afgewerkt. Zowel de header en footer als de logintab zijn te zien op onderstaande afbeelding. Hier is te zien dat zowel de titel als de link een howestroze kleur heeft. De knop is dan weer het intussen bekende Howestblauw.
 
 ![Image logintab](images/Logintab.png "Image logintab")
 
-Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in orde gebracht. De homepage bevat zoals te zien is op onderstaande afbeelding een header en footer. Net onder de header is een zoekvenster terug te vinden waar het mogelijk is om een een course te zoeken. Onder dit zoekvenster zijn er 5 elementen terug te vinden. Deze zijn nu specifiek ontworpen op basis van de NMCT kleuren en vakken maar dit kan natuurlijk aangepast worden aan bijvoorbeeld deze van Devine of een andere howestrichting. De lessen die er nu opstaan zijn momenteel nog demo courses, deze wordt dan later nog aangepast.
+Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in orde gebracht. De homepage bevat zoals te zien is op onderstaande afbeelding een header en footer. Net onder de header is een zoekvenster terug te vinden waar het mogelijk is om een een course te zoeken. Onder dit zoekvenster zijn er 5 elementen terug te vinden. Deze zijn nu specifiek ontworpen op basis van de NMCT-kleuren en vakken maar dit kan natuurlijk aangepast worden aan bijvoorbeeld deze van Devine of een andere howestrichting. De lessen die er nu opstaan zijn momenteel nog demo courses, deze wordt dan later nog aangepast.
 
 [Image courses ](images/CoursesOntwerp.png "Image courses")
 

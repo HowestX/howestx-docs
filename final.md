@@ -1098,36 +1098,30 @@ Is the edX platform ready for adoption with Howest? We believe the answer to be 
 * Howest's teaching team needs to be trained to use the full capacity of edX Studio. edX Studio is very intuitive, but to use it to its full capacity, we believe training is in order,
 * The platform should be hosted on AWS to ensure low-latency.
 
-### Sources
+# Sources
 
 Here are the main sources we used:
+* “Active Directory - Access & identity - IDaaS | Microsoft Azure”. Geraadpleegd 18 juni 2015. http://azure.microsoft.com/en-us/services/active-directory/.
+* “Django Authentication Using LDAP — django-auth-ldap 1.2.6 documentation”. Geraadpleegd 18 juni 2015. https://pythonhosted.org/django-auth-ldap/.
+* “edX Managing the Full Stack · edx/configuration Wiki · GitHub”. Geraadpleegd 18 juni 2015. https://github.com/edx/configuration/wiki/edX-Managing-the-Full-Stack.
+* “edx-installing-configuring-and-running.pdf”. Geraadpleegd 18 juni 2015. https://media.readthedocs.org/pdf/edx-installing-configuring-and-running/latest/edx-installing-configuring-and-running.pdf.
+* “edx-platform localization”. Geraadpleegd 18 juni 2015. https://www.transifex.com/projects/p/edx-platform/.
+* “Enterprise Single Sign-On (4.0.x)”. Geraadpleegd 18 juni 2015. http://jasig.github.io/cas/4.0.x/index.html.
+* “Getting started | Less.js”. Geraadpleegd 18 juni 2015. http://lesscss.org/.
+* “How MongoDB University Online Courses are Produced”. Geraadpleegd 18 juni 2015. https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced.
+* “Index of Packages : Python Package Index”. Geraadpleegd 18 juni 2015. https://pypi.python.org/pypi/django-auth-ldap.
+* “Installing Open edX on Microsoft Azure”. Geraadpleegd 18 juni 2015. http://timsneath.com/installing-open-edx-on-microsoft-azure/.
+* “Internationalization and localization · edx/edx-platform Wiki · GitHub”. Geraadpleegd 18 juni 2015. https://github.com/edx/edx-platform/wiki/Internationalization-and-localization.
+* “ldapsearch(1): LDAP search tool - Linux man page”. Geraadpleegd 18 juni 2015. http://linux.die.net/man/1/ldapsearch.
+* “Maze Found | Read the Docs”. Geraadpleegd 18 juni 2015. http://edx-installing-configuring-and-running.readthedocs.org/en/latest///www.google.be/search?q=%E2%80%A2%09http://edx-installing-configuring-and-running.readthedocs.org/en/latest/&ie=utf-8&oe=utf-8&gws_rd=cr&ei=nMSCVevXOsTB7AahwLSoCQ.
+* “mobile | edX”. Geraadpleegd 18 juni 2015. https://www.edx.org/mobile.
+* “Open edX | Open Courseware Development Platform”. Geraadpleegd 18 juni 2015. https://open.edx.org/.
+* “python - Understanding Django-LDAP authentication - Stack Overflow”. Geraadpleegd 18 juni 2015. http://stackoverflow.com/questions/19940466/understanding-django-ldap-authentication.
+* “Python LDAP authentication with Microsoft Active Directory | Thomas Toye”. Geraadpleegd 18 juni 2015. http://thomastoye.be/2015/ldap-with-python-and-ad/.
+* “Sass: Syntactically Awesome Style Sheets”. Geraadpleegd 18 juni 2015. http://sass-lang.com/.
+* “User authentication in Django | Django documentation | Django”. Geraadpleegd 18 juni 2015. https://docs.djangoproject.com/en/1.8/topics/auth/.
+* “Vagrant”. Geraadpleegd 18 juni 2015. https://www.vagrantup.com/.
+* “What are the differences between LDAP and Active Directory? - Stack Overflow”. Geraadpleegd 18 juni 2015. http://stackoverflow.com/questions/663402/what-are-the-differences-between-ldap-and-active-directory.
+* “What is LDAP?”. Geraadpleegd 18 juni 2015. http://www.gracion.com/server/whatldap.html.
 
-* http://edx-installing-configuring-and-running.readthedocs.org/en/latest/
-* http://edx-installing-configuring-and-running.readthedocs.org/en/latest/configuration/enable_certificates.html
-* https://media.readthedocs.org/pdf/edx-installing-configuring-and-running/latest/edx-installing-configuring-and-running.pdf
-* https://open.edx.org/
-* https://github.com/edx/configuration/wiki/edX-Managing-the-Full-Stack
-* https://github.com/edx/configuration/wiki/edX-Developer-Stack
-* https://github.com/edx/configuration/wiki/edX-Full-Stack
-* https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-64-bit-Installation
-* https://pythonhosted.org/django-auth-ldap/
-* https://pypi.python.org/pypi/django-auth-ldap
-* http://stackoverflow.com/questions/19940466/understanding-django-ldap-authentication
-* https://docs.djangoproject.com/en/1.8/topics/auth/customizing/
-* https://github.com/susundberg/django-auth-ldap-ad
-* https://docs.djangoproject.com/en/1.8/topics/auth/
-* http://www.gracion.com/server/whatldap.html
-* http://linux.die.net/man/1/ldapsearch
-* http://stackoverflow.com/questions/663402/what-are-the-differences-between-ldap-and-active-directory
-* http://azure.microsoft.com/en-us/services/active-directory/
-* http://timsneath.com/installing-open-edx-on-microsoft-azure/
-* https://university.mongodb.com/about/how-mongodb-university-online-courses-are-produced
-* http://jasig.github.io/cas/4.0.x/index.html
-* http://lesscss.org/
-* http://sass-lang.com/
-* https://www.edx.org/mobile
-* https://www.vagrantup.com/
-* https://github.com/edx/edx-platform/wiki/Internationalization-and-localization
-* https://www.transifex.com/projects/p/edx-platform/
-* http://thomastoye.be/2015/ldap-with-python-and-ad/
 

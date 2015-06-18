@@ -1,5 +1,5 @@
-# Informatie-architectuur
 
+# Informatie-architectuur
 ## Front-facing
 
 ![Image on front-facing](images/Front-facing.png "Image front-facing")
@@ -14,12 +14,12 @@ Het front-facing platform is de plaats waar student op terecht komen. Het is dus
 Het back-facing platform is de plaats waar courses aangemaakt worden. Hier kunnen leerkrachten lessen aanmaken. Het back-facing platform wordt onder edX de ‘Studio’ genoemd. Leerkrachten kunnen hier inloggen met hun standaard howestlogin. 
 
 
-Nadat leerkrachten ingelogd zijn kunnen ze lessen aanmaken,bewerken, ...
+Nadat leerkrachten ingelogd zijn kunnen ze lessen aanmaken,bewerken, …. 
 
 # Technische analyse
 
 Aangezien we met edX als MOOC platform werken, kunnen we heel wat bestaande dingen behouden. De dingen die we zullen behouden worden hieronder opgesomd: 
-*	Eerst en vooral behouden we de taal waarin edX geschreven is, Python.
+*	Eerst en vooral behouden we de taal waarin edX geschreven is, Phyton.
 *	Aangezien studenten kunnen inloggen wordt er bij edX zelf al reeds gebruik gemaakt van een login portaal. We opteren dan ook om de reeds bestaande infrastructuur te gebruiken.
 *	Bij edX is het reeds mogelijk om oefeningen aan te maken en te wijzigen. Deze wordt uiteraard behouden en gebruikt.
 *	Ten laatste zit er in edX ook al een functie die de progress van een gebruiker en meer informatie hieromtrent opslaat. 
@@ -92,7 +92,6 @@ Op onderstaande afbeelding worden de courses voorgesteld. Dit scherm lijkt qua l
 # Ontwikkeling front-end
 In een vroeger stadium werd het kleurpalet van de Howest reeds onderzocht. Deze kleuren zijn ondertussen geïmplementeerd in het theme. Zo kreeg de header en de footer de juiste kleur , namelijk de blauwe kleur van de howest en werden titels roze gekleurd. 
 
-
 Ondertussen is al heel wat gewerkt aan de front-end zijde. De header & de footer werden al onderhanden genomen. Er kan intussen besloten worden dat deze klaar zijn. In de header staat linksboven het howestX logo dit is gebaseerd op het alom bekende witte Howest logo.  Verder bevat de header nog een knop ‘Courses’ deze navigeert uiteraard naar een overzicht van de courses. Helemaal rechts is er ook nog een ‘Sign in’ knop terug te vinden die de gebruiker doorverwijst naar de loginpagina. 
 
 De loginpagina is ondertussen ook afgewerkt. Zowel de header en footer als de logintab zijn te zien op onderstaande afbeelding. Hier is te zien dat zowel de titel als de link een howestroze kleur heeft. De knop is dan weer het intussen bekende howestblauw.
@@ -103,3 +102,48 @@ Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in or
 
 [Image courses ](images/CoursesOntwerp.png "Image courses")
 
+# WBS: Week 2
+
+![Image WBS week 2](images/WBS week 2.png "Image WBS week 2")
+![Image legende](images/Legende.png	"Image legende")
+
+# WBS: Week 3
+
+![Image WBS week 3](images/WBS week 3.png "Image WBS week 3")
+![Image legende](images/Legende.png	"Image legende")
+
+# WBS: Week 4
+
+Zoals u op onderstaande figuur kunt zien, werd heel wat afgewerkt in week 4. Enkele dingen moeten wel in acht genomen worden.
+
+Zo is de cursus online geplaatst maar zijn er geen extra elementen aangepast om de cursus printable te maken. We hebben hier geen extra tijd meer ingestoken omdat er achteraf gezien niet zo'n grote vraag aanwezig is voor het afdrukken van de cursus. Dit komt omdat er heel wat filmpjes aanwezig zullen zijn.
+
+De progress van leerlingen kan ook bijgehouden worden maar er kan bij ons systeem nog niet gewerkt worden met certificaten. In de documentatie is wel volledig terug te vinden hoe dit opgezet moet worden.
+
+![Image WBS week 3](images/WBSWeek4.png "Image WBS week 3")
+
+# Finale design
+
+Aan het design dat in de vorige weken werd gemaakt werden tijdens week 3 en 4 toch nog heel wat dingen aangepast. We zijn met ons definitief ontwerp ook eventjes naar een professionele designer namelijk Angelo Fallein. Op onderstaande afbeeldingen is te zien hoe het design er nu werkelijk uitziet
+
+# Problemen
+
+We zijn tijdens het werken heel wat problemen tegengekomen. In dit hoofdstuk worden de belangrijkste problemen aangehaald.
+
+## Algemeen
+
+* Vagrant blijft vaak lastig doen. Het is dan ook soms nodig een ‘vagrant destroy’ uit te voeren. Dit neemt heel wat kostbare tijd in beslag daar de hele vagrant VM opnieuw geïnstalleerd en klaargezet moet worden.
+* Windows zorgde ook voor vele problemen, dit door het feit dat onze vagrant VM en Windows niet samengaan. De VM maakt gebruik van symlinks die niet worden herkend door windows. Dit zorgde ervoor dat we hebben moeten overschakelen naar linux, wat alweer tijd in beslag nam.
+* Wanneer er op het platform huiswerk of een examen aangemaakt wil worden, kan dit niet door middel van bijvoorbeeld een vinkje aan te zetten. Er moet echter altijd ‘Homework:’ of “Final exam: ” in de titel meegeven worden.
+
+
+## Front-end
+
+* Doordat sommige CSS klassen 3 keer overschreven worden is het soms moeilijk om te weten waar je de styling precies moet aanpassen. Het is een struikelblok, maar eenmaal je de structuur van het theme door hebt, loopt het aanpassen al wat vlotter.
+* Als we een html-file toevoegen of aanpassen moeten we lang wachten tot deze te zien is in de browser.
+
+## Back-end
+
+* Het implementeren van LDAP is een zeer complexe en problematische opgave. Door de complexiteit van edX was het dan ook zeer lastig om de correcte files te vinden. Het feit dat edX veel settingfiles inlaadt en overschrijft helpt niet. Eens we de correcte files gevonden hadden en LDAP erin verwerkt hadden bleek het ook nog eens lastig te zijn om de user properties correct te binden in Django. Uiteindelijk is LDAP werkend geraakt mits een kleine beperking omtrent de username die gebruikt moet worden.
+* Het opzetten van een fullstack installatie in de cloud is ook en probleempunt. Dit doordat de installatie telkens crasht bij het onderdeel ‘xqwatcher’.
+* Een ander probleem dat we tegenkwamen was het feit de certificaten niet werkten. 

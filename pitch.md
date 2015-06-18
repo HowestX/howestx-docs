@@ -70,6 +70,7 @@ De voorbije week werden er heel wat dingen klaargemaakt om zo efficiënt mogelij
 TODO
 
 # Design
+
 Om de effectieve plaats en kleuren van elementen te bepalen is het een noodzaak om te kunnen vertrekken vanaf een design. Het design die wij gebruiken is te zien in onderstaande afbeeldingen. Alle kleuren die gebruikt zijn, zijn deze van het kleurpalet van de Howest. 
 
 Op de eerste afbeelding is de homepage te zien. Hierop is bovenaan de header terug te vinden, deze bevat het logo, een registerlink en een knoppen ( 1 om in te loggen en 1 om te navigeren naar de cursussen). Onder de header is er dan een zoekbalk terug te vinden zodat de gebruiker makkelijk een cursus kan opzoeken. Onderaan is er dan een footer terug te vinden met enkele links en de naam van instelling. 
@@ -101,79 +102,4 @@ De loginpagina is ondertussen ook afgewerkt. Zowel de header en footer als de lo
 Verder werd er ook hard gewerkt aan de homepage. Deze is intussen volledig in orde gebracht. De homepage bevat zoals te zien is op onderstaande afbeelding een header en footer. Net onder de header is een zoekvenster terug te vinden waar het mogelijk is om een een course te zoeken. Onder dit zoekvenster zijn er 5 elementen terug te vinden. Deze zijn nu specifiek ontworpen op basis van de NMCT kleuren en vakken maar dit kan natuurlijk aangepast worden aan bijvoorbeeld deze van Devine of een andere howestrichting. De lessen die er nu opstaan zijn momenteel nog demo courses, deze wordt dan later nog aangepast 
 
 [Image courses ](images/CoursesOntwerp.png "Image courses")
-
-# Ontwikkeling back-end
-
-## LDAP
-
-LDAP werkt momenteel, al zijn er wel enkele dingen op aan te merken.
-Inloggen moet momenteel gebeuren met enkel je voornaam.achternaam, bijvoorbeeld ‘glenn.van.weyenberg’. Dus zonder het ‘@student.howest.be’ gedeelte. Dit door de zware restricties van Django usernames.
-
-Het implementeren van LDAP was een zeer complexe opgave. Het deployen ervan zal normaal nog meevallen doordat we enkel wat aanpassingen zullen moeten voorzien in de Ansible files, maar dit is nog te zien.
-
-## edX named releases
-
-Omdat edX een platform is dat heel snel evolueert, voorziet men nu “named releases”. Dit zijn LTS-versies, een beetje zoals Ubuntu ook werkt. Tussen twee named releases zal een upgrade path voorzien worden. Het is logisch dat we verder werken op de laatste named release, aangezien die stabiel is.  Dit heeft als voordeel dat er makkelijk een support voor gevonden worden, de onderhoudbaarheid vergroot (niet elke dag gaan upgraden) en edX een upgrade path kan voorzien worden tussen twee named releases.
-
-De eerste named release was Aspen. Momenteel zitten we aan de tweede named release, Birch. Deze is gereleased op 24 februari 2015, tamelijk recent dus. De volgende named release zal Cypress heten.
-
-Wij zullen dus werken op de named release Birch. Graag hadden we geweten wat de plannen zijn voor Cypress, maar daar hebben we geen informatie over teruggevonden.
-Een voorbeeld van een upgrade van Aspen naar Birch:
-
-    ./migrate.sh -c devstack
-
-Deze simpele regel code runt een script die alles automatisch migreert. We zijn hier erg tevreden over en het versterkt ons vertrouwen in edX als platform.
-
-## Certificate
-
-Sommige mensen willen gewoon een course doorlopen om zelf iets bij te leren, maar anderen willen de course doorlopen en een bewijs hebben dat ze voor die course geslaagd zijn. En nog andere mensen willen een echt certificaat dat bewijst dat een onderwijsinstelling geverifieerd heeft dat ze geslaagd zijn, dit om bijvoorbeeld in aanmerking te komen voor bepaalde jobs. Kortom, er is certificatie nodig.
-
-## Certificatie in edX
-
-EdX voorziet al verificatie in de vorm van certificaten. Er zijn enkele soorten certificaten.
-
-### Honor code certificates
-
-Dit is een standaard certificaat die zegt dat je een bepaalde course doorlopen hebt. Er is wel geen verificatie van je identiteit.
-
-### Verified certificates
-
-Dit certificaat bewijst dat je geslaagd bent voor een course en verifieert ook je identiteit. Dit gebeurd door middel van je identiteitskaart en enkele foto's die genomen kunnen worden met je webcam. Gebruikers moeten aangeven dat zij geïnteresseerd zijn in dit certificaat bij het deelnemen aan een course. Aan dit certificaat hang welt een kleine vergoeding aan vast, deze is echt variabel per course. 
-
-### XSeries certificates
-
-Deze certificaten kunnen verkregen worden wanneer je slaagt voor een reeks courses over eenzelfde onderwerp. Denk hierbij misschien aan de verschillende tracks binnen NMCT. Zo zou je bijvoorbeeld een XSeries certificate kunnen hebben voor web developer.
-
-## Wat met gearchiveerd courses?
-
-Wanneer een course gearchiveerd is, zijn er geen certificaten meer beschikbaar. De course kan wel nog volledig gevolgd worden zonder zaken zoals forums.
-
-## Zijn terugbetalingen mogelijk?
-
-Ja dit is mogelijk maar dit enkel binnen een bepaalde periode. Deze periode is 2 weken berekend vanaf de startdatum van de course. Deze persoon kan aangeven dat hij de course niet verder volgt (voor een betalend certificaat). Na 2 weken is terugbetaling niet meer mogelijk.
-
-## Wat wanneer een certificaat is behaald?
-
-Wanneer er een certificaat behaald is, zal je het certificaat ontvangen met een 'edx verified' stempel. Ook zal je een link krijgen die je eenvoudig kan delen met mensen of bijvoorbeeld op je LinkedIn plaatsen.
-
-## Opzetten van een fullstack
-
-Tot nu toe hebben we altijd op de zogenaamde devstack gewerkt. Deze is echter niet geschikt om een werkende demo te kunnen geven conform aan de productie. Met de devstack is het immers niet mogelijk om de LMS en de CMS tegelijkertijd te runnen, waardoor het geven van een demo onmogelijk wordt. Met de fullstack daarentegen kan je de LMS en de CMS tegelijk runnen, hierdoor kan wel een volledige demo gegeven worden. Helaas is het hier op Howest niet mogelijk te verbinden met een externe LDAP-server waardoor een demo geven op de fullstack niet mogelijk is.
-
-## Wat heb je nodig voor een werkende one-server fullstack?
-
-Een kleine voorbeeldsetup om tot honderden studenten aan te kunnen op een enkele server.
-
-Nodig:
-
-* Ubuntu 12.04 amd64 (met oraclejdk)
-* Min 2GB geheugen, 4GB aangeraden
-* Min 2.00GHz CPU
-* Min 25GB Disk space, 50GB aangeraden
-
-## Azure Active Directory
-
-Werken met Azure Active Directory zou een perfecte match zijn voor Howest.
-Dit omdat Howest al zo een Directory heeft die gesyncd wordt met de on-premises AD.
-Wat wel raar is, is dat AAD geen LDAP gebruikt, het maakt gebruik van OAuth. Daar is wel al een Django plugin voor voorzien, maar nog niet in edX. Daar wordt wel aan gewerkt, maar dit is nog vrij recent en de discussie daarrond is nog volop bezig.
 
